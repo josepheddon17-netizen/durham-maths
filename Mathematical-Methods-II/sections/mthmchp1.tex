@@ -1,0 +1,405 @@
+\section{Vector and Scalar Functions}
+
+\subsection{Vector Functions}
+
+\begin{ndefi}[Vector Function]
+	A  \emph{vector function} $f$ is a function of the form:
+	$$
+	f: \mathbb{R} \rightarrow \mathbb{R}^n
+	$$
+	
+	which takes a numerical input and returns a vector
+\end{ndefi}
+
+\begin{ndefi}[Derivative of a Vector Function]
+	A vector function $\mathbf{F}(x)$ is differentiable if
+	
+	$$
+	\delta \mathbf{F} \stackrel{\text { def }}{=} \mathbf{F}(x+\delta x)-\mathbf{F}(x)=\mathbf{F}^{\prime}(x) \delta x+o(\delta x)
+	$$
+	
+	for some $\mathbf{F}^{\prime}(x) . \mathbf{F}^{\prime}(x)$ is called the derivative of $\mathbf{F}(x)$. This is the equivalent of writing:
+	
+	$$\mathbf{F}^{\prime}=\frac{\mathrm{d} \mathbf{F}}{\mathrm{~d} x}=\lim _{\delta x \rightarrow 0} \frac{1}{\delta x}[\mathbf{F}(x+\delta x)-\mathbf{F}(x)]$$
+\end{ndefi}
+
+\begin{nex}
+	$$
+	\mathbf{r}(t)=\left(\begin{array}{c}
+		t^2 \\
+		e^t \\
+		\sin t
+	\end{array}\right)
+	$$
+	
+	
+	Differentiate componentwise:
+	
+	$$
+	\mathbf{r}^{\prime}(t)=\left(\begin{array}{c}
+		2 t \\
+		e^t \\
+		\cos t
+	\end{array}\right)
+	$$
+	
+	
+	At $t=0$ :
+	
+	$$
+	\mathbf{r}^{\prime}(0)=\left(\begin{array}{l}
+		0 \\
+		1 \\
+		1
+	\end{array}\right)
+	$$
+\end{nex}
+
+\begin{nprop}[Componentwise differentiation]
+	Using differential notation, the differentiability condition can be written as
+	
+	$$
+	\mathrm{d} \mathbf{F}=\mathbf{F}^{\prime}(x) \mathrm{d} x
+	$$
+	
+	
+	Given a basis $\mathbf{e}_i$ that is independent of $x$, vector differentiation is performed component wise:
+	$$
+	\mathbf{F}^{\prime}(x)=F_i^{\prime}(x) \mathbf{e}_i .
+	$$
+\end{nprop}
+
+\begin{nprop}[Vector Differentiation on Operations]
+	$$
+	\begin{aligned}
+		\frac{\mathrm{d}}{\mathrm{~d} t}(\mathbf{f} \mathbf{g}) & =\frac{\mathrm{d} \mathbf{f}}{\mathrm{~d} t} \mathbf{g}+\mathbf{f} \frac{\mathrm{~d} \mathbf{g}}{\mathrm{~d} t} \\
+		\frac{\mathrm{~d}}{\mathrm{~d} t}(\mathbf{g} \cdot \mathbf{h}) & =\frac{\mathrm{d} \mathbf{g}}{\mathrm{~d} t} \cdot \mathbf{h}+\mathbf{g} \cdot \frac{\mathrm{d} \mathbf{h}}{\mathrm{~d} t} \\
+		\frac{\mathrm{~d}}{\mathrm{~d} t}(\mathbf{g} \times \mathbf{h}) & =\frac{\mathrm{d} \mathbf{g}}{\mathrm{~d} t} \times \mathbf{h}+\mathbf{g} \times \frac{\mathrm{d} \mathbf{h}}{\mathrm{~d} t}
+	\end{aligned}
+	$$
+	
+	We note here that the order of operations matters for the case of the dot product since it is anti symmetric
+\end{nprop}
+
+\subsection{Scalar Fields}
+
+\begin{ndefi}[Scalar Field]
+	A  \emph{scalar field} $f$ is a mapping of the form:
+	$$
+	f: \mathbb{R}^n \rightarrow \mathbb{R}
+	$$
+	
+	which takes a vector and returns a numerical output.
+\end{ndefi}
+
+\begin{nrem}[Distinction between Vector and Scalar Function]
+	A scalar function takes a position and returns a numerical output (example : potential at a point) where a vector function takes a number and maps it to a vector (example :  the velocity associated to a particle at $t$)
+\end{nrem}
+
+\begin{ndefi}[Limit of a Vector]
+	Definition (Limit of vector). The limit of vectors is defined using the norm. So $\mathbf{v} \rightarrow \mathbf{c}$ iff $|\mathbf{v}-\mathbf{c}| \rightarrow 0$. So a vector approaches another vector if and only if the difference between them goes to 0. Similarly, $f(\mathbf{r})=o(\mathbf{r})$ means $\frac{|f(\mathbf{r})|}{|\mathbf{r}|} \rightarrow 0$ as $\mathbf{r} \rightarrow \mathbf{0}$. 
+\end{ndefi}
+
+\begin{ndefi}[Gradient / Derivative of a Scalar Function]
+	A scalar function $f(\mathbf{r})$ is differentiable at $\mathbf{r}$ if
+	
+	$$
+	\delta f \stackrel{\text { def }}{=} f(\mathbf{r}+\delta \mathbf{r})-f(\mathbf{r})=(\nabla f) \cdot \delta \mathbf{r}+o(\delta \mathbf{r})
+	$$
+	
+	for some vector $\nabla f$, the gradient of $f$ at $\mathbf{r}$.
+\end{ndefi}
+
+\begin{nex}
+	$$
+	f(x, y)=x^2 y+\sin y
+	$$
+	
+	
+	The derivative is the gradient row/column (depending on convention).
+	The partial derivatives are:
+	- $\frac{\partial f}{\partial x}=2 x y$
+	- $\frac{\partial f}{\partial y}=x^2+\cos y$
+	
+	Gradient:
+	
+	$$
+	\nabla f(x, y)=\binom{2 x y}{x^2+\cos y}
+	$$
+	
+	
+	At $(1,0)$ :
+	
+	$$
+	\nabla f(1,0)=\binom{0}{2}
+	$$
+\end{nex}
+
+\begin{nrem}[Importance of Taylor Derivative Definition]
+	We see here the importance of this new way of defining a derivative in higher dimensions since dividing by a vector makes no sense if we were to try and rearrange.
+\end{nrem}
+
+\begin{ndefi}[Directional Derivative]
+	The directional derivative of $f$ along $\mathbf{n}$ is
+	
+	$$
+	\mathbf{n} \cdot \nabla f=\lim _{h \rightarrow 0} \frac{1}{h}[f(\mathbf{r}+h \mathbf{n})-f(\mathbf{r})],
+	$$
+	
+	
+	It refers to how fast $f$ changes when we move in the direction of $\mathbf{n}$.
+\end{ndefi}
+
+\begin{nrem}[Maximising the Directional Derivative]
+	When the derivative moves in the direction of $\mathbb{n}$ then we have the maximum possible value of the directional derivative and thus points in the direction of the greatest slope
+\end{nrem}
+
+\begin{nthm}[Gradient expressed in Partial Derivative]
+	The gradient is
+	
+	$$
+	\nabla f=\frac{\partial f}{\partial x_i} \mathbf{e}_i
+	$$
+	
+	
+	Hence we can write the condition of differentiability as
+	
+	$$
+	\delta f=\frac{\partial f}{\partial x_i} \delta x_i+o(\delta \mathbf{x}) .
+	$$
+	
+	
+	In differential notation, we write
+	
+	$$
+	\mathrm{d} f=\nabla f \cdot \mathrm{~d} \mathbf{r}=\frac{\partial f}{\partial x_i} \mathrm{~d} x_i,
+	$$
+	
+	which is the chain rule for partial derivatives.
+\end{nthm}
+
+\begin{nthm}[Chain Rule for a Scalar Function]
+	Given a function $f(\mathbf{r}(u))$,
+	
+	$$
+	\frac{\mathrm{d} f}{\mathrm{~d} u}=\nabla f \cdot \frac{\mathrm{~d} \mathbf{r}}{\mathrm{~d} u}=\frac{\partial f}{\partial x_i} \frac{\mathrm{~d} x_i}{\mathrm{~d} u} .
+	$$
+	
+	
+	Note that if we drop the $\mathrm{d} u$, we simply get
+	
+	$$
+	\mathrm{d} f=\nabla f \cdot \mathrm{~d} \mathbf{r}=\frac{\partial f}{\partial x_i} \mathrm{~d} x_i,
+	$$
+	
+	which is what we've previously had.
+\end{nthm}
+
+\subsection{Vector Fields}
+
+\begin{ndefi}[Vector Field]
+	A  \emph{vector field} $f$ is a function of the form:
+	$$
+	f: \mathbb{R}^n \rightarrow \mathbb{R}^m
+	$$
+	
+	which takes a vector input of dimension $n$  and returns a vector of dimension $m$
+\end{ndefi}
+
+\begin{ndefi}[Derivative of a Vector Field]
+	
+	A vector field $\mathbf{F}: \mathbb{R}^n \rightarrow \mathbb{R}^m$ is differentiable if
+	
+	$$
+	\delta \mathbf{F} \stackrel{\text { def }}{=} \mathbf{F}(\mathbf{x}+\delta \mathbf{x})-\mathbf{F}(\mathbf{x})=M \delta \mathbf{x}+o(\delta \mathbf{x})
+	$$
+	
+	for some $m \times n$ matrix $M . M$ is the derivative of $\mathbf{F}$.
+	
+\end{ndefi}
+
+\begin{nthm}[Derivative of a Vector field in $ij$ notation]
+	
+	Given an arbitrary function $\mathbf{F}: \mathbb{R}^n \rightarrow \mathbb{R}^m$ that maps $\mathbf{x} \mapsto \mathbf{y}$ and a choice of basis, we can write $\mathbf{F}$ as a set of $m$ functions $y_j=F_j(\mathbf{x})$ such that $\mathbf{y}= \left(y_1, y_2, \cdots, y_m\right)$. Then
+	
+	$$
+	\mathrm{d} y_j=\frac{\partial F_j}{\partial x_i} \mathrm{~d} x_i .
+	$$
+	
+	and we can write the derivative as
+	
+	$$
+	M_{j i}=\frac{\partial y_j}{\partial x_i} .
+	$$
+	
+	
+	Note that we could have used this as the definition of the derivative. However, the original definition is superior because it does not require a selection of coordinate system.
+	
+\end{nthm}
+
+\begin{nex}
+	Take the vector field
+	
+	$$
+	F(x, y)=\binom{x^2 y}{\sin (x y)} .
+	$$
+	
+	
+	The derivative matrix is obtained by differentiating each component with respect to each variable.
+	
+	$$
+	D F(x, y)=\left(\begin{array}{cc}
+		\frac{\partial}{\partial x}\left(x^2 y\right) & \frac{\partial}{\partial y}\left(x^2 y\right) \\
+		\frac{\partial}{\partial x}(\sin (x y)) & \frac{\partial}{\partial y}(\sin (x y))
+	\end{array}\right) .
+	$$
+	
+	
+	Computing the entries:
+	- $\frac{\partial}{\partial x}\left(x^2 y\right)=2 x y$
+	- $\frac{\partial}{\partial y}\left(x^2 y\right)=x^2$
+	- $\frac{\partial}{\partial x}(\sin (x y))=y \cos (x y)$
+	- $\frac{\partial}{\partial y}(\sin (x y))=x \cos (x y)$
+	
+	So
+	
+	$$
+	D F(x, y)=\left(\begin{array}{cc}
+		2 x y & x^2 \\
+		y \cos (x y) & x \cos (x y)
+	\end{array}\right)
+	$$
+	
+	
+	Example at the point $(1,2)$ :
+	
+	$$
+	D F(1,2)=\left(\begin{array}{cc}
+		4 & 1 \\
+		2 \cos (2) & \cos (2)
+	\end{array}\right) .
+	$$
+\end{nex}
+
+\begin{ndefi}[Smooth Function]
+	
+	A function is smooth if it can be differentiated any number of times. This requires that all partial derivatives exist and are totally symmetric in $i, j$ and $k$ (i.e. the differential operator is commutative).
+	
+\end{ndefi}
+
+\begin{nthm}[Chain Rule of Vector Fields]
+	Suppose $g: \mathbb{R}^p \rightarrow \mathbb{R}^n$ and $f: \mathbb{R}^n \rightarrow \mathbb{R}^m$. Suppose that the coordinates of the vectors in $\mathbb{R}^p, \mathbb{R}^n$ and $\mathbb{R}^m$ are $u_a, x_i$ and $y_r$ respectively. By the chain rule,
+	
+	$$
+	\frac{\partial y_r}{\partial u_a}=\frac{\partial y_r}{\partial x_i} \frac{\partial x_i}{\partial u_a},
+	$$
+	
+	with summation implied. Writing in matrix form,
+	
+	$$
+	M(f \circ g)_{r a}=M(f)_{r i} M(g)_{i a} .
+	$$
+	
+	
+	Alternatively, in operator form,
+	
+	$$
+	\frac{\partial}{\partial u_a}=\frac{\partial x_i}{\partial u_a} \frac{\partial}{\partial x_i} .
+	$$
+\end{nthm}
+
+\section{Inverse Functions}
+
+\begin{nthm}[Derivative of an Inverse Function in Vector Field]
+	Suppose $g, f: \mathbb{R}^n \rightarrow \mathbb{R}^n$ are inverse functions, i.e. $g \circ f=f \circ g=\mathrm{id(x)}$. This is where $\mathrm{id(\mathbf{x})} = \mathbf{x}$ Suppose that $f(\mathbf{x})=\mathbf{u}$ and $g(\mathbf{u})=\mathbf{x}$.
+	
+	Since the derivative of the identity function $\mathrm{id(\mathbf{x})}$ is the identity matrix (if you differentiate $\mathbf{x}$ wrt to $\mathbf{x}$, you get 1), we must have
+	
+	$$
+	M(f \circ g)=I .
+	$$
+	
+	
+	Therefore we know that
+	
+	$$
+	M(g)=M(f)^{-1} .
+	$$
+	
+	
+	We derive this result more formally by noting
+	
+	$$
+	\frac{\partial u_b}{\partial u_a}=\delta_{a b} .
+	$$
+	
+	
+	So by the chain rule,
+	
+	$$
+	\frac{\partial u_b}{\partial x_i} \frac{\partial x_i}{\partial u_a}=\delta_{a b},
+	$$
+	
+	i.e. $M(f \circ g)=I$.
+\end{nthm}
+
+\begin{nrem}[Determinants]
+	For the inverse functions $f$ and $g$:
+	$$\operatorname{det} M(f) \operatorname{det} M(g)=1$$
+\end{nrem}
+
+\section{Coordinate Systems}
+
+\begin{table}[H]
+	\centering
+	\renewcommand{\arraystretch}{1.6}
+	\begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|}
+		\hline
+		\centering \textbf{Cylindrical polars} &
+		\centering \textbf{Spherical polars} \tabularnewline
+		\hline
+		
+		\multicolumn{2}{|c|}{\textbf{Conversion formulae}} \\
+		\hline
+		
+		\[
+		\begin{aligned}
+			x_1 &= \rho \cos \varphi \\
+			x_2 &= \rho \sin \varphi \\
+			x_3 &= z
+		\end{aligned}
+		\]
+		&
+		\[
+		\begin{aligned}
+			x_1 &= r \sin \theta \cos \varphi \\
+			x_2 &= r \sin \theta \sin \varphi \\
+			x_3 &= r \cos \theta
+		\end{aligned}
+		\]
+		\tabularnewline
+		\hline
+		
+		\multicolumn{2}{|c|}{\textbf{Basis vectors}} \\
+		\hline
+		
+		\[
+		\begin{aligned}
+			\mathbf e_\rho &= (\cos \varphi,\sin \varphi,0) \\
+			\mathbf e_\varphi &= (-\sin \varphi,\cos \varphi,0) \\
+			\mathbf e_z &= (0,0,1)
+		\end{aligned}
+		\]
+		&
+		\[
+		\begin{aligned}
+			\mathbf e_r &= (\sin \theta \cos \varphi,\sin \theta \sin \varphi,\cos \theta) \\
+			\mathbf e_\varphi &= (-\sin \varphi,\cos \varphi,0) \\
+			\mathbf e_\theta &= (\cos \theta \cos \varphi,\cos \theta \sin \varphi,-\sin \theta)
+		\end{aligned}
+		\]
+		\tabularnewline
+		\hline
+	\end{tabular}
+\end{table}
+

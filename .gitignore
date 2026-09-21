@@ -1,0 +1,20 @@
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+
+# Vim
+*.swp
+*.swo
