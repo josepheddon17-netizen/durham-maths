@@ -1,0 +1,214 @@
+\section{Definition of a Ring}
+
+\noindent Before being able to define a ring, we must first redefine \emph{binary operations}:
+
+
+\begin{definition}[Binary Operation]
+  A \emph{binary opeation} is a function that takes two elements as an argument and produces a single new output value. Examples include addition, multiplication and subtraction.
+\end{definition}
+
+
+\begin{remark}
+  All rings form Abelian groups (review first year if unsure what this means)
+\end{remark}
+
+
+\begin{definition}[Ring]
+ A ring $R$ is a set together with two binary operations (usually, but not always, written,$+ \cdot$ ) called "addition" and "multiplication", such that + makes $R$ into an abelian group, and such that the following conditions hold:
+
+\begin{itemize}
+
+  \item[i)] \textbf{Existence of an Identity} - There exists an element $1 \in R$ such that $1 \cdot x=$ $x \cdot 1=x$, for all $x \in R$.
+  \item[ii)] \textbf{Associativity} - For any $x, y, z \in R$ we have $x(y z)=(x y) z$.
+  \item[iii)] \textbf{Distributivity} - For any $x, y, z \in R$ we have $x(y+z)=x y+x z$ and $(y+z) x=$ $y x+z x$.
+
+\end{itemize}
+
+\end{definition}
+
+\section{Examples of Rings}
+
+  \begin{itemize}
+    \item Let $V$ be a finite dimensional vector space over $\mathbb{C}$. Let
+
+$$
+\operatorname{End}(V)=\{f: V \rightarrow V \mid f \text { is a linear map }\} .
+$$
+
+An element of $\operatorname{End}(V)$ is usually called a (linear) endomorphism. We can add two such functions like we have seen before:
+
+$$
+(f+g)(v)=f(v)+g(v) .
+$$
+
+Now we can't directly "multiply" two endomorphisms, because $V$ does not have any multiplication ( $V$ is not in general a ring). However, we can compose two endomorphisms
+
+$$
+(f \circ g)(v)=f(g(v)),
+$$
+
+and composition is a binary operation on $V$. From Linear Algebra I, we already know that $\operatorname{End}(V)$ is an abelian group under addition. To check that this is a ring, we need to check the three properties:
+
+Identity element is provided by the identity map $I d: V \rightarrow V$. Associativity and distributivity are also not hard to check. For example we need to establish that if $f, g, h \in \operatorname{End}(V)$ we have
+
+$$
+f \circ(g \circ h)=(f \circ g) \circ h .
+$$
+
+That is, for every vector $v \in V$ we have that $(f \circ(g \circ h))(v)=((f \circ g) \circ h)(v)$. For the definition of the "multiplication" we have that the left hand side is equal to
+
+$$
+(f \circ(g \circ h))(v)=f((g \circ h)(v))=f(g(h(v))
+$$
+
+and
+
+$$
+((f \circ g) \circ h)(v)=(f \circ g)(h(v))=f(g(h(v))
+$$
+
+That is the two endomorphisms are having the same effect on any vector $v$ of $V$. That is they are the sane maps. Similarly one checks distributivity.
+
+
+\item $\mathbb{N}$ is not a ring $(1-2 \notin \mathbb{N})$
+\item $\mathbb{Z}$ is a ring but not a field: $\frac{1}{2} \notin \mathbb{Z}$.
+\item $\mathbb{Q}[x]$ is a ring but not a field: $\frac{1}{x} \notin \mathbb{Q}[x]$.
+\item $\mathrm{M}_n(\mathbb{Q})$ is a ring but not a field: there is no way we can make sense of division. For example, $\frac{1}{\left(\begin{array}{ll}0 & 1 \\ 0 & 0\end{array}\right)}$ is meaningless since that matrix does not have an inverse.
+\item The set $C(\mathbb{R})$ is a ring but not a field: the constant function $1: \mathbb{R} \rightarrow \mathbb{R}$ belongs to the set, and so does the identity function Id defined by $\operatorname{Id}(x)=x$ for all $x \in \mathbb{R}$. However, the function $\frac{1}{\sqrt{d}}$ is not continuous at $x=0$, so does not belong to $C(\mathbb{R})$.
+
+\end{itemize}
+
+\begin{method}[Determining a Ring]
+  To determine a ring, one should first check that the ring forms an abelian group with respect to the 'addition' operation and that the following requirements hold for the 'multiplication' operation:
+
+\begin{itemize}
+   \item[i)] \textbf{Existence of an Identity} - There exists an element $1 \in R$ such that $1 \cdot x=$ $x \cdot 1=x$, for all $x \in R$.
+  \item[ii)] \textbf{Associativity} - For any $x, y, z \in R$ we have $x(y z)=(x y) z$.
+  \item[iii)] \textbf{Distributivity} - For any $x, y, z \in R$ we have $x(y+z)=x y+x z$ and $(y+z) x=$ $y x+z x$. 
+\end{itemize}
+
+\end{method}
+
+\section{The integers modulo $n$}
+
+\begin{definition}[Equivalence Relation]
+  A (binary) relation $\sim$, on a set $S$ is said to be an equivalence relation, if and only if it is reflexive, symmetric and transitive. That is, for all $a, b$, and $c$ in the set $S$ we have:
+
+
+  \begin{itemize}
+\item[i)] $a \sim a$ (reflexivity).
+\item[ii)] $a \sim b$ if and only if $b \sim a$ (symmetry).
+\item[iii)] If $a \sim b$ and $b \sim c$ then $a \sim c$ (transitivity).
+  \end{itemize}
+
+
+\end{definition}
+
+\begin{definition}[Equivalence Class]
+  The equivalence class of $a$ under the given relation $\sim$, denoted by $[a]$ (or $\bar{a}$ ) is defined as
+
+$$
+[a]=\{x \in S: x \sim a\} .
+$$
+
+Note that for two $a, b \in S$ with $a \sim b$ we have $[a]=[b]$. In particular when we write $[a]$ we call $a$ the representative of the class $[a]$. Clearly an equivalence class may have more than one representative.
+\end{definition}
+
+\noindent From these structures we can construct another set:
+
+$$
+S / \sim:=\{[a]: a \in S\}
+$$
+
+\noindent That is, this is the set of equivalence classes on the set $S$ with respect to the given equivalence relation $\sim$.
+
+\begin{definition}[Integers Modulon $n$]
+  
+The integers modulo $n$. Let $n \in \mathbb{N}$ be a natural number. Let us consider the set of integer numbers $\mathbb{Z}$ and define the following relation: two integers $a$ and $b$ are equivalent (i.e. $a \sim b$ in the above notation) if $n$ divides $a-b$. The most common notation for this is $a \equiv b$ $(\bmod n)$.
+
+\end{definition}
+
+\begin{proof}[the relation is an equivalence relation] \emph{}
+  
+\begin{itemize}\item[-] it is reflexive as $a-a=0$ and hence divisible by $n$,
+\item[-] it is symmetric as $n$ divides $a-b$ if and only if $n$ divides $b-a=-(a-b)$.
+\item[-] And finally for the last condition we consider $a, b, c \in \mathbb{Z}$ and further assume that $n$ divides $a-b$ and $b-c$, that is $a \equiv b(\bmod n)$ and $b \equiv c(\bmod n)$. That is, $a-b=k n$ and $b-c=r n$ for some $k, r \in \mathbb{Z}$. But then $a-c=a-b+b-c=(k+r) n$ and hence $n$ divides $a-c$ i.e. $a \equiv c(\bmod n)$.
+\end{itemize}
+\end{proof}
+
+\begin{definition}[Residue Class]
+  For an integer $a$ we denote by $\bar{a}$ (this is the most commonly used notation) the equivalence class of $a$, that is
+
+$$
+\bar{a}=\{x \in \mathbb{Z}: n \text { divides } x-a\}=\{x \in \mathbb{Z}: x=a \quad(\bmod n)\}
+$$
+
+
+Now note that when we divide an integer by $n$ we will always get a remainder among the numbers
+
+$$
+0,1,, \ldots, n-1 .
+$$
+
+That is, every integer belongs to one of the following equivalence classes:
+
+$$
+\{\overline{0}, \overline{1}, \ldots, \overline{n-1}\},
+$$
+
+We will denote this set (of equivalence classes) by $\mathbb{Z} / n$. The elements of $\mathbb{Z} / n$ are called residue classes.
+\end{definition}
+
+\begin{remark}
+  Make sure that if you ever write $\mathbb{Z}_n$ that you explain that you mean $\mathbb{Z}/n$ as it can cause confusion.
+\end{remark}
+
+%potential for a multiplication table image here%
+
+\section{Subrings and Fields}
+
+\begin{definition}[Subring]
+  A \emph{subring} $S$ of a ring $R$ is a set $S \subseteq R$ such that
+\begin{itemize}
+
+  \item[i)] $0 \in S, 1 \in S$ where $0$ is the 'additive' identity and $1$ it the 'multiplicative identity',
+\item[ii)] $a, b \in S \Rightarrow a+b \in S$,
+\item[iii)] $a, b \in S \Rightarrow a b \in S$,
+\item[iv)] $a \in S \Rightarrow-a \in S$.
+\end{itemize}
+
+\end{definition}
+
+\begin{remark}[Intuitive definition of Subring]
+  We can shorten this into an informal definition of 'A subring contains $0_R$, $1_R$ and is closed under addition, subtraction and multiplication.
+\end{remark}
+
+\begin{remark}[Subrings are Rings]
+A subring of any ring is a ring itself and is equipped with addition and multiplication of the original ring.  
+\end{remark}
+
+\begin{method}[Showing a Subring]
+  We can quickly show a subring by showing:
+
+  \begin{itemize}
+    \item the additive and multiplicative identities exist in the set,
+    \item it's closed under addition
+    \item it's closed under multiplication
+    \item it contains additive inverses.
+  \end{itemize}
+  \end{method}
+
+\begin{method}[Determining a Ring quickly]
+  Rather than displaying a set satisfies all of the properties of a ring, it is   sufficient to show that the set is a subring of a ring. It is therefore a ring itself.
+\end{method}
+
+\begin{definition}[Field]
+
+A ring $R$ is called a field if:
+\begin{itemize}
+\item[i)] $R$ is commutative,
+\item[ii)] $1 \neq 0$ in $R$ (i.e., $R$ has at least two elements),
+\item[iii)] For any $a \in R$ such that $a \neq 0$, there exists a $b \in R$ such that $a b=1$ ( $b$ is called the inverse of $a$ ).
+\end{itemize}
+
+\end{definition}

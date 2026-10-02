@@ -1,0 +1,105 @@
+\section{Differentiating Scalar Fields}
+
+\begin{definition}[Gradient of a Scalar Field]
+  The gradient of a scalar field $f: \mathbb{R}^3 \rightarrow \mathbb{R}$ is the operator
+
+$$
+\left.\nabla f\right|_{\boldsymbol{x}}=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S f \hat{\boldsymbol{n}} d S,
+$$
+
+where $S$ is a closed surface around $\boldsymbol{x}$ with outward normal $\hat{\boldsymbol{n}}$, enclosed volume $|V|$, and diameter $\mathrm{d}(S)=\sup _{\boldsymbol{x}, \boldsymbol{y} \in S}|\boldsymbol{x}-\boldsymbol{y}|$.
+\end{definition}
+
+\begin{rem}
+  We note that $\nabla f$ is a vector field $\mathbb{R}^3 \rightarrow \mathbb{R}^3$ and our intuition is that it points in the direction of the fastest increase of $f$. 
+\end{rem}
+
+\begin{proposition}
+  In Cartesian coordinates,
+
+$$
+\boldsymbol{\nabla} f=\frac{\partial f}{\partial x} \boldsymbol{e}_1+\frac{\partial f}{\partial y} \boldsymbol{e}_2+\frac{\partial f}{\partial z} \boldsymbol{e}_3 .
+$$
+\end{proposition}
+
+\noindent This tells us that $\nabla f$ is a differential operator, acting on a scalar field and returning a vector field. We see a similar formula from Calculus I but the integral we have defined here should work independent of any particular choice of coordinates. To prove our proposition we use the following lemma:
+
+\begin{lemma}[Mean Value Theorem for Double Integrals]
+  If a scalar field $f: \mathbb{R}^2 \rightarrow \mathbb{R}$ is continuous on a closed, bounded and connected domain $A \subset \mathbb{R}^2$ then there exists $\boldsymbol{x}_* \in A$ such that
+
+$$
+\int_A f d S=|A| f\left(\boldsymbol{x}_*\right)
+$$
+\end{lemma}
+
+\noindent This formula is analagous for the 1-d result of mean value theorem depicted in the figure below. In 1-d we have that if $f(x)$ is continuous on $[a,b]$ then there exists $x_* \in [a,b]$ such that $\int_a^b f(x) d x=(b-a) f\left(x_*\right)$ .
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.67\textwidth]{figures/mthmchp3im1}
+  \caption{1D representation of Mean Value Theorem}
+  \label{fig:Mean Value 2D}
+\end{figure}
+
+\noindent Lemma 3.1.4 says that there is some particular point $\boldsymbol{x}_*$ where $f$ attains its average value, $f\left(x_*\right)=\frac{1}{|A|} \int_A f d S$.
+
+%proof goes here%
+
+\begin{proposition}
+  In orthogonal curvilinear coordinates $(u, v, w)$, the gradient has the expression
+
+$$
+\boldsymbol{\nabla} f=\frac{1}{h_u} \frac{\partial f}{\partial u} \boldsymbol{e}_u+\frac{1}{h_v} \frac{\partial f}{\partial v} \boldsymbol{e}_v+\frac{1}{h_w} \frac{\partial f}{\partial w} \boldsymbol{e}_w .
+$$
+\end{proposition}
+
+\begin{example}[Computing $\nabla z$ in both Cartesian and Spherical Coordinates]
+
+In Cartesians, we have
+
+$$
+\boldsymbol{\nabla}(z)=\frac{\partial z}{\partial x} \boldsymbol{e}_1+\frac{\partial z}{\partial y} \boldsymbol{e}_2+\frac{\partial z}{\partial z} \boldsymbol{e}_3=\boldsymbol{e}_3 .
+$$
+
+\noindent In spherical coordinates $(r, \theta, \phi)$, recall that $z=r \cos \theta$. So Proposition 3.2 gives
+
+$$
+\begin{aligned}
+\boldsymbol{\nabla}(r \cos \theta) & =\frac{1}{h_r} \frac{\partial}{\partial r}(r \cos \theta) \boldsymbol{e}_r+\frac{1}{h_\theta} \frac{\partial}{\partial \theta}(r \cos \theta) \boldsymbol{e}_\theta+\frac{1}{h_\phi} \frac{\partial}{\partial \phi}(r \cos \theta) \boldsymbol{e}_\phi \\
+& =\frac{\partial}{\partial r}(r \cos \theta) \boldsymbol{e}_r+\frac{1}{r} \frac{\partial}{\partial \theta}(r \cos \theta) \boldsymbol{e}_\theta \\
+& =\cos \theta \boldsymbol{e}_r-\sin \theta \boldsymbol{e}_\theta .
+\end{aligned}
+$$
+
+\noindent We recognise this as $\boldsymbol{e}_3$ again.
+
+\end{example}
+
+\begin{remark}
+Observe that our coordinate formula, and hence $\boldsymbol{\nabla} f$, extends to scalar fields on any $\mathbb{R}^n$, and giving always a vector in $\mathbb{R}^n$. Very high-dimensional vectors are commonly used in machine learning algorithms.
+\end{remark}
+
+\section{Differentiating Vector Fields}
+
+There are two standard ways to differentiate a vector field $\mathbf{f} : \mathbb{R}^3 \rightarrow \mathbb{R}^3$:
+
+\begin{itemize}
+  \item The divergence of $\boldsymbol{f}$ is the scalar field
+
+$$
+\left.\boldsymbol{\nabla} \cdot \boldsymbol{f}\right|_{\boldsymbol{x}}=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S \hat{\boldsymbol{n}} \cdot \boldsymbol{f} d S .
+$$
+
+\item The curl of $\boldsymbol{f}$ is the vector field
+
+$$
+\boldsymbol{\nabla} \times\left.\boldsymbol{f}\right|_{\boldsymbol{x}}=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S \hat{\boldsymbol{n}} \times \boldsymbol{f} d S .
+$$
+\end{itemize}
+
+\begin{blackbox}[Vector Fields]
+  This is an example of a black bix
+\end{blackbox} 
+
+

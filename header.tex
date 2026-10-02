@@ -18,7 +18,6 @@
 \usepackage{enumitem}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
-\usepackage{gensymb}
 \usepackage{mathdots}
 \usepackage{mathtools}
 \usepackage{microtype}
@@ -131,6 +130,9 @@ pdfkeywords={Durham Mathematics Maths Math \npart\ \nterm\ \nyear\ \ncourse\ \ne
 \pgfplotsset{compat=1.12}
 
 \pagestyle{fancyplain}
+
+\setlength{\headsep}{20pt}
+
 \ifx \ncoursehead \undefined
 \def\ncoursehead{\ncourse}
 \fi
@@ -264,6 +266,24 @@ right=17pt
 % Question border
 \definecolor{qborder}{RGB}{94,34,119}
 
+% Black box — intentionally opaque / unexplained result
+\definecolor{blackboxbg}{RGB}{35,35,38}
+
+\definecolor{blackboxborder}{RGB}{80,80,85}
+
+\definecolor{blackboxtext}{RGB}{245,245,245}
+
+\definecolor{blackboxheading}{RGB}{210,210,215}
+
+\definecolor{mistakebg}{RGB}{250,225,225}
+
+\definecolor{mistakeborder}{RGB}{190,45,45}
+
+\definecolor{mistaketext}{RGB}{55,25,25}
+
+\definecolor{mistakeheading}{RGB}{150,25,25}
+
+
 % ------------------------------------------------------------
 % Box styles
 % ------------------------------------------------------------
@@ -376,6 +396,42 @@ right=17pt
     innerleftmargin=10pt,
     innerrightmargin=10pt,
 }
+
+% ============================================================
+% Black Box
+% ============================================================
+
+\mdfdefinestyle{blackboxstyle}{
+    backgroundcolor=blackboxbg,
+    linecolor=blackboxborder,
+    linewidth=1.0pt,
+    roundcorner=4pt,
+    skipabove=10pt,
+    skipbelow=10pt,
+    innertopmargin=9pt,
+    innerbottommargin=9pt,
+    innerleftmargin=10pt,
+    innerrightmargin=10pt,
+}
+
+% ============================================================
+% Mistakes
+% ============================================================
+
+\mdfdefinestyle{mistakestyle}{
+    backgroundcolor=mistakebg,
+    linecolor=mistakeborder,
+    linewidth=1.0pt,
+    roundcorner=4pt,
+    skipabove=8pt,
+    skipbelow=8pt,
+    innertopmargin=7pt,
+    innerbottommargin=7pt,
+    innerleftmargin=8pt,
+    innerrightmargin=8pt,
+}
+
+
 
 % Callout environments
 
@@ -547,6 +603,36 @@ right=17pt
 \end{mdframed}%
 }
 
+\newenvironment{blackbox}[1][]%
+{%
+    \begin{mdframed}[style=blackboxstyle]
+    \color{blackboxtext}
+    \ifx\relax#1\relax
+        \textbf{\color{blackboxheading}Black Box}\par
+    \else
+        \textbf{\color{blackboxheading}#1}\par
+    \fi
+    \vspace{4pt}
+}%
+{%
+    \end{mdframed}
+}
+
+\newenvironment{mistake}[1][]%
+{%
+\begin{mdframed}[style=mistakestyle]
+\textbf{\color{mistakeborder}%
+\ifx\relax#1\relax
+Mistake%
+\else
+#1%
+\fi
+}\par
+\vspace{4pt}
+}%
+{%
+\end{mdframed}%
+}
 
 % ------------------------------------------------------------
 % Unboxed numbered environments

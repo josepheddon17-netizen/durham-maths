@@ -4,6 +4,14 @@
 	Given a curve $C$ in $\mathbb{R}^n$, a \emph{parametrisation} of it is a continuous and invertible function $\mathbf{r}: D \rightarrow \mathbb{R}^n$ for some $D \subseteq \mathbb{R}$ whose image is $C$. Parametrisation is therefore the function mapping a real input into a vector output.
 \end{ndefi}
 
+\begin{remark}
+  Parametrisation of a curve is not unique, different parametrisations could trace out the same curve.  
+\end{remark}
+
+\begin{definition}[Closed and Simple]
+  If $\boldsymbol{x}\left(t_1\right)=\boldsymbol{x}\left(t_0\right)$ then the curve is called closed. A curve that does not cross itself is called simple.
+\end{definition}
+
 \begin{ndefi}[Differentiable Parametrisation]
 	A parametrisation $\boldsymbol{x}(t)$ is differentiable if it has a well-defined tangent vector,
 	
@@ -105,6 +113,10 @@
 \begin{nprop}[*Choice of Parametrisation doesn't matter]
 	The line integral of a scalar field is independent of the choice of parametrisation.
 \end{nprop}
+
+\begin{proof}
+  Insert a proof here
+\end{proof}
 
 \begin{nrem}
 	The arclength formula from before is therefore the line integral of the scalar field $f(\mathbf{x}) = 1$

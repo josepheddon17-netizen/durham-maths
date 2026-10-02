@@ -1,0 +1,83 @@
+\section{Fixed-point numbers}
+
+We see that when we attempt $0.1+0.2 == 0.3$ in MATLAB, we return a false value due to rounding in binary causing issues. Numbers like $0.1$ and $0.2$ cannot be stored in binary exactly and thus the two sides will differ by $5.6 \times 10^{-17}$. We utilise real numbers and integers within computational systems to speed up manipulating mathematical objects. We can do this symbolically with \emph{Computer Algebra Systems} but we trade off time.
+
+\begin{definition}[Fixed-point numbers]
+  A \emph{fixed-point number} representation of a real number is given as:
+  $$
+x= \pm\left(d_1 d_2 \cdots d_{k-1} \cdot d_k \cdots d_n\right)_\beta, \quad \text { where } \quad d_1, \ldots, d_n \in\{0,1, \ldots, \beta-1\} .
+$$
+
+Here $\beta$ is the base (e.g. 10 for decimal arithmetic or 2 for binary). The word fixed refers to the position of the point: a fixed-point system uses a fixed number of digits before and after the point, so the numbers it can represent are equally spaced, a distance $\beta^{-(n-k+1)}$ apart.
+\end{definition}
+
+\begin{remark}
+  This system can be used to represent any real number uniquely. We must remove representations ending in infinitely many $9$'s (when in decimal) or infinitely many $b-1$'s where $b$ represents the base. For example in denary we cannot use $3.14=3.1400 \ldots = 3.139999 \ldots$ as we are excluding the $10-1$'s expansion. 
+\end{remark}
+
+\section{Floating-point numbers}
+
+\begin{definition}[Floating-point numbers]
+Fix a base $\beta \geq 2$, a number of digits $m$, and an exponent range $e_{\min } \leq e \leq e_{\max }$. Only numbers in the floating-point number system $F \subset \mathbb{R}$ can be represented exactly, where
+
+$$
+F=\left\{ \pm\left(0 . d_1 d_2 \cdots d_m\right)_\beta \beta^e \mid d_i \in\{0,1, \ldots, \beta-1\}, e \in \mathbb{Z}, e_{\min } \leq e \leq e_{\max }\right\}
+$$
+
+Here $\left(0 . d_1 d_2 \cdots d_m\right)_\beta$ is called the fraction (or significand or mantissa), and $e$ is the exponent.
+\end{definition}
+
+\begin{example}
+  \noindent Suppose we set $\beta = 10$ and $m=3$ and:
+$$
+-2 \leq e \leq 2 \text {. }
+$$
+
+\noindent Then we could represent
+
+$$
+0.123 \times 10^2=12.3
+$$
+
+\noindent or
+
+$$
+0.456 \times 10^{-2}=0.00456 \text {. }
+$$
+
+\noindent We could also represent
+
+$$
+-0.789 \times 10^1=-7.89 .
+$$
+
+\noindent But something like
+
+$$
+12.3456
+$$
+
+cannot be represented exactly, because we only have 3 digits available for the significand.
+\end{example}
+
+\begin{example}
+  \noindent Now consider a system with $\beta = 2$ so we are working in binary. We set $m=3$ and once more we have:
+
+$$
+  -2 \leq e \leq 2 \text {. }
+$$
+\noindent We now represent numbers such as:
+
+$$(0.101)_2 2^2 = (\frac{1}{2} + \frac{1}{8})\times 4 = \frac{5}{8} \times 4 = 2.5$$ 
+
+\noindent or something like
+
+$$(0.100)_2 2^1 = (\frac{1}{8}) \times 2 = 0.25$$
+
+
+
+\end{example}
+
+\begin{definition}[Normalisation]
+  We use normalisation, enforcing the requirement $d_1  \neq 0$ to create a unique numbering system and so we assume that our system is \emph{normalised} by default. This is useful as we can represent a larger range of numbers at the loss of equally spaced numbers.
+\end{definition}
