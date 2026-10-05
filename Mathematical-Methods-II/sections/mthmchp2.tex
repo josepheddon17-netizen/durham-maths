@@ -1,26 +1,38 @@
-\section{Parametrised curves, lengths and arc length}
-
-\begin{ndefi}[Parametrisation]
-	Given a curve $C$ in $\mathbb{R}^n$, a \emph{parametrisation} of it is a continuous and invertible function $\mathbf{r}: D \rightarrow \mathbb{R}^n$ for some $D \subseteq \mathbb{R}$ whose image is $C$. Parametrisation is therefore the function mapping a real input into a vector output.
-\end{ndefi}
-
-\begin{remark}
-  Parametrisation of a curve is not unique, different parametrisations could trace out the same curve.  
-\end{remark}
-
-\begin{definition}[Closed and Simple]
-  If $\boldsymbol{x}\left(t_1\right)=\boldsymbol{x}\left(t_0\right)$ then the curve is called closed. A curve that does not cross itself is called simple.
+\begin{definition}[Curve]
+ A curve $C$ is a 1-d subset of $\mathbb{R}^n$, for $n>1$. 
 \end{definition}
 
-\begin{ndefi}[Differentiable Parametrisation]
-	A parametrisation $\boldsymbol{x}(t)$ is differentiable if it has a well-defined tangent vector,
-	
-	$$
-	\frac{d \boldsymbol{x}}{d t}=\lim _{d t \rightarrow 0} \frac{\boldsymbol{x}(t+d t)-\boldsymbol{x}(t)}{d t},
-	$$
-	
-	so-called because its direction points along the curve at each $t$.
-\end{ndefi}
+\noindent It will be more use to us to define a curve through parametrisation.
+
+\begin{definition}[Parametrisation]
+  \emph{Parametrisation} is a function, $\boldsymbol{x}(t)$, which maps a real interval $\left[t_0, t_1\right]$ into $\mathbb{R}^n$. This is a vector-valued function
+
+$$
+\boldsymbol{x}(t)=x_1(t) \boldsymbol{e}_1+x_2(t) \boldsymbol{e}_2+\ldots+x_n(t) \boldsymbol{e}_n,
+$$
+
+where $\left\{\boldsymbol{e}_1, \boldsymbol{e}_2, \ldots, \boldsymbol{e}_n\right\}$ denote the Cartesian unit vectors. When $\boldsymbol{n}=\mathbf{2}$ or $\boldsymbol{n}=\mathbf{3}$, we will usually write $x_1 \equiv x, x_2 \equiv y$ and $x_3 \equiv z$.
+\end{definition}
+
+\begin{definition}[Closed and Simple Curve]
+  
+If $\boldsymbol{x}\left(t_1\right)=\boldsymbol{x}\left(t_0\right)$ then the curve is called closed. A curve that does not cross itself is called simple.
+
+\end{definition}
+
+\begin{remark}
+  A common parametrisation for a circle is polar coordinates. We note here however that parametrisation is not unique and a single curve may be described by multiple parametrisation.
+\end{remark}
+
+\begin{definition}[Differentaible Parametrisation]
+  A parametrisation $\boldsymbol{x}(t)$ is differentiable if it has a well-defined tangent vector,
+
+$$
+\frac{d \boldsymbol{x}}{d t}=\lim _{d t \rightarrow 0} \frac{\boldsymbol{x}(t+d t)-\boldsymbol{x}(t)}{d t},
+$$
+
+so-called because its direction points along the curve at each $t$.
+\end{definition}
 
 \begin{ndefi}[Regular Parametrisation]
 	A parametrisation is regular if $\frac{d \boldsymbol{x}}{d t} \neq 0$ everywhere, and a curve is regular if it has at least one regular parametrisation.
@@ -37,18 +49,49 @@
 \end{nrem}
 
 
-\begin{nprop}[Change in Arclength of a curve]
-	Let $s$ denote the arclength of a curve $\mathbf{r}(u)$. Then
-	
-	$$
-	\frac{\mathrm{d} s}{\mathrm{~d} u}= \pm\left|\frac{\mathrm{d} \mathbf{r}}{\mathrm{~d} u}\right|= \pm\sqrt{\frac{\mathrm{d} \mathbf{r}}{\mathrm{~d} u} \cdot \frac{\mathrm{d} \mathbf{r}}{\mathrm{~d} u}}=  \pm\left|\mathbf{r}^{\prime}(u)\right|
-	$$
-	
-	with the sign depending on whether it is in the direction of increasing or decreasing arclength.
+\begin{remark}
+  If we think of $\boldsymbol{x}(t)$ as the trajectory of a particle, then $\left|\frac{d \boldsymbol{x}}{d t}\right|$ is the speed at which the particle is moving, for each $t$.
+\end{remark}
+
+\begin{theorem}[Chain rule for parametrisation]
+ If $\boldsymbol{x}(t)$ and $\boldsymbol{x}(\tau)$ are two different parametrisations of the same curve, then the chain rule gives
+$$
+\frac{d \boldsymbol{x}}{d t}=\frac{d \boldsymbol{x}}{d \tau} \frac{d \tau}{d t} .
+$$ 
+\end{theorem}
+
+\begin{definition}[Regular parametrisation and curve]
+A parametrisation is regular if $\frac{d t}{d t} \neq 0$ everywhere, and a curve is regular if it has at least one regular parametrisation. [You can construct a singular parametrisation even for a regular curve.]
+\end{definition}
+
+\section{Line Integral of Scalar Fields}
+
+\begin{definition}[Line Integral of Scalar Field]
+  The line integral of a scalar field $f(\boldsymbol{x})$ along a curve $C$ with parametrisation $\boldsymbol{x}(t)$, for $t \in\left[t_0, t_1\right]$, is defined as
+
+$$
+\int_C f d \ell=\int_{t_0}^{t_1} f(\boldsymbol{x}(t))\left|\frac{d \boldsymbol{x}}{d t}\right| d t
+$$
+\end{definition}
+
+\begin{nprop}[Formula for Scalar Line Element]
+	$\mathrm{d} \ell = \pm\left|\mathbf{x}^{\prime}(t)\right| \mathrm{d} t$
 \end{nprop}
 
+\begin{proposition}[Choice of Parametrisation does not matter]
+  The line integral of a scalar field is independent of the choice of parametrisation
+\end{proposition}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+\begin{definition}[Rectifiable]
+  
+A curve which has finite length is called rectifiable. This is a weaker condition than "regular" (for example, if $\boldsymbol{x}(t)$ is Lipschitz continuous then it is rectifiable).
+
 \begin{nrem}[Arclength]
-	Using the formula above, the arc length between two points on the curve $\mathbf{r}(u)$, given by $u=u_1$ and $u=u_2$, is
+	We can derive the arc length between two points on the curve $\mathbf{r}(u)$, given by $u=u_1$ and $u=u_2$, as
 	
 	\begin{equation}
 		s=\int_{u_1}^{u_2} \sqrt{\frac{d \mathbf{r}}{d u} \cdot \frac{d \mathbf{r}}{d u}} d u 
@@ -56,8 +99,8 @@
 	
 \end{nrem}
 
-\begin{nmeth}[Deriving tiny change in Arclength]
-	The tiny displacement vector is
+\begin{proof}
+  The tiny displacement vector is
 	
 	$$
 	d \mathbf{r}=\mathbf{r}^{\prime}(u) d u
@@ -88,59 +131,35 @@
 	$$
 	d s=\left|\mathbf{r}^{\prime}(u)\right| d u
 	$$
-	
-	when moving in the positive parameter direction.
-\end{nmeth}
 
-\section{Line Integrals of Scalar Fields}
-
-\begin{ndefi}[Scalar Line Element]
-	The scalar line element of $C$ is $\mathrm{d} s$.
-\end{ndefi}
-
-\begin{nprop}[Formula for Scalar Line Element]
-	$\mathrm{d} s= \pm\left|\mathbf{r}^{\prime}(u)\right| \mathrm{d} u$
-\end{nprop}
-
-\begin{ndefi}[Line Integral of a Scalar Field]
-	The line integral of a scalar field $f(\boldsymbol{x})$ along a curve $C$ with parametrisation $\boldsymbol{x}(t)$, for $t \in\left[t_0, t_1\right]$, is defined as
-	
-	$$
-	\int_C f \, ds=\int_{t_0}^{t_1} f(\boldsymbol{x}(t))\left|\frac{d \boldsymbol{x}}{d t}\right| d t .
-	$$
-\end{ndefi}
-
-\begin{nprop}[*Choice of Parametrisation doesn't matter]
-	The line integral of a scalar field is independent of the choice of parametrisation.
-\end{nprop}
-
-\begin{proof}
-  Insert a proof here
+  This can be directly integrated to find our arclength formula.
 \end{proof}
 
-\begin{nrem}
-	The arclength formula from before is therefore the line integral of the scalar field $f(\mathbf{x}) = 1$
-\end{nrem}
+\end{definition}
 
-\begin{ndefi}[Rectifiable]
-	
-	A curve which has finite length is called rectifiable. This is a weaker condition than "regular" (for example, if $\boldsymbol{x}(t)$ is Lipschitz continuous then it is rectifiable).
-	
-\end{ndefi}
+\section{Line Integrals of Vector Fields}
 
+\begin{definition}[Unit Tangent Vector of Parametrisation]
+  The unit tangent vector of a parametrisation is
 
-\section{Line Integral of Vector Fields}
+$$
+\hat{\boldsymbol{t}}=\frac{\frac{d \boldsymbol{x}}{d t}}{\left|\frac{d \boldsymbol{x}}{d t}\right|} .
+$$
 
-\begin{ndefi}[Line Integral of a Vector Field]
-	The \emph{line integral} of a smooth vector field $\mathbf{F}(\mathbf{r})$ along a path $C$ parametrised by $\mathbf{r}(u)$ along the direction (orientation) $\mathbf{r}(\alpha) \rightarrow \mathbf{r}(\beta)$ is
-	
-	$$
-	\int_C \mathbf{F}(\mathbf{r}) \cdot \mathrm{d} \mathbf{r}=\int_\alpha^\beta \mathbf{F}(\mathbf{r}(u)) \cdot \mathbf{r}^{\prime}(u) \mathrm{d} u
-	$$
-	
-	
-	We say $\mathrm{d} \mathbf{r}=\mathbf{r}^{\prime}(u) \mathrm{d} u$ is the line element on $C$. Note that the upper and lower limits of the integral are the end point and start point respectively, and $\beta$ is not necessarily larger than $\alpha$.
-\end{ndefi}
+This only depends on the direction of the parametrisation, not the "speed".
+\end{definition}
+
+\begin{definition}[Oriented Curve]
+  An oriented curve is a curve together with a specified (consistent) choice of $\hat{\mathbf{t}}$
+\end{definition}
+
+\begin{definition}[Line Integral of a Vector Field along Oriented Curve]
+  The line integral of a vector field $\boldsymbol{f}(\boldsymbol{x})$ along an oriented curve $C$ with parametrisation $\boldsymbol{x}(t)$, for $t \in\left[t_0, t_1\right]$, is defined as the scalar line integral of the tangential component:
+
+$$
+\int_C \boldsymbol{f} \cdot \hat{\boldsymbol{t}} d \ell=\int_{t_0}^{t_1} \boldsymbol{f}(\boldsymbol{x}(t)) \cdot \hat{\boldsymbol{t}}\left|\frac{d \boldsymbol{x}}{d t}\right| d t=\int_{t_0}^{t_1} \boldsymbol{f}(\boldsymbol{x}(t)) \cdot \frac{d \boldsymbol{x}}{d t} d t .
+$$
+\end{definition}
 
 \begin{nex}[Showing Line Integral depends on Curve]
 	
@@ -191,37 +210,23 @@
 	This only depends on the direction of the parametrisation, not the "speed".
 \end{ndefi}
 
-\begin{ndefi}[Oriented Curve]
-	An oriented curve is a curve together with a specified (consistent) choice of $\hat{\boldsymbol{t}}$. We indicate this by adding an arrow to the curve.
-\end{ndefi}
+\begin{remark}
+  The parametrisation must trace the curve in the direction given by $\hat{\mathbf{t}}$
+\end{remark}
 
-\begin{ndefi}[Line Integral along an Oriented Curve]
-	The line integral of a vector field $\boldsymbol{f}(\boldsymbol{x})$ along an oriented curve $C$ with parametrisation $\boldsymbol{x}(t)$, for $t \in\left[t_0, t_1\right]$, is defined as the scalar line integral of the tangential component:
-	
-	$$
-	\int_C \boldsymbol{f} \cdot \hat{\boldsymbol{t}} d \ell=\int_{t_0}^{t_1} \boldsymbol{f}(\boldsymbol{x}(t)) \cdot \hat{\boldsymbol{t}}\left|\frac{d \boldsymbol{x}}{d t}\right| d t=\int_{t_0}^{t_1} \boldsymbol{f}(\boldsymbol{x}(t)) \cdot \frac{d \boldsymbol{x}}{d t} d t
-	$$
-\end{ndefi}
+\begin{remark}
+  The standard example from physics here is the work done by a particle.
+\end{remark}
 
-\begin{nrem}
-	If the parametrisation does not trace the curve, the integral sign will flip
-\end{nrem}
+\begin{definition}[Circulation of $\mathbf{f}$ around $C$]
+  If the curve $C$ is closed, this is often emphasised by the notation
 
+$$
+\int_C \boldsymbol{f} \cdot \hat{\boldsymbol{t}} d \ell=\oint_C \boldsymbol{f} \cdot \hat{\boldsymbol{t}} d \ell
+$$
 
-
-\begin{ndefi}[Closed Curve]
-	A closed curve is a curve with the same start and end point. The line integral along a closed curve is (sometimes) written as $\oint$ and is (sometimes) called the circulation of $\mathbf{F}$ around $C$.
-\end{ndefi}
-
-\begin{nrem}[Circulation using Oriented Curve]
-	If the curve $C$ is closed, this is often emphasised by the notation
-	
-	$$
-	\int_C \boldsymbol{f} \cdot \hat{\boldsymbol{t}} d \ell=\oint_C \boldsymbol{f} \cdot \hat{\boldsymbol{t}} d \ell
-	$$
-	
-	and the line integral is called the circulation of $\boldsymbol{f}$ around $C$.
-\end{nrem}
+and the line integral is called the circulation of $\boldsymbol{f}$ around $C$.
+\end{definition}
 
 \begin{ndefi}[Piecewise Smooth Curve]
 	A piecewise smooth curve is a curve $C=C_1+C_2+\cdots+C_n$ with all $C_i$ smooth with regular parametrisations. The line integral over a piecewise smooth $C$ is
@@ -253,104 +258,71 @@
 	$$
 \end{nex}
 
-\section{Gradients and Differentials}
 
-\begin{nthm}[*Line Integrals which depend on only endpoints]
-	If $\mathbf{F}=\nabla f(\mathbf{r})$, then
-	
-	$$
-	\int_C \mathbf{F} \cdot \mathrm{~d} \mathbf{r}=f(\mathbf{b})-f(\mathbf{a}),
-	$$
-	
-	where $\mathbf{b}$ and $\mathbf{a}$ are the end points of the curve. Therefore the integral depends only on the end points and not the curve itself.
-\end{nthm}
+\begin{remark}[Differential form for Line Integrals]
+  You may also come across the "differential form" notation for line integrals,
 
-\begin{ndefi}[Conservative Vector Field]
-	If $\mathbf{F}=\nabla f$ for some $f$, the $\mathbf{F}$ is called a conservative vector field.
-\end{ndefi}
-
-\begin{nrem}
-	'Conservative' comes from mechanics where energy is conserved in a system. The work done around a closed curve is 0.
-\end{nrem}
-
-\begin{ndefi}[Exact Differential]
-	A differential $\mathbf{F} \cdot \mathrm{d} \mathbf{r}$ is exact if there is an $f$ such that $\mathbf{F}=\nabla f$. Then
-	
-	$$
-	\mathrm{d} f=\nabla f \cdot \mathrm{~d} \mathbf{r}=\frac{\partial f}{\partial x_i} \mathrm{~d} x_i .
-	$$
-\end{ndefi}
-
-\begin{nprop}[Test for Conservative Vector Field]
-	If $\mathbf{F}=\nabla f$ for some $f$, then
-	
-	$$
-	\frac{\partial F_i}{\partial x_j}=\frac{\partial F_j}{\partial x_i}
-	$$
-	
-	
-	This is because both are equal to $\partial^2 f / \partial x_i \partial x_j$. For an exact differential, the result from the previous section reads
-	
-	$$
-	\int_C \mathbf{F} \cdot \mathrm{~d} \mathbf{r}=\int_C \mathrm{~d} f=f(\mathbf{b})-f(\mathbf{a})
-	$$
-\end{nprop}
-
-\begin{nprop}[Manipulations on differentials]
-	
-	$$
-	\begin{aligned}
-		\mathrm{d}(\lambda f+\mu g) & =\lambda \mathrm{d} f+\mu \mathrm{d} g \\
-		\mathrm{~d}(f g) & =(\mathrm{d} f) g+f(\mathrm{~d} g)
-	\end{aligned}
-	$$
-	
-	Using these, it may be possible to find $f$ by inspection. We do this by integrating each component and seeing if they are equivalent. If they are, then the line integral is just this function evaluated between $\mathbf{a}$ and $\mathbf{b}$.
-\end{nprop}
-
-\section{Work and Potential Energy}
-
-\begin{ndefi}[Work Done]
-	If $\mathbf{F}(\mathbf{r})$ is a force, then $\int_C \mathbf{F} \cdot \mathrm{~d} \mathbf{r}$ is the work done by the force along the curve $C$. It is the limit of a sum of terms $\mathbf{F}(\mathbf{r}) \cdot \delta \mathbf{r}$, i.e. the force along the direction of $\delta \mathbf{r}$.
-	
-\end{ndefi}
-
-\begin{ndefi}[Potential Energy]
-	Given a conservative force $\mathbf{F}=-\nabla V, V(\mathbf{x})$ is the potential energy. Then
-	
-	$$
-	\int_C \mathbf{F} \cdot \mathrm{~d} \mathbf{r}=V(\mathbf{a})-V(\mathbf{b}) .
-	$$
-	
-	
-	Therefore, for a conservative force, we have $\mathbf{F}=\nabla V$, where $V(\mathbf{r})$ is the potential energy.
-\end{ndefi}
+$$
+\int_C \boldsymbol{f} \cdot \hat{\boldsymbol{t}} d \ell=\int_C \boldsymbol{f} \cdot d \boldsymbol{x}
+$$
+\end{remark}
 
 \section{Curvilinear Coordinates}
 
-\begin{ndefi}[Curvilinear Coordinates]
-	In a curvilinear coordinate system ( $u, v, w$ ), the coordinate lines - where two of the coordinates are constant and one varies - may be curved. These coordinate lines may be parametrised by the corresponding coordinate, so are given by $\boldsymbol{x}(u, v, w)$ with two of the coordinates fixed. The corresponding tangent vectors are therefore $\frac{\partial \boldsymbol{x}}{\partial u}, \frac{\partial \boldsymbol{x}}{\partial v}, \frac{\partial \boldsymbol{x}}{\partial w}$.
-\end{ndefi}
+\begin{definition}[Curvilinear Coordinates]
+  In a curvilinear coordinate system ( $u, v, w$ ), the coordinate lines - where two of the coordinates are constant and one varies - may be curved. These coordinate lines may be parametrised by the corresponding coordinate, so are given by $\boldsymbol{x}(u, v, w)$ with two of the coordinates fixed.
+\end{definition}
 
-\begin{ndefi}[Orthogonal and Scale Factors]
-	The coordinate system is orthogonal if the three tangent vectors are mutually orthogonal at every point. We can then define an orthonormal basis $\left\{\boldsymbol{e}_u, \boldsymbol{e}_v, \boldsymbol{e}_w\right\}$ by normalising:
-	
-	$$
-	\boldsymbol{e}_u=\frac{1}{h_u} \frac{\partial \boldsymbol{x}}{\partial u}, \quad \boldsymbol{e}_v=\frac{1}{h_v} \frac{\partial \boldsymbol{x}}{\partial v}, \quad \boldsymbol{e}_w=\frac{1}{h_w} \frac{\partial \boldsymbol{x}}{\partial w},
-	$$
-	
-	where
-	
-	$$
-	h_u=\left|\frac{\partial \boldsymbol{x}}{\partial u}\right|, \quad h_v=\left|\frac{\partial \boldsymbol{x}}{\partial v}\right|, \quad h_w=\left|\frac{\partial \boldsymbol{x}}{\partial w}\right|
-	$$
-	
-	are called the scale factors.
-\end{ndefi}
+\begin{definition}[Tangent Vectors and Unit Tangents]
 
-\begin{nrem}
-	Geometrically, the scale factors tell you how much an infinitesimal region in $(u, v, w)$ coordinates is stretched at different points in real space. This is critical to account for during surface and volume integrals
-\end{nrem}
+  For a system $\mathbf{x}(u,v,w)$ we have the corresponding tangent vectors:
+
+  $$\frac{\partial \boldsymbol{x}}{\partial u}, \frac{\partial \boldsymbol{x}}{\partial v}, \frac{\partial \boldsymbol{x}}{\partial w}$$.
+
+\noindent From these tangent vectors comes the unit tangent vectors:
+
+$$
+\boldsymbol{e}_u=\frac{1}{h_u} \frac{\partial \boldsymbol{x}}{\partial u}, \quad \boldsymbol{e}_v=\frac{1}{h_v} \frac{\partial \boldsymbol{x}}{\partial v}, \quad \boldsymbol{e}_w=\frac{1}{h_w} \frac{\partial \boldsymbol{x}}{\partial w},
+$$
+
+\noindent where
+
+$$
+h_u=\left|\frac{\partial \boldsymbol{x}}{\partial u}\right|, \quad h_v=\left|\frac{\partial \boldsymbol{x}}{\partial v}\right|, \quad h_w=\left|\frac{\partial \boldsymbol{x}}{\partial w}\right|
+$$
+
+\noindent are called the scale factors.
+\end{definition}
+
+\begin{remark}
+  A set of tangent vectors form an orthonormal basis if the all of them are mutually orthogonal.
+\end{remark}
+
+\begin{remark} The scale factors tell us how much an infinitesimal region in $(u,v,w)$ coordinates is stretched at different points in real space. They are crucial when calculating surface and volume integrals. We do not require systems to be orthogonal when we take their coordinates.
+\end{remark}
+
+\begin{definition}[Cylindrical and Spherical Coordinates]
+
+  
+  \begin{itemize} \emph{}
+
+    \item[1.] \textbf{Cylindrical coordinates} are useful for problems with axial symmetry:
+
+$$
+\boldsymbol{x}(r, \theta, z)=r \cos \theta \boldsymbol{e}_1+r \sin \theta \boldsymbol{e}_2+z \boldsymbol{e}_3, \quad r>0, \quad \theta \in[0,2 \pi], \quad z \in \mathbb{R},
+$$
+
+leading to scale factors $h_r=1, h_\theta=r, h_z=1$.
+\item[2.] \textbf{Spherical coordinates} are useful for problems with spherical symmetry:
+
+$$
+\boldsymbol{x}(r, \theta, \phi)=r \sin \theta \cos \phi \boldsymbol{e}_1+r \sin \theta \sin \phi \boldsymbol{e}_2+r \cos \theta \boldsymbol{e}_3, \quad r>0, \quad \theta \in[0, \pi], \quad \phi \in[0,2 \pi],
+$$
+
+leading to scale factors $h_r=1, h_\theta=r, h_\phi=r \sin \theta$.
+\end{itemize}
+  
+\end{definition}
 
 \begin{nrem}
 	It is relevant here to repeat the two coordinate basis from before:
@@ -409,4 +381,3 @@
 	\end{table}
 	
 \end{nrem}
-
