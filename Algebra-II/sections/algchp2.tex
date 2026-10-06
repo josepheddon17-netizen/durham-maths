@@ -1,0 +1,166 @@
+\section{Divisibility in \(\mathbb{Z}\)}
+
+\begin{definition}[Division]
+  In a commutative ring \(R\), an element \(a \in R\) is said to divide an element \(b \in R\), written \(a \mid b\), if there exists an \(x \in R\) such that
+
+\[
+b=a x .
+\]
+
+We will sometimes write \(a \nmid b\) if \(a\) does not divide \(b\).
+\end{definition}
+
+\begin{remark}
+  It is easy to show from the definition that if \(a \mid b\) and \(a \mid c\) for \(a, b, c \in R\), then \(a \mid(b x+c y)\), for any \(x, y \in R\). In particular, if \(a\) divides two elements, then it divides the sum and difference of those two elements.
+\end{remark}
+
+\begin{lemma}[Well-Ordering Principle (WOP)]
+  Let \(S\) be a non-empty subset of \(\mathbb{N}_0=\mathbb{N} \cup\{0\}\). Then \(S\) has a smallest element.
+\end{lemma}
+
+\begin{proposition}
+  Let \(a \in \mathbb{Z}, b \neq 0\). Then there exist in tegers \(q\) and \(r\) such that
+
+\[
+a=q \cdot b+r, \quad \text { and } \quad 0 \leq r<|b| .
+\]
+
+( \(q\) is called the quotient and \(r\) the remainder).
+\end{proposition}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+\begin{example}
+  Find the integer quotient and remainder of 435 divided by 43 in \(\mathbb{Z}\). Long division with remainder gives:
+
+\[
+435=43 \cdot 10+5,
+\]
+
+and \(5<43\), so we stop. So the integer quotient is \(q=10\) and the remainder is \(r=5\).
+\end{example}
+
+\begin{theorem}[Euclidean Algorithm in \(\mathbb{Z}\)]
+  Let \(a, b \in \mathbb{Z}\), not both zero. Then \(\operatorname{gcd}(a, b)\) exists and can be computed by the Euclidean algorithm (given in the proof). Moreover, if \(d=\operatorname{gcd}(a, b)\), then there exist \(x, y \in \mathbb{Z}\) such that
+
+\[
+a x+b y=d .
+\]
+\end{theorem}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+\begin{example}
+  
+Example 2.5. We use the Euclidean Algorithm to compute \(d=\operatorname{gcd}(455,1235)\) and find integers \(x, y\) such that \(d=455 x+1235 y\).
+
+Solution: Division with remainder:
+
+\[
+\begin{aligned}
+1235 & =2 \cdot 455+325 \\
+455 & =1 \cdot 325+130 \\
+325 & =2 \cdot 130+65 \\
+130 & =2 \cdot 65+0 .
+\end{aligned}
+\]
+
+When the remainder is 0 , we stop. The gcd will be the last non-zero remainder, here \(d=65\). Solving for the remainders, substituting back and simplifying, we get
+
+\[
+\begin{aligned}
+65 & =325-2 \cdot 130 \\
+& =325-2(455-1 \cdot 325) \\
+& =\cdots \\
+& =455 \cdot(-8)+1235 \cdot 3 .
+\end{aligned}
+\]
+
+so \(x=-8\) and \(y=3\).
+
+\end{example}
+
+\begin{lemma}[Primes that divide products divide at least one  factor]
+  If \(p\) is a prime and \(p \mid\) ab for some \(a, b \in \mathbb{Z}\), then \(p \mid a\) or \(p \mid b\). (In other words, \(p\) prime \(\Rightarrow(\forall a, b \in \mathbb{Z}, p|a b \Rightarrow p| a\) or \(p \mid b)\).)
+\end{lemma}
+
+\begin{theorem}[Fundamental Theorem of Arithmetic]
+Let \(n \in \mathbb{N}, n>1\). Then \(n\) can be written as a product of primes in a unique way (up to the order of the factors). More precisely, there are distinct primes \(p_1, \ldots, p_r\) and \(e_1, \ldots, e_r \in \mathbb{N}\) such that
+
+\[
+n=p_1^{e_1} \cdots p_r^{e_r},
+\]
+
+and if \(n=q_1^{f_1} \cdots q_s^{f_s}\) for some distinct primes \(q_1, \ldots, q_s\) and \(f_1, \ldots, f_s \in \mathbb{N}\), then \(r=s\), and up to re-ordering, \(p_i=q_i\) and \(e_i=f_i\) for all \(i\).
+\end{theorem}
+
+\section{Divisibility in \(F[x]\)}
+
+\begin{definition}[Degree]
+  For \(f(x)=a_0+a_1 x+\cdots+a_n x^n \in F[x]\), its \emph{degree} is
+
+\[
+\operatorname{deg} f:= \begin{cases}\max \left\{i \mid a_i \neq 0\right\} & \text { if } f(x) \neq 0, \\ -\infty & \text { if } f(x)=0 .\end{cases}
+\]
+
+Then we have the following basic properties for all \(f(x), g(x) \in F[x]\) :
+\begin{itemize}
+\item[-] \(\operatorname{deg}(f g)=\operatorname{deg} f+\operatorname{deg} g\),
+\item[-] \(\operatorname{deg}(f+g) \leq \max \{\operatorname{deg} f, \operatorname{deg} g\}\). Note that if \(f(x) \neq g(x)\), then equality holds
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+  We define \(\operatorname{deg}(f) = - \infty\) if \(f(x) = 0\) to preserve the properties of degree in the definition. 
+
+If \(f=0\) and \(\operatorname{deg} 0=\operatorname{deg}(0 \cdot g)=\) \(\operatorname{deg} 0+\operatorname{deg} g\), then we can't allow \(\operatorname{deg} 0\) to be in \(\mathbb{Z}\), but it would work if \(\operatorname{deg} 0= \pm \infty\). However, if also \(\operatorname{deg} g=\operatorname{deg}(0+g) \leq \max \{\operatorname{deg} 0, \operatorname{deg} g\}\), for all \(g\), then we can't allow \(\operatorname{deg} 0=\infty\), but it does work if we set \(\operatorname{deg} 0=-\infty\).
+\end{remark}
+
+
+\begin{proposition}
+Let \(f(x), g(x) \in F[x]\) with \(g(x) \neq 0\). Then there exist polynomials \(q(x), r(x) \in\) \(F[x]\) with \(\operatorname{deg} r<\operatorname{deg} g\) such that
+\[
+f(x)=q(x) g(x)+r(x) .
+\]
+\end{proposition}
+
+\begin{example}[Long division of \(f(x)=x^3+x^2-3 x-3\) by \(g(x)=x^2+3 x+2\), with remainder]
+
+  \begin{center}
+
+\begin{tabular}[h]{|l|l|l|}
+\hline term to get rid of & & \(x-2\) \\
+\hline \(x^3\) & \(x^2+3 x+2\) & \[
+\begin{aligned}
+& x^3+x^2-3 x-3 \\
+& -\left(x^3+3 x^2+2 x\right)
+\end{aligned}
+\] \\
+\hline \(-2 x^2\) & & \(-2 x^2\)
+\(-\left(-2 x^2-6 x-3\right.\)
+\(-7)\) \\
+\hline & & \(x+1\) \\
+\hline
+\end{tabular}
+
+\end{center}
+
+We have obtained a remainder of degree 1 , which is smaller than \(\operatorname{deg} g\), so we stop:
+
+\[
+f(x)=(x-2) g(x)+x+1 .
+\]
+
+Thus \(q(x)=x-2\) and \(r(x)=x+1\). Think of \(q(x)\) as the "quotient" and \(r(x)\) as the "remainder".
+\end{example}
+
+\begin{proof}
+  insert proof here
+\end{proof}
+
+
+\section{GCD's and the Euclidean Algorithm in \(F[x]\)}
