@@ -1,0 +1,60 @@
+\qs{Question 4}{Consider the set of polynomials \(\mathbb{Q}[x]\) with its normal addition, but instead of the normal multiplication, define a new binary operation: For any \(f, g \in \mathbb{Q}[x]\) let \(f \circ g\) be the polynomial obtained by substituting \(g(x)\) into \(f(x)\), that is,
+
+\[
+(f \circ g)(x)=f(g(x)) .
+\]
+
+To check that \(f \circ g\) is indeed a polynomial, write \(f(x)=a_0+\cdots+a_n x^n\) and \(g(x)=b_0+\) \(\cdots+b_m x^m\). We can then expand \(f(g(x))\) using the multinomial theorem (i.e., repeated use of the binomial theorem), to see that \(f(g(x)) \in \mathbb{Q}[x]\). Does \(\mathbb{Q}[x]\) equipped with the operations + and ∘ form a ring?}
+
+\begin{proof}
+  To form a ring we must first ensure that the $\mathbb{Q}[x]$ forms an Abelian Group with respect to the $+$ operation. We note that addition forms an Abelian group as it operates the same as real number addition. We now check the remaining three ring properties.
+
+  \subsection{Identity}
+
+  We wish to find $e(x)$ such that:
+
+  \[(f \circ e)(x) = (e \circ f)(x) = f(x)\]
+
+  Since $e(x) \in \mathbb{Q}[x]$ this must be a polynomial. Subbing any other polynomial into this polynomial must leave it unchanged and we can sub it into any polynomial to leave it unchanged. Our identity is therefore $e(x)=x$.
+
+  \subsection{Associativity}
+
+  Next we want to conclude:
+
+  \[f(x)\circ (g \circ h)(x) = (f \circ g)(x)\circ h(x)\]
+
+Dealing with the LHS:
+
+\[f(x)\circ (g \circ h)(x) = f(x) \circ g(h(x)) = f(g(h(x)))\]
+
+and then the RHS
+
+\[(f \circ g)(x)\circ h(x) = f(g(x)) \circ h(x) f(g(h(x)))\]
+
+Therefore we have associativity.
+
+\subsection{Distributivity}
+
+Finally we want to check if:
+
+\[f \circ (g + h) = f\circ g + f \circ g\]
+
+However, starting with the LHS we have:
+
+\[f \circ (g+h) = f((g+h)(x)) = f(g(x) + h(x)) \]
+
+And on the RHS:
+
+\[f \circ g + f \circ h = f(g(x)) + f(h(x))\]
+
+These are not directly equal in all cases. For instance, consider $f(x) = x^2 , g(x) = x, h(x) = x$. On our LHS we produce:
+
+\[f \circ (g+h) = 4x^2\]
+
+but on our right we produce:
+
+\[f \circ g + f \circ h = 2x^2\]
+
+Therefore \((\mathbb{Q}[x], +, \circ)\) is not a ring.
+
+\end{proof}

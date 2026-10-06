@@ -1,11 +1,27 @@
-\section{Derivatives and Coordinates}
+\section{Line Integrals}
 
-\subsection{Mistakes}
+\subsection{Mistakes and Tips}
 
-\begin{mistake}[First mistake]
+\begin{mistake}[What actualy is \(f(\mathbf{x}(t))\)?]
 
+\(f(\mathbf{x}(t))\) is a function that acts on the entries for \(\mathbf{x}(t) = (x_1(t),x_2(t),x_3(t))\) of a curve. 
 
+\end{mistake}
 
+\begin{mistake}[\(\mid \frac{d \mathbf{x}}{dt} \mid \) differs]
+  \(\mid \frac{d \mathbf{x}}{dt} \mid \) is not always a fixed number and may be a function of \(t\) that differs.
+\end{mistake}
+
+\begin{mistake}[Parametrising implicit curves]
+  Sometimes you need to parametrise the function before you can integrate under the scalar field. Make sure to remember your polar coordinates and \textb{draw a diagran} if possible
+\end{mistake}
+
+\begin{mistake}[Splitting piecewise smooth curves]
+  When a curve is piecwise smooth, make sure to split it when integrating.
+\end{mistake}
+
+\begin{mistake}[Unit tangents and orthonormal]
+  You can always find the unit tangent vectors to a curve but they are not always orthonormal
 \end{mistake}
 
 \subsection{Methods}
@@ -18,10 +34,6 @@
   \end{enumerate}
 \end{nmeth}
 
-\begin{remark}
-  You may need to parametrise first if given the implicit formula. Make sure to remember conversions to polar coordinates for circles. Sketching is therefore also useful.
-
-\end{remark}
 
 \begin{nmeth}[Evaluating arc length]\emph{}
   \begin{enumerate}
@@ -43,10 +55,6 @@
 \end{enumerate}
 
 \end{nmeth}
-
-\begin{remark}
-  When $\mathbf{x}(t)$ is defined piecewise, makesure to split the integral.
-\end{remark}
 
 \begin{nmeth}[Finding unit tangent vectors]
   To find the unit tangent vectors for the coordinate system $\mathbf{x}(u,v,w)$ use the formulas:

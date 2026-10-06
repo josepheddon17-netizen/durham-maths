@@ -1,0 +1,104 @@
+\section{Rings, Fields and Subrings}
+
+\subsection{Mistakes and Tips}
+
+\begin{mistake}[Determining unknown binary operations]
+  If not specified, assume that $R$ is a ring with $+$ and $\cdot$ by default
+\end{mistake}
+
+\begin{mistake}[Using universal conditions]
+
+  Work with any universal condition when manipulating or showing structure and then use strategically chosen elements
+  
+\end{mistake}
+
+\begin{mistake}[Strategically choosing elements]
+  Use strategically chosen elements that exploit certain conditions such as $a+b$ or $ab$
+\end{mistake}
+
+\begin{mistake}[Dividing in rings]
+  Never divide by elements unless you know it is invertible. This is because rings do not require multiplicative inverses. Instead use addition / subtraction on either side and also distributivity.
+\end{mistake}
+
+\begin{mistake}[Make use of earlier results]
+  Utilise earlier results of the question where possible.
+\end{mistake}
+
+
+\begin{mistake}[Simplifying expansions]
+  Do not simplify expansions with hypotheses until it is the direct next step as you lose the algebra needed to show it is true.
+\end{mistake}
+
+\begin{mistake}[Utilising LHS and RHS]
+  Showing properties like associativity, commutativity and distributivity can be done easily by showing LHS = RHS.
+\end{mistake}
+
+\begin{mistake}[Efficiently forming Modular Arithmetic tables]
+  When dealing with integers modulo $n$, it is smart to use a multiplication and addition table. To quickly fill them in, consider how much over a multiple of $n$ your entry to the table is to find the residue.
+\end{mistake}
+
+\begin{mistake}[Using fields for subrings]
+  Using the fact that a subring of a ring is a ring itself allows you to quickly prove rings if you know that they are a subring of a larger field like $\mathbb{C}$.
+\end{mistake}
+
+\begin{mistake}[Dealing with subring questions]
+  When dealing with a subring question, make sure to use inherited elements and operations to show certain structures. For example $0$ and $1$.
+\end{mistake}
+
+\begin{mistake}[Showing subrings are the parent rings]
+  Showing subrings are the ring themselves requires showing $R \subset S$ as $S \subset R$ by default.
+\end{mistake}
+
+\begin{mistake}[Using counterexamples for disproofs]
+  Finding one failure allows you to disprove closure and the full ring quite easily. Use counterexamples strategically here.
+\end{mistake}
+
+
+\subsection{Methods}
+
+\begin{method}[Determining a Ring]
+  To determine a ring, one should first check that the ring forms an abelian group with respect to the 'addition' operation and that the following requirements hold for the 'multiplication' operation:
+
+\begin{itemize}
+   \item[i)] \textbf{Existence of an Identity} - There exists an element $1 \in R$ such that $1 \cdot x=$ $x \cdot 1=x$, for all $x \in R$.
+  \item[ii)] \textbf{Associativity} - For any $x, y, z \in R$ we have $x(y z)=(x y) z$.
+  \item[iii)] \textbf{Distributivity} - For any $x, y, z \in R$ we have $x(y+z)=x y+x z$ and $(y+z) x=$ $y x+z x$. 
+\end{itemize}
+
+\end{method}
+
+
+\begin{method}[Showing a Subring]
+  We can quickly show a subring by showing:
+
+  \begin{itemize}
+    \item the additive and multiplicative identities exist in the set,
+    \item it's closed under addition
+    \item it's closed under multiplication
+    \item it contains additive inverses.
+  \end{itemize}
+  \end{method}
+
+
+\begin{method}[Determining a Ring quickly]
+  Rather than displaying a set satisfies all of the properties of a ring, it is   sufficient to show that the set is a subring of a ring. It is therefore a ring itself.
+\end{method}
+
+
+\begin{method}[Showing commutativity]
+  Showing commutativity requires introducing arbitrary elements and comparing expressions such as $(a+b)^2$ and the additive inverses to show equivalence.
+\end{method}
+
+\begin{method}[Quick way to see that a set is not a ring]
+  If multiplication is not closed by default then a set fails to be a ring as it is a requirement of the binary operation.
+\end{method}
+
+\begin{method}[Disproving \(\mathbb{Z}/n\) as a field]
+  Showing that $\mathbb{Z} / n$ is not a field requires finding 2 single none zero elements that are zero divisors such that:
+
+  \[ab = 0 \text{ mod} (n).\]
+
+\noindent This immediately disproves a field. Check columns of a table here to do this quickly.
+
+\end{method}
+

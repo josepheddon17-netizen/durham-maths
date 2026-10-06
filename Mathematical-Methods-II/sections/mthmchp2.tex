@@ -1,3 +1,6 @@
+
+\section{Parametrisation and Curves}
+
 \begin{definition}[Curve]
  A curve $C$ is a 1-d subset of $\mathbb{R}^n$, for $n>1$. 
 \end{definition}
@@ -60,10 +63,6 @@ $$
 $$ 
 \end{theorem}
 
-\begin{definition}[Regular parametrisation and curve]
-A parametrisation is regular if $\frac{d t}{d t} \neq 0$ everywhere, and a curve is regular if it has at least one regular parametrisation. [You can construct a singular parametrisation even for a regular curve.]
-\end{definition}
-
 \section{Line Integral of Scalar Fields}
 
 \begin{definition}[Line Integral of Scalar Field]
@@ -89,6 +88,9 @@ $$
 \begin{definition}[Rectifiable]
   
 A curve which has finite length is called rectifiable. This is a weaker condition than "regular" (for example, if $\boldsymbol{x}(t)$ is Lipschitz continuous then it is rectifiable).
+
+\end{definition}
+
 
 \begin{nrem}[Arclength]
 	We can derive the arc length between two points on the curve $\mathbf{r}(u)$, given by $u=u_1$ and $u=u_2$, as
@@ -135,7 +137,6 @@ A curve which has finite length is called rectifiable. This is a weaker conditio
   This can be directly integrated to find our arclength formula.
 \end{proof}
 
-\end{definition}
 
 \section{Line Integrals of Vector Fields}
 
@@ -199,16 +200,7 @@ $$
 	We see that the line integral depends on the curve $C$ in general, not just $\mathbf{a}, \mathbf{b}$.
 \end{nex}
 
-\begin{ndefi}[Unit Tangent]
-	The unit tangent vector of a parametrisation is
-	
-	$$
-	\hat{\boldsymbol{t}}=\frac{\frac{d \boldsymbol{x}}{d t}}{\left|\frac{d \boldsymbol{x}}{d t}\right|}
-	$$
-	
-	
-	This only depends on the direction of the parametrisation, not the "speed".
-\end{ndefi}
+
 
 \begin{remark}
   The parametrisation must trace the curve in the direction given by $\hat{\mathbf{t}}$
