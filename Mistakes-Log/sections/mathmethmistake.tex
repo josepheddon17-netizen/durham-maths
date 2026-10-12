@@ -24,6 +24,12 @@
   You can always find the unit tangent vectors to a curve but they are not always orthonormal
 \end{mistake}
 
+
+\begin{mistake}['Length of a curve']
+  If it asks for the length of a curve, use arc length
+\end{mistake}
+
+
 \subsection{Methods}
 
 \begin{nmeth}[Evaluating a Scalar Line Integral]\emph{}
@@ -74,3 +80,39 @@ are called the scale factors.
 \begin{nmeth}[Ensuring an Orthonormal Basis]
   To check if these unit tangent vectors form an orthonormal basis we will have to ensure that they are all mutually orthogonal.
 \end{nmeth}
+
+\begin{nmeth}[Finding components of field in different coordinate system]
+  \begin{itemize}
+    \item Find $f_x,f_y,f_z$ and re-express them in the coordinate system for $\mathbf{x}(u,v,w)$ using the conversions. $f_x,_y,f_z$ refers to the functions / components along the corresponding axes in this context.
+    \item Find $e_u,e_v,e_w$ using either memorisation or derivation from the formula.
+    \item Follow the general pattern that $f_v = e_v \cdot $ to find all the components.t
+  \end{itemize}
+\end{nmeth}
+
+\section{Surface and Volume Integrals}
+
+\subsection{Mistakes and Tips}
+
+\begin{blackbox}[Surface Area vs Surface Integral in a Scalar Field]
+  Surface area will contribute equal weighting from all positions in a scalar field (this being $1$). When finding our surface area, this means we take the integral to be:
+
+  \[\mid S \mid = \int_S 1 \, dS = \int_{V} \mid \frac{\partial \mathbf{x}}{\partial u} \times \frac{\partial \mathbf{x}}{\partial v}\mid \,du \,dv\]
+
+  When we are operating in a scalar field, each point may have a value other than $1$ given to it by a scalar function. To accumulate all of the weights, we integrate via the function:
+
+  \[\mid S \mid = \int_S f(\mathbf{x}(u,v)\ \, dS = \int_{V} f(\mathbf{x}(u,v)) \mid \frac{\partial \mathbf{x}}{\partial u}\frac{\partial \mathbf{x}}{\partial v}\mid \,du \,dv\]
+
+\end{blackbox}
+
+\begin{blackbox}
+    Volume will contribute equal weighting from all positions in a scalar field (this being $1$). When finding our surface area, this means we take the integral to be:
+
+  \[\mid V \mid = \int_S 1 \, dS = \int_{V} \mid \frac{\partial \mathbf{x}}{\partial u}\frac{\partial \mathbf{x}}{\partial v}\mid \,du \,dv\]
+
+  When we are operating in a scalar field, each point may have a value other than $1$ given to it by a scalar function. To accumulate all of the weights, we integrate via the function:
+
+  \[\mid S \mid = \int_S f(\mathbf{x}(u,v)\ \, dS = \int_{V} f(\mathbf{x}(u,v)) \mid \frac{\partial \mathbf{x}}{\partial u}\frac{\partial \mathbf{x}}{\partial v}\mid \,du \,dv\]
+
+\end{blackbox}
+
+\end{blackbox}

@@ -1,0 +1,28 @@
+% Page setup
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath, amssymb, float}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\titleformat*{\section}{\large\bfseries}
+
+\setlength{\parindent}{0pt}
+
+\parskip 5pt
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Computational Mathematics II Lab Notebook 1}
+\lhead{Student: YOUR NAME HERE}
+\rfoot{Page \thepage}
+
+\newcommand{\exercise}[2]{\section{#1}}
+
+\newcommand{\work}{\vspace{1cm}
+\hrule
+\vspace{1cm}}

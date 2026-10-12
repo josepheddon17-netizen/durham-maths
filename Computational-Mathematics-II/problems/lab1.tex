@@ -1,0 +1,61 @@
+\documentclass[11pt]{article}
+
+\include{preamble}
+
+\begin{document}
+
+\section*{Lab 1: Getting Started: Expectations, Programming, and \LaTeX}
+
+% Numbering
+\setcounter{section}{0}  % Start from Exercise 1
+
+This sheet is intended to give you a few guided exercises to become familiar with both \LaTeX and some aspects of numerical and symbolic computation that we will use throughout the course. You should have a look at the \href{https://uk.mathworks.com/help/matlab/getting-started-with-matlab.html}{getting started with MATLAB} page and the \href{https://www.overleaf.com/learn/latex/Tutorials}{Overleaf tutorials page}. You may also want to look at the \href{https://uk.mathworks.com/products/symbolic.html}{Symbolic Math Toolbox}, or another computer algebra system of choice.
+
+\exercise{Course expectations:}
+
+Please write a few sentences describing what you hope to gain from this course.  In particular, explain your motivations for taking it, and what the lecturers can do to help you feel comfortable and supported throughout the course.
+
+\hfill \textbf{[1 mark]}
+
+\work
+
+I took Computational Mathematics out of a desire to further my knowledge on current tools used in mathematics for communication as well as computation. The course appealed to me due to my interest in computers as well as my enjoyment of 'Programming I'. From this course, I hope to further my practical knowledge of MATLAB due to my lack of exposure to it. Furthermore, I hope to practice my \LaTeX  skills as I have enjoyed using it throughout first year. 
+
+\noindent So far, I have found the notes provided for this course to be of great assistance in my study. I benefit greatly from using notes to learn mathematics and the skills also taught on this course; the notes have therefore been a great help in aiding my learning. 
+
+\exercise{Iterations and numerical error}
+
+There are many sources of error that we will encounter in this course, but one of the most fundamental is the truncation error. Numerical computations do not represent numbers exactly, so even simple computations often incur errors on the scale of $10^{-16}$, which can build up quickly. The code below (in the file \textit{iteration\_truncation.m}) demonstrates this. 
+
+You should add comments to this code clearly explaining what each piece of it does, and include your changes in the file so that it updates below. You should then add a variable $y$ with the same starting value as $x$, but instead of iterating it, you should perform the iteration on lines 8-10 as one function evaluation on $y$, and the iteration on lines 13-15 as one function evaluation on $y$. Display both the errors for $x$ and $y$ for each $n$. What can you say about the errors in each case? 
+
+\hfill \textbf{[2 marks + 1 presentation mark]}
+
+\work
+
+\inputminted[linenos,breaklines=true]{matlab}{iteration_truncation.m}
+    
+Your explanation goes here (replace this text with your own response).
+
+\exercise{Symbolics and plotting}
+
+Consider the function given by,
+$$
+f_n(x) = \sin(x^n),
+$$
+where $n$ is an integer. Using MATLAB's symbolic library, or another computer algebra system, compute different Taylor series approximations of order $m$ (that is, $P_m(x) = a_1+a_2x+ \dots a_mx^{m-1}$), and plot these for $f_2$ and $f_3$ in a similar style to the example in Figure \ref{fig:taylor_approximation} for $x \in [-\pi, \pi]$. Each plot should have three Taylor polynomials plotted alongside the function, showing different levels of approximation. You are welcome to use a different style from the example shown for $f_1(x) = \sin(x)$, and you should replace this Figure with your own. Use clear axis labels and captions to describe each plot, being careful to use an appropriate font size for this document. 
+
+In each case, what is the polynomial order needed to achieve accuracy up to the endpoints of the domain? Briefly discuss this in words, and describe why this might change with $n$ based on what you recall from Calculus.
+
+\hfill \textbf{[2 marks + 1 presentation mark]}
+
+\work
+
+Your explanations and Figures should appear here (delete this and these placeholder Figures).
+
+\begin{figure}[h] % [H] forces the figure to appear where you place it, otherwise LaTeX will place it where it thinks it fits best
+    \centering
+    \includegraphics[width=0.45\linewidth]{Taylor_Sin.eps}\caption{A plot of $f_1(x) = \sin(x)$ for $x \in [-\pi, \pi]$. You should replace this plot with your own, as well as add panels for $f_2$ and $f_3$, either using a panel plot in MATLAB or using 3 \textit{includegraphics} commands.}\label{fig:taylor_approximation}
+\end{figure}
+
+\end{document}

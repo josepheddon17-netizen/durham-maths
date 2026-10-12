@@ -2,10 +2,295 @@
 \section{2D Surfaces}
 
 \begin{definition}[2D Surface]
-  A 2-d surface embedded in $\mathbb{R}^3$ can be defined parametrically as a map $\boldsymbol{x}(u, v)$ from $\mathbb{R}^2 \rightarrow \mathbb{R}^3$, for $u \in\left[u_0, u_1\right]$ and $v \in\left[v_0, v_1\right]$. For each value of $v$, the position $\boldsymbol{x}(u, v)$ describes a curve on the surface with tangent vector $\frac{\partial \boldsymbol{x}}{\partial u}$.
+  A 2-d surface embedded in $\mathbb{R}^3$ can be defined parametrically as a map $\boldsymbol{x}(u, v)$ from $\mathbb{R}^2 \rightarrow \mathbb{R}^3$, for $u \in\left[u_0, u_1\right]$ and $v \in\left[v_0, v_1\right]$. For each value of $v$, the position $\boldsymbol{x}(u, v)$ describes a curve on the surface with tangent vector $\frac{\partial \boldsymbol{x}}{\partial u}$. Similarly, for each value of \(u\), we get a curve with tangent vector \(\frac{\partial \boldsymbol{x}}{\partial v}\).
 \end{definition}
 
+\begin{definition}[Unit Normal to Surface]
+  If ( \(u, v\) ) is a well-defined parametrisation, then their tangent vectors cannot be collinear. So the cross product of these tangent vectors allows us to define the unit normal to the surface:
+
+\[
+\hat{\boldsymbol{n}}=\frac{\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}}{\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right|} .
+\]
+
+The sign of \(\hat{\boldsymbol{n}}\) depends on the ordering of ( \(u, v\) ). A surface together with a specified (consistent) choice of \(\hat{\boldsymbol{n}}\) is called an oriented surface.
+\end{definition}
+
+\begin{remark}
+  Not all surfaces are orientable, meaning that a consistent choice of $\mathbf{\hat{n}}$ exists.
+\end{remark}
+
+\begin{example}[
+  Find the outward unit normal for the torus \(\boldsymbol{x}(u, v)=(R+\cos v) \cos u e_1+(R+\cos v) \sin u e_2+\sin v e_3\), where \(R>1\) and \(u, v \in[0,2 \pi]\).]
+
+The tangent vectors are
+
+\[
+\frac{\partial \boldsymbol{x}}{\partial u}=-(R+\cos v) \sin u \boldsymbol{e}_1+(R+\cos v) \cos u \boldsymbol{e}_2, \quad \frac{\partial \boldsymbol{x}}{\partial v}=-\sin v \cos u \boldsymbol{e}_1-\sin v \sin u \boldsymbol{e}_2+\cos v \boldsymbol{e}_3,
+\]
+
+so
+
+\[
+\begin{aligned}
+\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v} & =\left|\begin{array}{ccc}
+\boldsymbol{e}_1 & \boldsymbol{e}_2 & \boldsymbol{e}_3 \\
+-(R+\cos v) \sin u & (R+\cos v) \cos u & 0 \\
+-\sin v \cos u & -\sin v \sin u & \cos v
+\end{array}\right| \\
+& =(R+\cos v) \cos v \cos u e_1+(R+\cos v) \cos v \sin u e_2+(R+\cos v) \sin v \boldsymbol{e}_3 \\
+& =(R+\cos v)\left(\cos v \cos u e_1+\cos v \sin u e_2+\sin v \boldsymbol{e}_3\right) .
+\end{aligned}
+\]
+
+This has magnitude
+
+\[
+\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right|=|R+\cos v| \sqrt{\cos ^2 v \cos ^2 u+\cos ^2 v \sin ^2 u+\sin ^2 v}=R+\cos v,
+\]
+
+where the absolute value sign can be removed since \(R>1\). So the unit normal is
+
+\[
+\hat{\boldsymbol{n}}=\cos v \cos u \boldsymbol{e}_1+\cos v \sin u \boldsymbol{e}_2+\sin v \boldsymbol{e}_3 .
+\]
+\end{example}
+
+\begin{definition}[Smooth and Piecewise Smooth]
+  A surface is called smooth if \(\hat{\boldsymbol{n}}\) varies continuously over the surface (e.g. a sphere). It is called piecewise smooth if it can be divided into finitely many portions each of which is smooth (e.g. a cube).
+\end{definition}
+
+\begin{remark}
+  It is important to learn to sketch the surfaces that you are asked about
+\end{remark}
+
+\begin{definition}[Open, Closed and Boundary]
+  A surface can be either \textbf{open} if it is bounded by a curve (e.g. the cone, or a hemisphere), or \textbf{closed} if it has no boundary (e.g. the sphere or torus). The \textbf{boundary} of an open surface \(S\) is a curve (or union of curves), often written \(\partial S\). A simple type of surface is an \textbf{explicit surface} given by the height of a two-dimensional function, \(z=h(x, y)\).
+\end{definition}
+
+\section{Surface Integrals of Scalar Fields}
+
+\begin{definition}[Surface Integral of Scalar Field]
+  If \(f(\boldsymbol{x})=f(x, y, z)\) is a scalar field and \(S\) is a surface with parametrisation \(\boldsymbol{x}(u, v)\), then we define the surface integral of \(f\) over \(S\) to be
+
+\[
+\int_S f d S=\int_U f(\boldsymbol{x}(u, v))\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right| d u d v,
+\]
+
+where \(U\) is the preimage of \(S\) in the ( \(u, v\) ) plane.
+\end{definition}
+
+\begin{remark}
+  To motivate this formula, note that the area element \(\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right| d u d v\) is the area on the surface in \(\mathbb{R}^3\) corresponding to an infinitesimal rectangle with sides ( \(d u, d v\) ) in the ( \(u, v\) ) plane.    
+\end{remark}
+
+\begin{proposition}
+  If ( \(u, v\) ) are (two of a set of) orthogonal curvilinear coordinates, then
+
+\[
+\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right|=h_u h_v .
+\]
+\end{proposition}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+\begin{method}[Calculating Surface Area]
+  The surface area of \(S\) is computed by taking \(f(\boldsymbol{x}) \equiv 1\), giving \(|S|=\int_S d S\).
+\end{method}
+
+\begin{example}[Use spherical coordinates to find the surface area of the sphere \(x^2+y^2+z^2=a^2\).]
+
+The sphere radius \(a\) is given by \(\boldsymbol{x}(\theta, \phi)=a \sin \theta \cos \phi \boldsymbol{e}_1+a \sin \theta \sin \phi \boldsymbol{e}_2+a \cos \theta \boldsymbol{e}_3\), and we know that the scale factors are \(h_\theta=a\) and \(h_\phi=a \sin \theta\). So from Proposition 2.1 we see that
+
+\[
+\left|\frac{\partial \boldsymbol{x}}{\partial \theta} \times \frac{\partial \boldsymbol{x}}{\partial \phi}\right|=h_\theta h_\phi=a^2 \sin \theta .
+\]
+
+The surface area is then
+
+\[
+|S|=\int_S d S=\int_0^{2 \pi}\left(\int_0^\pi a^2 \sin \theta d \theta\right) d \phi=a^2 \int_0^{2 \pi}[-\cos \theta]_0^\pi d \phi=2 a^2 \int_0^{2 \pi} d \phi=4 \pi a^2 .
+\]
+\end{example}
+
+\begin{proposition}
+  The surface integral of a scalar field is independent of the choice of parametrisation.
+\end{proposition}
+
+\begin{proof}
+  insert proof here
+\end{proof}
+
+\begin{remark}
+  If \(S \subset \mathbb{R}^2\) is a flat surface in (say) the ( \(x, y\) )-plane, then \(\hat{\boldsymbol{n}}\) only has a \(z\)-component, so
+
+\[
+\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right|=\left|\frac{\partial x}{\partial u} \frac{\partial y}{\partial v}-\frac{\partial x}{\partial v} \frac{\partial y}{\partial u}\right|=|J|,
+\]
+
+which is just the Jacobian for a change of coordinates from \((x, y)\) to \((u, v)\) in the plane.
+\end{remark}
+
+\section{Surface Integrals of Vector Fields}
+
+\begin{definition}[Flux]
+  If \(\boldsymbol{f}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\) is a vector field and \(S\) is an oriented surface with unit normal \(\hat{\boldsymbol{n}}\), we define the surface integral (or flux) of \(\boldsymbol{f}\) through \(S\) as
+
+\[
+\int_S \boldsymbol{f} \cdot \hat{\boldsymbol{n}} d S .
+\]
+
+Again, we evaluate the integral using a specific parametrisation \(\boldsymbol{x}(u, v)\), so
+
+\[
+\begin{aligned}
+\int_S \boldsymbol{f} \cdot \hat{\boldsymbol{n}} d S & =\int_U \boldsymbol{f}(\boldsymbol{x}(u, v)) \cdot \hat{\boldsymbol{n}}\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right| d u d v \\
+& =\int_U \boldsymbol{f}(\boldsymbol{x}(u, v)) \cdot\left(\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right) d u d v
+\end{aligned}
+\]
+
+where \(U\) is the preimage of \(S\) in the ( \(u, v\) ) plane.
+\end{definition}
+
+\begin{remark}
+  A non-zero flux requires a component of \(\boldsymbol{f}\) pointing "through" the surface. For given \(|\boldsymbol{f}|\), the flux is largest if \(\boldsymbol{f}\) is exactly perpendicular to the surface, but the flux also depends on the magnitude \(|\boldsymbol{f}|\).
+\end{remark}
+
+\begin{definition}[Vector Area Element]
+  Sometimes you will see the shorthand notation \(d \boldsymbol{S}=\hat{\boldsymbol{n}} d S\) for the "vector area element".
+\end{definition}
+
+\begin{remark}
+  Unlike a scalar surface integral, a flux integral depends on the sign of \(\hat{\boldsymbol{n}}\), i.e. on the orientation of the surface. You need to check that your chosen parametrisation \(\boldsymbol{x}(u, v)\) gives the correct sign of \(\hat{\boldsymbol{n}}=\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\). If not, interchange \(u\) and \(v\).
+\end{remark}
+
+\begin{example}[Example 2.8: Calculate the outward flux of \(\boldsymbol{f}(\boldsymbol{x})=\cos ^7 \boldsymbol{\theta} \boldsymbol{e}_r\) [in spherical coordinates] through the hemisphere \(r=a, z \geq 0\).]
+
+Parametrising the sphere in spherical coordinates as \(\boldsymbol{x}(\theta, \phi)\), recall that \(\hat{\boldsymbol{n}}=\boldsymbol{e}_{\boldsymbol{r}}\) and
+
+\[
+\left|\frac{\partial \boldsymbol{x}}{\partial \theta} \times \frac{\partial \boldsymbol{x}}{\partial \phi}\right|=h_\theta h_\phi=a^2 \sin \theta .
+\]
+
+Also note that the hemisphere is given by the half-range \(\theta \in[0, \pi / 2]\), with \(\phi \in[0,2 \pi]\) as usual. So
+
+\[
+\begin{aligned}
+\int_S \boldsymbol{f} \cdot \hat{\boldsymbol{n}} d S & =\int_0^{2 \pi}\left(\int_0^{\pi / 2} \boldsymbol{f} \cdot \hat{\boldsymbol{n}}\left|\frac{\partial \boldsymbol{x}}{\partial \theta} \times \frac{\partial \boldsymbol{x}}{\partial \phi}\right| d \theta\right) d \phi \\
+& =\int_0^{2 \pi}\left(\int_0^{\pi / 2}\left(\cos ^7 \theta \boldsymbol{e}_r\right) \cdot\left(\boldsymbol{e}_r\right) a^2 \sin \theta d \theta\right) d \phi \\
+& =a^2 \int_0^{2 \pi}\left(\int_0^{\pi / 2} \cos ^7 \theta \sin \theta d \theta\right) d \phi \\
+& =a^2 \int_0^{2 \pi}\left[-\frac{1}{8} \cos ^8 \theta\right]_0^{\pi / 2} d \phi=\frac{a^2}{8} \int_0^{2 \pi} d \phi=\frac{\pi a^2}{4} .
+\end{aligned}
+\]
+\end{example}
 
 
+\begin{definition}[Closed Surface Flux]
+  If the surface \(S\) is closed, this is often emphasised by writing
 
+\[
+\int_S \boldsymbol{f} \cdot \hat{\boldsymbol{n}} d S=\oint_S \boldsymbol{f} \cdot \hat{\boldsymbol{n}} d S .
+\]
+\end{definition}
+
+\begin{definition}[Vector Valued Surface Integrals]
+  We will also meet vector-valued surface integrals of the form
+
+\[
+\int_S \boldsymbol{f} d S
+\]
+
+for some vector field \(\boldsymbol{f}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\).
+\end{definition}
+
+\section{Volume Integrals}
+
+\begin{definition}[Volume Integral]
+  The volume integral of a scalar field \(f: \mathbb{R}^3 \rightarrow \mathbb{R}\) over a 3 -d subregion \(V \subset \mathbb{R}^3\) is
+
+\[
+\int_V f d V=\int_U f(\boldsymbol{x}(u, v, w))\left|\frac{\partial \boldsymbol{x}}{\partial u} \cdot\left(\frac{\partial \boldsymbol{x}}{\partial v} \times \frac{\partial \boldsymbol{x}}{\partial w}\right)\right| d u d v d w,
+\]
+
+where \(U\) is the preimage of \(V\) in \((u, v, w)\) space, for some well-defined coordinates \((u, v, w)\).
+\end{definition}
+
+\begin{remark}
+  The factor \(\left|\frac{\partial \boldsymbol{x}}{\partial u} \cdot\left(\frac{\partial \boldsymbol{x}}{\partial v} \times \frac{\partial \boldsymbol{x}}{\partial w}\right)\right| d u d v d w\) is the volume of a parallelepiped in "real space" corresponding to an infinitesimal cuboid ( \(d u, d v, d w\) ) in ( \(u, v, w\) ) space.
+\end{remark}
+
+\begin{remark}
+  If \((u, v, w)\) are orthogonal curvilinear coordinates, then
+
+\[
+\left|\frac{\partial \boldsymbol{x}}{\partial u} \cdot\left(\frac{\partial \boldsymbol{x}}{\partial v} \times \frac{\partial \boldsymbol{x}}{\partial w}\right)\right|=h_u h_v h_w .
+\]
+\end{remark}
+
+\begin{proof}
+  insert proof here
+\end{proof}
+
+\begin{remark}
+  The factor \(\left|\frac{\partial \boldsymbol{x}}{\partial u} \cdot\left(\frac{\partial \boldsymbol{x}}{\partial v} \times \frac{\partial \boldsymbol{x}}{\partial w}\right)\right|\) is often called the Jacobian (or Jacobian determinant). To see why, note that the scalar triple product may be written
+
+\[
+\frac{\partial \boldsymbol{x}}{\partial u} \cdot\left(\frac{\partial \boldsymbol{x}}{\partial v} \times \frac{\partial \boldsymbol{x}}{\partial w}\right)=\left|\begin{array}{lll}
+\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} & \frac{\partial x}{\partial w} \\
+\frac{\partial y}{\partial u} & \frac{\partial y}{\partial v} & \frac{\partial y}{\partial w} \\
+\frac{\partial z}{\partial u} & \frac{\partial z}{\partial v} & \frac{\partial z}{\partial w}
+\end{array}\right| .
+\]
+
+Compare this to the 2-d case of a flat surface in the \((x, y)\) plane, where we had
+
+\[
+\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right|=\left|\begin{array}{ll}
+\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+\frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+\end{array}\right| .
+\]
+\end{remark}
+
+\begin{method}[Calculating Volume]
+The volume of \(V\) is computed by taking \(f(\boldsymbol{x}) \equiv 1\), giving \(|V|=\int_V d V\).  
+\end{method}
+
+\begin{example}[Let \(V\) be the region bounded by the planes \(x=0, y=0, z=2\) and the surface \(z=x^2+y^2\) for \(x, y \geq 0\). Calculate \(\int_V x d V\).]
+
+First we make a sketch to establish the shape of the region. Note that the surface \(z=x^2+y^2\) is a paraboloid.
+
+Insert Sketch
+
+Clearly this region has cylindrical symmetry, so the integral will be easiest to evaluate in cylindrical coordinates, \(\boldsymbol{x}(r, \theta, z)=r \cos \theta \boldsymbol{e}_1+r \sin \theta \boldsymbol{e}_2+z \boldsymbol{e}_3\).
+
+By Proposition 2.3 the Jacobian is \(\left|\frac{\partial \boldsymbol{x}}{\partial r} \cdot\left(\frac{\partial \boldsymbol{x}}{\partial \theta} \times \frac{\partial \boldsymbol{x}}{\partial z}\right)\right|=h_r h_\theta h_z=r\).
+In our case, the boundaries \(x=0\) and \(y=0\) correspond to \(\theta=0\) and \(\theta=\pi / 2\), respectively. The range in \(r\) depends on the height, with maximum given by \(z=x^2+y^2=r^2\), so that \(r(z) \in[0, \sqrt{z}]\). Therefore we have
+
+\[
+\begin{aligned}
+\int_V x d V & =\int_0^2\left(\int_0^{\pi / 2}\left(\int_0^{\sqrt{z}} x r d r\right) d \theta\right) d z \\
+& =\int_0^2\left(\int_0^{\pi / 2}\left(\int_0^{\sqrt{z}} r^2 \cos \theta d r\right) d \theta\right) d z \\
+& =\int_0^2\left(\int_0^{\pi / 2} \cos \theta\left[\frac{r^3}{3}\right]_0^{\sqrt{z}} d \theta\right) d z \\
+& =\int_0^2 \frac{z^{3 / 2}}{3}\left(\int_0^{\pi / 2} \cos \theta d \theta\right) d z \\
+& =\int_0^2 \frac{z^{3 / 2}}{3}[\sin \theta]_0^{\pi / 2} d z=\int_0^2 \frac{z^{3 / 2}}{3} d z=\frac{2}{15}\left[z^{5 / 2}\right]_0^2=\frac{2}{15} 2^{5 / 2}=\frac{8 \sqrt{2}}{15} .
+\end{aligned}
+\]
+\end{example}
+
+\begin{proposition}
+  The volume integral of a scalar field is independent of the choice of coordinates.
+\end{proposition}
+
+\begin{remark}
+  Occasionally you will come across a vector-valued volume integral, \(\int_V f d V\).
+An example is the centre of mass of a solid body,
+
+\[
+\overline{\boldsymbol{x}}=\frac{\int_V \rho(\boldsymbol{x}) \boldsymbol{x} d V}{\int_V \rho(\boldsymbol{x}) d V}
+\]
+
+where \(\rho(\boldsymbol{x})\) is the distribution of mass density within the body.
+\end{remark}
 

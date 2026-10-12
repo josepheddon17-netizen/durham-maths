@@ -81,3 +81,128 @@ $$(0.100)_2 2^1 = (\frac{1}{8}) \times 2 = 0.25$$
 \begin{definition}[Normalisation]
   We use normalisation, enforcing the requirement $d_1  \neq 0$ to create a unique numbering system and so we assume that our system is \emph{normalised} by default. This is useful as we can represent a larger range of numbers at the loss of equally spaced numbers.
 \end{definition}
+
+\begin{example}
+  Here \(\beta=2\), and there are 52 bits for the fraction, 11 for the exponent, and 1 for the sign. The stored exponent field is \(E=\left(e_1 e_2 \cdots e_{11}\right)_2 \in[0,2047]\), and a normalised number has the value
+
+\[
+\pm\left(1 . d_1 \cdots d_{52}\right)_2 2^{E-1023}= \pm\left(0.1 d_1 \cdots d_{52}\right)_2 2^{E-1022} .
+\]
+
+When \(\beta=2\), the first digit of a normalised number is always 1, so it doesn't need to be stored in memory. The standard's \textbf{exponent bias} is 1023; in the \((0.1 \cdots)_2\) form used in these notes it becomes 1022, so the exponents \(e=E-1022\) lie in the range -1022 to 1025. The two extreme values of the exponent field are reserved: \(E=0\) stores \(\pm 0\) and the subnormal numbers (see below), and \(E=2047\) stores \(\pm \infty\) and NaN ("not a number"). Normalised numbers therefore have exponents from -1021 to 1024.
+\end{example}
+
+\begin{remark}
+  The smallest positive normalised number in this system is \((0.1)_2 2^{-1021} \approx 2.225 \times 10^{-308}\), and the largest number is \((0.1 \cdots 1)_2 2^{1024} \approx 1.798 \times 10^{308}\). In MATLAB, these are returned by realmin and realmax.
+\end{remark}
+
+\begin{definition}[Over and Under Flow]
+  Numbers outside the finite set \(F\) cannot be represented exactly. If a calculation produces a non-zero result that is smaller in absolute value than the smallest normalised number, it is called \textbf{underflow}; IEEE arithmetic first represents such results using subnormal numbers (see below), and results smaller still are rounded to \(\boldsymbol{o}\). If a result is larger in absolute value than the largest number in \(F\), it is called \textbf{overflow}; in IEEE arithmetic (and hence in MATLAB), the result is \(\pm \infty\), so that \(2^*\) realmax returns 'Inf'.
+\end{definition}
+
+\begin{definition}[Rounding]
+  The mapping from \(\mathbb{R}\) to \(F\) is called rounding and denoted \(\operatorname{fl}(x)\). Usually it is simply the nearest number in \(F\) to \(x\). If \(x\) lies exactly midway between two numbers in \(F\), a method of breaking ties is required. The IEEE standard specifies round to nearest even-i.e., take the neighbour with last digit o in the fraction. Ties are then rounded up and down equally often, which avoids statistical bias or prolonged drift in one direction.
+\end{definition}
+
+\section{Significant Figures}
+
+\begin{definition}[Signficant Figures]
+  To count the number of significant figures in a number \(x\), start with the first non-zero digit from the left, and count all the digits thereafter, including final zeros if they are after the decimal point.
+\end{definition}
+
+\section{Rounding Error}
+
+\begin{definition}[Absolute and Relative Errors]
+  If \(x\) is the true value of a number and \(\hat{x}\) is an approximation, we define the absolute error of this approximation as the quantity
+
+\[
+|\hat{x}-x|,
+\]
+
+while the relative error of the approximation is given by
+
+\[
+\frac{|\hat{x}-x|}{|x|},
+\]
+
+assuming \(x \neq 0\).
+\end{definition}
+
+\begin{remark}
+  Relative errors are often more useful because they are scale invariant
+\end{remark}
+
+\begin{definition}[Relative Error in Rounding]
+  If \(|x|\) lies between the smallest non-zero number in \(F\) and the largest number in \(F\), then we can write
+
+\[
+\mathrm{fl}(x)=x(1+\delta), \quad \text { where } \quad \delta=\frac{\operatorname{fl}(x)-x}{x},
+\]
+
+so that \(|\delta|\) is the relative error incurred by rounding.
+\end{definition}
+
+\begin{definition}[Unit Round Off]
+  To bound \(|\delta|\), write \(x=\left(0 . d_1 d_2 \cdots\right)_\beta \beta^e\) with \(d_1 \neq 0\) and \(e \in\left[e_{\min }, e_{\max }\right]\). If \(x \notin F\), this significand will not terminate after \(m\) digits, but rounding changes it by at most \(\frac{1}{2} \beta^{-m}\), so
+
+\[
+|\mathrm{fl}(x)-x| \leq \frac{1}{2} \beta^{-m} \beta^e .
+\]
+
+Since \(d_1 \neq 0\), the significand of \(x\) is at least \((0.1)_\beta=\beta^{-1}\), so \(|x| \geq \beta^{-1} \beta^e\). Therefore
+
+\[
+|\delta|=\frac{|\mathrm{fl}(x)-x|}{|x|} \leq \frac{\frac{1}{2} \beta^{-m} \beta^e}{\beta^{-1} \beta^e}=\frac{1}{2} \beta^{1-m} .
+\]
+
+The number \(\epsilon_{\mathrm{M}}=\frac{1}{2} \beta^{1-m}\) is called the unit roundoff, and is independent of \(x\). So the relative rounding error satisfies
+
+\[
+|\delta| \leq \epsilon_{\mathrm{M}} .
+\]
+\end{definition}
+
+\begin{remark}
+  For \(\circ=+,-, \times, \div\), IEEE standard arithmetic requires correctly rounded operations: the result must be the exact result rounded to \(F\). Provided no overflow or underflow occurs, this means that
+
+\[
+\mathrm{fl}(x \circ y)=(x \circ y)(1+\delta), \quad|\delta| \leq \epsilon_{\mathrm{M}} .
+\]
+\end{remark}
+
+\section{Loss of Significance}
+
+\begin{definition}[Loss of Significance]
+  You might think that the above guarantees the accuracy of calculations to within \(\epsilon_{\mathrm{M}}\), but this is true only if \(x\) and \(y\) are themselves exact. In reality, we are probably starting from \(\bar{x}=x\left(1+\delta_1\right)\) and \(\bar{y}=y\left(1+\delta_2\right)\), with \(\left|\delta_1\right|,\left|\delta_2\right| \leq \epsilon_{\mathrm{M}}\). In that case, there is an error even before we round the result, since
+
+\[
+\begin{aligned}
+\bar{x} \pm \bar{y} & =x\left(1+\delta_1\right) \pm y\left(1+\delta_2\right) \\
+& =(x \pm y)\left(1+\frac{x \delta_1 \pm y \delta_2}{x \pm y}\right) .
+\end{aligned}
+\]
+
+If the correct answer \(x \pm y\) is very small relative to \(|x|\) and \(|y|\) (for example, when subtracting two nearly equal numbers), then there can be an arbitrarily large relative error in the result, compared to the errors in the initial \(\bar{x}\) and \(\bar{y}\). In particular, this relative error can be much larger than \(\epsilon_{\mathrm{M}}\). This is called loss of significance (or catastrophic cancellation), and is a major cause of errors in floating-point calculations.
+\end{definition}
+
+\begin{example}
+  To 4 s.f., the roots are
+
+\[
+x_1=28+\sqrt{783}=55.98, \quad x_2=28-\sqrt{783}=0.01786 .
+\]
+
+However, working to 4 s.f. we would compute \(\sqrt{783}=27.98\), which would lead to the results
+
+\[
+\bar{x}_1=55.98, \quad \bar{x}_2=0.02000 .
+\]
+
+The smaller root is not correct to 4 s.f., because of catastrophic cancellation. One way around this is to note that \(x^2-56 x+1=\left(x-x_1\right)\left(x-x_2\right)\), so the product of the roots equals the constant term: \(x_1 x_2=1\). Computing \(x_2=1 / x_1=1 / 55.98=0.01786\) then gives the correct answer.
+\end{example}
+
+\section{Symbolic Vs Numerical Representations}
+
+Symbolic computations require different data types from numerical ones; in MATLAB we can use the Symbolic Math Toolbox. In the following chapters, we will compare symbolic and numerical approaches to solving mathematical problems. One key difference is that symbolic computations are exact, but much more expensive to scale up to solve larger problems; for example, we will tackle numerical problems involving matrices of size \(10^4 \times 10^4\) or larger, which would not be possible to successfully manipulate symbolically on a modern computer.
+
+Symbolic computations are used to check or do laborious analytical work, but also to rigorously prove mathematical theorems which would be too onerous to carry out by hand. For instance, while the Lorenz equations were first noted to have strange dependencies on initial conditions, it was only in 2002 that this was mathematically proved to be a chaotic system. 

@@ -82,7 +82,31 @@ $$
 \end{proposition}
 
 \begin{proof}
-  Insert proof here
+  If we to take two parametrisations of the same curve : \(\mathbf{x}(t) \) for \(t \in [t_0,t_1]\) and \(\mathbf{x}(\tau) \) for \(\tau \in [\tau_0,\tau_1]\), we can relate their tangent vectors by the chain rule:
+
+  \[
+\frac{d \boldsymbol{x}}{d t}=\frac{d \tau}{d t} \frac{d \boldsymbol{x}}{d \tau} \quad \Longrightarrow\left|\frac{d \boldsymbol{x}}{d t}\right|=\left|\frac{d \tau}{d t}\right|\left|\frac{d \boldsymbol{x}}{d \tau}\right| .
+\]
+
+We now examine two cases, taking \(\frac{d \mathbf{x}}{dt}>0\) in both:
+
+\begin{itemize}
+  \item[Case 1: ] \(\mathbf{x}(\tau_0) = \mathbf{x}(t_0)\), meaning both parametrisations trace the curve in the same direction. Then:
+
+    \[
+\frac{d \tau}{d t}>0 \Longrightarrow \int_{t_0}^{t_1} f(\boldsymbol{x}(t))\left|\frac{d \boldsymbol{x}}{d t}\right| d t=\int_{t_0}^{t_1} f(\boldsymbol{x}(t))\left|\frac{d \boldsymbol{x}}{d \tau}\right| \frac{d \tau}{d t} d t=\int_{\tau_0}^{\tau_1} f(\boldsymbol{x}(\tau))\left|\frac{d \boldsymbol{x}}{d \tau}\right| d \tau .
+\]
+  \item[Case 2: ] \(\mathbf{x}(\tau_0) = \mathbf{x}(t_1)\), meaning the parametrisations trace the curve in opposite directions. Then:
+
+\[
+\frac{d \tau}{d t}<0 \quad \Longrightarrow \int_{t_0}^{t_1} f(\boldsymbol{x}(t))\left|\frac{d \boldsymbol{x}}{d t}\right| d t=\int_{t_0}^{t_1} f(\boldsymbol{x}(t))\left|\frac{d \boldsymbol{x}}{d \tau}\right|\left(-\frac{d \tau}{d t}\right) d t=-\int_{\tau_1}^{\tau_0} f(\boldsymbol{x}(\tau))\left|\frac{d \boldsymbol{x}}{d \tau}\right| d \tau .
+\]
+Once we negate the second integral, both formulas are recovered as identical.
+
+
+
+\end{itemize}
+
 \end{proof}
 
 \begin{definition}[Rectifiable]
