@@ -1,0 +1,623 @@
+\section{Interpolation}
+
+\subsection{Motivation and Taylor Approximation}
+
+Interpolation is the process of constructing a function, usually a polynomial, that passes through a given set of data points. It is useful when a function is known only at finitely many points and we want to estimate its values elsewhere.
+
+\begin{remark}[Taylor Approximation vs Interpolation]
+  Taylor polynomials match the derivatives of a function at a single point. Interpolating polynomials match the values of a function at several distinct points. These are different constructions, and their error formulas are different.
+\end{remark}
+
+\begin{theorem}[Weierstrass Approximation Theorem]
+  If \(f\) is continuous on a closed interval \([a,b]\), then for every \(\varepsilon>0\), there exists a polynomial \(p\) such that
+  \[
+    |f(x)-p(x)|<\varepsilon
+    \qquad \text{for all }x\in[a,b].
+  \]
+\end{theorem}
+
+\begin{remark}
+  The Weierstrass approximation theorem guarantees that a sufficiently accurate polynomial approximation exists. It does not guarantee that interpolating polynomials through arbitrary nodes converge as their degree increases.
+\end{remark}
+
+\subsection{Polynomial Interpolation}
+
+Suppose we are given \(n+1\) distinct nodes
+\[
+  x_0,x_1,\ldots,x_n
+\]
+and corresponding function values
+\[
+  f(x_0),f(x_1),\ldots,f(x_n).
+\]
+We seek a polynomial \(p_n\) of degree at most \(n\) satisfying
+\[
+  p_n(x_i)=f(x_i),
+  \qquad i=0,1,\ldots,n.
+\]
+
+\begin{theorem}[Existence and Uniqueness of the Interpolating Polynomial]
+  Given \(n+1\) distinct nodes and prescribed function values, there exists a unique polynomial of degree at most \(n\) that interpolates the data.
+\end{theorem}
+
+\begin{proof}
+  Write
+  \[
+    p_n(x)=a_0+a_1x+\cdots+a_nx^n.
+  \]
+  The interpolation conditions give the linear system
+  \[
+    \begin{pmatrix}
+      1 & x_0 & \cdots & x_0^n\\
+      1 & x_1 & \cdots & x_1^n\\
+      \vdots & \vdots & \ddots & \vdots\\
+      1 & x_n & \cdots & x_n^n
+    \end{pmatrix}
+    \begin{pmatrix}
+      a_0\\a_1\\\vdots\\a_n
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      f(x_0)\\f(x_1)\\\vdots\\f(x_n)
+    \end{pmatrix}.
+  \]
+  The determinant of the Vandermonde matrix is
+  \[
+    \prod_{0\leq i<j\leq n}(x_j-x_i),
+  \]
+  which is non-zero because the nodes are distinct. Hence the system has a unique solution.
+\end{proof}
+
+\subsection{Lagrange Interpolation}
+
+The Lagrange form constructs the interpolating polynomial directly from the interpolation nodes.
+
+\begin{definition}[Lagrange Basis Polynomials]
+  For distinct nodes \(x_0,\ldots,x_n\), define
+  \[
+    L_i(x)=
+    \prod_{\substack{j=0\\j\neq i}}^n
+    \frac{x-x_j}{x_i-x_j},
+    \qquad i=0,\ldots,n.
+  \]
+  These satisfy
+  \[
+    L_i(x_j)=
+    \begin{cases}
+      1, & i=j,\\
+      0, & i\neq j.
+    \end{cases}
+  \]
+\end{definition}
+
+\begin{theorem}[Lagrange Interpolation Formula]
+  The unique polynomial of degree at most \(n\) interpolating \(f\) at \(x_0,\ldots,x_n\) is
+  \[
+    \boxed{
+      p_n(x)=\sum_{i=0}^n f(x_i)L_i(x).
+    }
+  \]
+\end{theorem}
+
+\begin{example}
+  Find the quadratic interpolating polynomial for
+  \[
+    f(x)=\cos x
+  \]
+  at the nodes
+  \[
+    x_0=-\frac{\pi}{4},\qquad
+    x_1=0,\qquad
+    x_2=\frac{\pi}{4}.
+  \]
+
+  The corresponding function values are
+  \[
+    f(x_0)=\frac{1}{\sqrt{2}},\qquad
+    f(x_1)=1,\qquad
+    f(x_2)=\frac{1}{\sqrt{2}}.
+  \]
+
+  By symmetry, the interpolating polynomial is even, so write
+  \[
+    p_2(x)=1+cx^2.
+  \]
+  Using \(p_2(\pi/4)=1/\sqrt{2}\),
+  \[
+    1+c\frac{\pi^2}{16}=\frac{1}{\sqrt{2}}.
+  \]
+  Therefore,
+  \[
+    \boxed{
+      p_2(x)=1+
+      \frac{16}{\pi^2}
+      \left(\frac{1}{\sqrt{2}}-1\right)x^2.
+    }
+  \]
+\end{example}
+
+\begin{remark}[Practical Use]
+  For hand calculations, the Lagrange formula is often convenient because it gives the polynomial explicitly. For repeated interpolation with changing data, other forms such as Newton interpolation may be more efficient.
+\end{remark}
+
+\subsection{Interpolation Error}
+
+The interpolation polynomial generally differs from the original function between the interpolation nodes.
+
+\begin{theorem}[Lagrange Interpolation Error]
+  Suppose \(f\in C^{n+1}([a,b])\), and let \(p_n\) interpolate \(f\) at the distinct nodes \(x_0,\ldots,x_n\in[a,b]\). For each \(x\in[a,b]\), there exists a point \(\xi_x\in[a,b]\) such that
+  \[
+    \boxed{
+      f(x)-p_n(x)=
+      \frac{f^{(n+1)}(\xi_x)}{(n+1)!}
+      \prod_{i=0}^n(x-x_i).
+    }
+  \]
+\end{theorem}
+
+If
+\[
+  |f^{(n+1)}(x)|\leq M
+  \qquad\text{for all }x\in[a,b],
+\]
+then
+\[
+  \boxed{
+    |f(x)-p_n(x)|
+    \leq
+    \frac{M}{(n+1)!}
+    \left|\prod_{i=0}^n(x-x_i)\right|.
+  }
+\]
+
+\begin{example}
+  Suppose \(f(x)=\cos x\) is interpolated at
+  \[
+    x_0=-\frac{\pi}{4},\qquad
+    x_1=0,\qquad
+    x_2=\frac{\pi}{4}.
+  \]
+  Since
+  \[
+    f^{(3)}(x)=\sin x,
+  \]
+  we have \(|f^{(3)}(x)|\leq 1\). Therefore,
+  \[
+    |f(x)-p_2(x)|
+    \leq
+    \frac{1}{6}
+    \left|
+      \left(x+\frac{\pi}{4}\right)x
+      \left(x-\frac{\pi}{4}\right)
+    \right|.
+  \]
+  On \([-\pi/4,\pi/4]\),
+  \[
+    \left|
+      \left(x+\frac{\pi}{4}\right)x
+      \left(x-\frac{\pi}{4}\right)
+    \right|
+    =
+    \left|x\left(x^2-\frac{\pi^2}{16}\right)\right|.
+  \]
+  A simple, though not necessarily sharp, bound is
+  \[
+    |x|\leq\frac{\pi}{4},
+    \qquad
+    \left|x^2-\frac{\pi^2}{16}\right|
+    \leq\frac{\pi^2}{16}.
+  \]
+  Hence
+  \[
+    \boxed{
+      |f(x)-p_2(x)|\leq\frac{\pi^3}{384}.
+    }
+  \]
+\end{example}
+
+\begin{remark}[How to Use the Error Formula]
+  \begin{enumerate}
+    \item Identify the interpolation degree \(n\).
+    \item Differentiate the function \(n+1\) times.
+    \item Find an upper bound \(M\) for \(|f^{(n+1)}|\) on the interval.
+    \item Bound the product \(\left|\prod_{i=0}^n(x-x_i)\right|\).
+    \item Substitute both bounds into the error estimate.
+  \end{enumerate}
+\end{remark}
+
+\subsection{Runge Phenomenon and Chebyshev Nodes}
+
+Increasing the degree of an interpolating polynomial does not necessarily improve the approximation everywhere.
+
+\begin{remark}[Runge Phenomenon]
+  Interpolation at equally spaced nodes can produce large oscillations near the endpoints as the polynomial degree increases. This behaviour is known as the Runge phenomenon.
+\end{remark}
+
+A common remedy is to choose Chebyshev nodes, which cluster near the endpoints of the interpolation interval.
+
+\begin{definition}[Chebyshev Nodes]
+  The \(n+1\) Chebyshev nodes on \([-1,1]\) are
+  \[
+    \boxed{
+      x_k=\cos\left(\frac{(2k+1)\pi}{2(n+1)}\right),
+      \qquad k=0,\ldots,n.
+    }
+  \]
+\end{definition}
+
+For these nodes, the nodal polynomial satisfies
+\[
+  \boxed{
+    \max_{x\in[-1,1]}
+    \left|\prod_{k=0}^n(x-x_k)\right|
+    =2^{-n}.
+  }
+\]
+
+Consequently, if
+\[
+  |f^{(n+1)}(x)|\leq M
+  \qquad \text{on }[-1,1],
+\]
+then
+\[
+  \boxed{
+    \max_{x\in[-1,1]}|f(x)-p_n(x)|
+    \leq \frac{M}{(n+1)!2^n}.
+  }
+\]
+
+\begin{remark}
+  The error bound depends on both the node locations and the size of the \((n+1)\)-st derivative. Chebyshev nodes control the nodal-product factor, but they do not guarantee small error for every function and every degree.
+\end{remark}
+
+\section{Non-Linear Equations}
+
+\subsection{Problem and Motivation}
+
+We want to find a solution to
+\[
+  f(x)=0.
+\]
+Such a solution is called a root or zero of \(f\).
+
+For many nonlinear functions, an exact solution is unavailable or impractical to calculate. Numerical methods therefore generate a sequence of approximations
+\[
+  x_0,x_1,x_2,\ldots
+\]
+intended to converge to a root \(r\).
+
+Different methods trade off reliability, convergence speed, computational cost and the amount of information required about \(f\).
+
+\subsection{Bisection Method}
+
+The bisection method repeatedly halves an interval known to contain a root.
+
+\begin{theorem}[Bisection Method]
+  Suppose \(f\) is continuous on \([a_0,b_0]\) and
+  \[
+    f(a_0)f(b_0)<0.
+  \]
+  Then \(f\) has at least one root in \((a_0,b_0)\). Repeated bisection produces nested intervals containing a root, with interval lengths tending to zero.
+\end{theorem}
+
+At each iteration, calculate
+\[
+  m_k=\frac{a_k+b_k}{2}.
+\]
+If \(f(m_k)=0\), the root has been found exactly. Otherwise, retain the half-interval on which the function changes sign:
+\[
+  [a_{k+1},b_{k+1}]=
+  \begin{cases}
+    [a_k,m_k], & f(a_k)f(m_k)<0,\\
+    [m_k,b_k], & f(m_k)f(b_k)<0.
+  \end{cases}
+\]
+
+\begin{theorem}[Bisection Error Bound]
+  After \(n\) bisection steps, the interval length is
+  \[
+    b_n-a_n=\frac{b_0-a_0}{2^n}.
+  \]
+  If \(m_n=(a_n+b_n)/2\) is the midpoint of the final interval, then the root \(r\) satisfies
+  \[
+    \boxed{
+      |r-m_n|\leq\frac{b_0-a_0}{2^{n+1}}.
+    }
+  \]
+\end{theorem}
+
+To guarantee midpoint error at most \(\varepsilon\), it is sufficient to choose \(n\) such that
+\[
+  \frac{b_0-a_0}{2^{n+1}}\leq\varepsilon.
+\]
+Equivalently,
+\[
+  \boxed{
+    n\geq
+    \log_2\left(\frac{b_0-a_0}{2\varepsilon}\right).
+  }
+\]
+Round up to the next integer if necessary.
+
+\begin{remark}[Advantages and Disadvantages]
+  \begin{itemize}
+    \item Guaranteed convergence when continuity and a sign-changing initial interval are satisfied.
+    \item The error bound is explicit.
+    \item Convergence is linear, with the interval length halved at every step.
+    \item It does not use derivative information.
+    \item It can be slower than Newton's method or the secant method.
+  \end{itemize}
+\end{remark}
+
+\subsection{Fixed-Point Iteration}
+
+A root-finding problem can sometimes be rewritten in the form
+\[
+  x=g(x).
+\]
+A solution of this equation is called a fixed point of \(g\).
+
+The fixed-point iteration is
+\[
+  \boxed{x_{n+1}=g(x_n).}
+\]
+
+\begin{remark}
+  The choice of rearrangement matters. Different functions \(g\) can have the same fixed point but very different convergence behaviour.
+\end{remark}
+
+\begin{theorem}[Contraction Mapping Theorem]
+  Suppose \(g:[a,b]\to[a,b]\) and there exists a constant \(L<1\) such that
+  \[
+    |g(x)-g(y)|\leq L|x-y|
+    \qquad \text{for all }x,y\in[a,b].
+  \]
+  Then \(g\) has a unique fixed point \(r\in[a,b]\), and the iteration
+  \[
+    x_{n+1}=g(x_n)
+  \]
+  converges to \(r\) for every initial value \(x_0\in[a,b]\).
+\end{theorem}
+
+A useful sufficient condition for contraction is
+\[
+  |g'(x)|\leq L<1
+  \qquad\text{for all }x\in[a,b],
+\]
+provided \(g\) maps \([a,b]\) into itself.
+
+\begin{theorem}[A Priori Error Bound]
+  Under the contraction assumptions,
+  \[
+    \boxed{
+      |x_n-r|\leq
+      \frac{L^n}{1-L}|x_1-x_0|.
+    }
+  \]
+\end{theorem}
+
+\begin{remark}[Local Convergence]
+  If \(g(r)=r\) and \(|g'(r)|<1\), then the fixed point is locally attractive: iterations starting sufficiently close to \(r\) converge to it, provided the iteration remains in a region where the contraction condition holds. This local condition is weaker than requiring a contraction on the entire interval.
+\end{remark}
+
+\subsection{Order of Convergence}
+
+Let \(x_n\to r\), where \(r\) is the exact solution, and define the error
+\[
+  e_n=x_n-r.
+\]
+
+\begin{definition}[Order of Convergence]
+  The sequence \((x_n)\) converges to \(r\) with order \(p\geq1\) if there exists a constant \(C>0\) such that
+  \[
+    \boxed{
+      \lim_{n\to\infty}
+      \frac{|e_{n+1}|}{|e_n|^p}=C.
+    }
+  \]
+  Equivalently, asymptotically,
+  \[
+    |e_{n+1}|\approx C|e_n|^p.
+  \]
+\end{definition}
+
+\begin{itemize}
+  \item \(p=1\): linear convergence.
+  \item \(p>1\): superlinear convergence.
+  \item \(p=2\): quadratic convergence.
+\end{itemize}
+
+\begin{remark}
+  Linear convergence reduces the error by approximately a constant factor per iteration. Quadratic convergence can produce a dramatic reduction in error once the iterates are sufficiently close to the root.
+\end{remark}
+
+\subsection{Newton's Method}
+
+Newton's method uses the tangent line to approximate a nonlinear function near the current iterate.
+
+The tangent line to \(f\) at \(x_n\) is
+\[
+  y=f(x_n)+f'(x_n)(x-x_n).
+\]
+Setting \(y=0\) and solving for \(x\) gives Newton's iteration.
+
+\begin{definition}[Newton's Method]
+  Given an initial guess \(x_0\), define
+  \[
+    \boxed{
+      x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}.
+    }
+  \]
+  The method requires \(f'(x_n)\neq0\) at each iteration.
+\end{definition}
+
+\begin{theorem}[Local Quadratic Convergence of Newton's Method]
+  Suppose \(f(r)=0\), \(f'(r)\neq0\), and \(f\) is sufficiently smooth near \(r\). If \(x_0\) is sufficiently close to \(r\), then Newton's method converges locally to \(r\), with quadratic convergence under the standard regularity assumptions.
+\end{theorem}
+
+For a simple root, the error satisfies asymptotically
+\[
+  \boxed{
+    e_{n+1}\approx
+    \frac{f''(r)}{2f'(r)}e_n^2.
+  }
+\]
+
+\begin{example}
+  Apply Newton's method to solve
+  \[
+    f(x)=x^2-2=0.
+  \]
+  Since \(f'(x)=2x\), the iteration is
+  \[
+    x_{n+1}=x_n-\frac{x_n^2-2}{2x_n}
+    =\frac12\left(x_n+\frac{2}{x_n}\right).
+  \]
+  Starting with \(x_0=1\),
+  \[
+    x_1=1.5,\qquad
+    x_2\approx1.416667,\qquad
+    x_3\approx1.414216.
+  \]
+  The iterates converge to \(\sqrt{2}\).
+\end{example}
+
+\begin{remark}[Advantages and Disadvantages]
+  \begin{itemize}
+    \item Usually very fast near a simple root.
+    \item Has quadratic local convergence under suitable conditions.
+    \item Requires evaluation of the derivative.
+    \item Can fail if \(f'(x_n)=0\) or becomes very small.
+    \item Convergence is not guaranteed for an arbitrary initial guess.
+  \end{itemize}
+\end{remark}
+
+\subsection{Newton's Method for Systems}
+
+For a system of \(m\) nonlinear equations in \(m\) unknowns, write
+\[
+  \mathbf{F}(\mathbf{x})=\mathbf{0},
+\]
+where
+\[
+  \mathbf{x}=
+  \begin{pmatrix}
+    x_1\\\vdots\\x_m
+  \end{pmatrix},
+  \qquad
+  \mathbf{F}(\mathbf{x})=
+  \begin{pmatrix}
+    F_1(\mathbf{x})\\\vdots\\F_m(\mathbf{x})
+  \end{pmatrix}.
+\]
+
+The Jacobian matrix is
+\[
+  J_{\mathbf{F}}(\mathbf{x})=
+  \begin{pmatrix}
+    \dfrac{\partial F_1}{\partial x_1} & \cdots &
+    \dfrac{\partial F_1}{\partial x_m}\\
+    \vdots & \ddots & \vdots\\
+    \dfrac{\partial F_m}{\partial x_1} & \cdots &
+    \dfrac{\partial F_m}{\partial x_m}
+  \end{pmatrix}.
+\]
+
+\begin{definition}[Newton's Method for Systems]
+  At each iteration, solve
+  \[
+    J_{\mathbf{F}}(\mathbf{x}_n)\Delta\mathbf{x}_n
+    =-\mathbf{F}(\mathbf{x}_n)
+  \]
+  for \(\Delta\mathbf{x}_n\), then update
+  \[
+    \boxed{
+      \mathbf{x}_{n+1}=\mathbf{x}_n+\Delta\mathbf{x}_n.
+    }
+  \]
+\end{definition}
+
+\begin{remark}
+  In numerical computation, solve the linear system for \(\Delta\mathbf{x}_n\) rather than explicitly calculating \(J_{\mathbf{F}}(\mathbf{x}_n)^{-1}\). The Jacobian must be nonsingular at the solution for the standard local convergence result to apply.
+\end{remark}
+
+\begin{example}
+  In MATLAB, a Newton step for a system can be implemented as follows:
+  \begin{lstlisting}[language=Matlab]
+  delta = -J(x) \ F(x);
+  x_new = x + delta;
+  \end{lstlisting}
+  Here, \texttt{F(x)} returns the vector of function values and \texttt{J(x)} returns the Jacobian matrix. The backslash operator solves the linear system.
+\end{example}
+
+\subsection{Secant Method}
+
+The secant method approximates the derivative in Newton's method using a finite difference:
+\[
+  f'(x_n)\approx
+  \frac{f(x_n)-f(x_{n-1})}{x_n-x_{n-1}}.
+\]
+
+Substituting this into Newton's iteration gives the secant method.
+
+\begin{definition}[Secant Method]
+  Given two initial approximations \(x_0\) and \(x_1\), define
+  \[
+    \boxed{
+      x_{n+1}
+      =x_n-
+      f(x_n)\frac{x_n-x_{n-1}}{f(x_n)-f(x_{n-1})}.
+    }
+  \]
+  The denominator must be non-zero.
+\end{definition}
+
+\begin{remark}[Convergence]
+  Under suitable regularity assumptions and when the iterates approach a simple root, the secant method has order of convergence
+  \[
+    \boxed{
+      p=\frac{1+\sqrt{5}}{2}\approx1.618.
+    }
+  \]
+  This is superlinear convergence: faster than linear convergence, but slower than the quadratic convergence of Newton's method.
+\end{remark}
+
+\begin{remark}[Advantages and Disadvantages]
+  \begin{itemize}
+    \item Does not require an explicit derivative.
+    \item Often converges faster than bisection.
+    \item Usually has lower derivative-evaluation cost than Newton's method.
+    \item Requires two initial approximations.
+    \item Does not have the same unconditional interval guarantee as bisection.
+  \end{itemize}
+\end{remark}
+
+\subsection{Comparison of Root-Finding Methods}
+
+\begin{center}
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{Method} & \textbf{Derivative} &
+    \textbf{Convergence order} & \textbf{Reliability}\\
+    \hline
+    Bisection & No & Linear & Guaranteed with sign change\\
+    Fixed-point & No & Depends on \(g\) & Depends on contraction\\
+    Newton & Yes & Quadratic locally & Initial guess matters\\
+    Secant & No & \(1.618\) locally & Initial guesses matter\\
+    \hline
+  \end{tabular}
+\end{center}
+
+\subsection{Problem-Solving Checklist}
+
+\begin{remark}[Choosing and Applying a Method]
+  \begin{enumerate}
+    \item \textbf{Bisection:} check continuity and a sign change at the endpoints.
+    \item \textbf{Fixed-point iteration:} rearrange the equation as \(x=g(x)\), then investigate whether \(g\) maps the interval into itself and whether \(|g'(x)|<1\).
+    \item \textbf{Newton's method:} calculate \(f'\), check that the derivative is non-zero at the iterates, and use a suitable initial guess.
+    \item \textbf{Secant method:} use two initial guesses and check that \(f(x_n)-f(x_{n-1})\neq0\).
+    \item \textbf{Error estimates:} identify the theorem's hypotheses before applying its bound.
+    \item \textbf{Convergence order:} distinguish a guaranteed convergence result from a local or asymptotic convergence result.
+  \end{enumerate}
+\end{remark}

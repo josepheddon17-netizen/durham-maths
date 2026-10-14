@@ -1,0 +1,67 @@
+
+\section{Examples of units in rings}
+
+We have seen in the previous section that the units in \(\mathbb{Z}\) are \(\pm 1\) and the units in \(F[x], F\) a field are the non-zero constants, that is, \(F^{\times}\). We now look at examples of units in other rings. If \(R\) is a ring the units \(R^{\times}\)actually form a group under multiplication in \(R\) :
+
+\[
+a, b \in R^{\times} \Longrightarrow a b \in R^{\times}
+\]
+
+because if \(c, d \in R\) are elements such that \(a c=1\) and \(b d=1\), then \((a b)(d c)=1\), so \(a b\) is a unit. Moreover, we have an identity element 1 in the group, the multiplication is associative (because it is so in the ring \(R\) ), and every element in \(R^{\times}\)has an inverse by definition. We will however not need this fact in the ring theory part.
+
+\begin{example}
+
+If \(R=\mathrm{M}_n(F)\) (ring of matrices over a field \(F\) ), then \(R^{\times}=\left\{x \in \mathrm{M}_n(F) \mid \operatorname{det} x \neq 0\right\}\) (by Lin Alg. I). This group is denoted \(\mathrm{GL}_n(F)\) (the General Linear group over \(F\) ).
+
+\end{example}
+
+\begin{proposition}
+  An element \(\bar{a} \in \mathbb{Z} / n\) is a unit iff \(\operatorname{gcd}(a, n)=1\)
+\end{proposition}
+
+\begin{proof}
+  Insert Proof Here
+\end{proof}
+
+\begin{corollary}
+  \(\mathbb{Z} / p\) is a field if and only if \(p\) is a prime.
+\end{corollary}
+
+\begin{proof}
+  insert proof here
+\end{proof}
+
+\section{Zero Divisors and Integral Domains}
+
+\begin{definition}[Zero Divisor]
+  Let \(R\) be a ring. If \(a \in R\) is such that \(a b=0\) for some \(b \neq 0\), then \(a\) is called a zero divisor.
+\end{definition}
+
+\begin{definition}[Integral Domain]
+  Definition 3.5. A ring \(R\) which is commutative, has at least two elements \((0 \neq 1)\), and does not have any zero divisors apart from 0 , is called an integral domain.
+
+The essential property of an integral domain is the multiplicative cancellation property:
+
+\[
+a x=b x \quad \text { and } x \neq 0 \Longrightarrow a=b
+\]
+
+and this holds even if \(x\) is not a unit and you can't divide by it.
+\end{definition}
+
+\begin{lemma}
+  \(\mathbb{Z} / n\) is an integral domain if and only if \(n\) is a prime.
+\end{lemma}
+
+\begin{proof}
+  Insert Proof here
+\end{proof}
+
+\begin{proposition}
+  If \(R\) is an integral domain (e.g., a field), then the ring of polynomials \(R[x]=\) \(\left\{a_0+a_1 x+\cdots+a_n x^n \mid a_i \in R\right\}\) is also an integral domain.
+\end{proposition}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+

@@ -92,7 +92,11 @@ where \(U\) is the preimage of \(S\) in the ( \(u, v\) ) plane.
 \end{proposition}
 
 \begin{proof}
-  Insert proof here
+  Recall that \(\frac{\partial \boldsymbol{x}}{\partial u}=h_u \boldsymbol{e}_u\) and \(\frac{\partial \boldsymbol{x}}{\partial v}=h_v \boldsymbol{e}_v\). Since \(h_u, h_v \geq 0\), we have that
+
+\[
+\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right|=h_u h_v\left|\boldsymbol{e}_u \times \boldsymbol{e}_v\right|=h_u h_v\left| \pm \boldsymbol{e}_w\right|=h_u h_v .
+\]
 \end{proof}
 
 \begin{method}[Calculating Surface Area]
@@ -119,7 +123,35 @@ The surface area is then
 \end{proposition}
 
 \begin{proof}
-  insert proof here
+  Suppose \(\boldsymbol{x}(u, v)\) and \(\boldsymbol{x}(\mu, \nu)\) are two regular parametrisations of the same surface. By the chain rule,
+
+\[
+\frac{\partial \boldsymbol{x}}{\partial u}=\frac{\partial \boldsymbol{x}}{\partial \mu} \frac{\partial \mu}{\partial u}+\frac{\partial \boldsymbol{x}}{\partial \nu} \frac{\partial \nu}{\partial u}, \quad \frac{\partial \boldsymbol{x}}{\partial v}=\frac{\partial \boldsymbol{x}}{\partial \mu} \frac{\partial \mu}{\partial v}+\frac{\partial \boldsymbol{x}}{\partial \nu} \frac{\partial \nu}{\partial v} .
+\]
+
+So
+
+\[
+\begin{aligned}
+\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v} & =\left(\frac{\partial \boldsymbol{x}}{\partial \mu} \frac{\partial \mu}{\partial u}+\frac{\partial \boldsymbol{x}}{\partial \nu} \frac{\partial \nu}{\partial u}\right) \times\left(\frac{\partial \boldsymbol{x}}{\partial \mu} \frac{\partial \mu}{\partial v}+\frac{\partial \boldsymbol{x}}{\partial \nu} \frac{\partial \nu}{\partial v}\right) \\
+& =\left(\frac{\partial \boldsymbol{x}}{\partial \mu} \frac{\partial \mu}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial \nu} \frac{\partial \nu}{\partial v}\right)+\left(\frac{\partial \boldsymbol{x}}{\partial \nu} \frac{\partial \nu}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial \mu} \frac{\partial \mu}{\partial v}\right) \\
+& =\left(\frac{\partial \mu}{\partial u} \frac{\partial \nu}{\partial v}-\frac{\partial \mu}{\partial v} \frac{\partial \nu}{\partial u}\right) \frac{\partial \boldsymbol{x}}{\partial \mu} \times \frac{\partial \boldsymbol{x}}{\partial \nu} .
+\end{aligned}
+\]
+
+This means
+
+\[
+\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right|=|J|\left|\frac{\partial \boldsymbol{x}}{\partial \mu} \times \frac{\partial \boldsymbol{x}}{\partial \nu}\right|,
+\]
+
+where \(J=\frac{\partial \mu}{\partial u} \frac{\partial \nu}{\partial v}-\frac{\partial \mu}{\partial v} \frac{\partial \nu}{\partial u}\) is the Jacobian from Calculus I for the change of variables from \((\mu, \nu)\) to \((u, v)\). Since \(|J| d u d v=d \mu d \nu\), we obtain
+
+\[
+\int_U f(\boldsymbol{x}(u, v))\left|\frac{\partial \boldsymbol{x}}{\partial u} \times \frac{\partial \boldsymbol{x}}{\partial v}\right| d u d v=\int_{U^{\prime}} f(\boldsymbol{x}(\mu, \nu))\left|\frac{\partial \boldsymbol{x}}{\partial \mu} \times \frac{\partial \boldsymbol{x}}{\partial \nu}\right| d \mu d \nu,
+\]
+
+where \(U^{\prime}\) is the corresponding region of the \((\mu, \nu)\) plane.
 \end{proof}
 
 \begin{remark}
@@ -220,16 +252,20 @@ where \(U\) is the preimage of \(V\) in \((u, v, w)\) space, for some well-defin
   The factor \(\left|\frac{\partial \boldsymbol{x}}{\partial u} \cdot\left(\frac{\partial \boldsymbol{x}}{\partial v} \times \frac{\partial \boldsymbol{x}}{\partial w}\right)\right| d u d v d w\) is the volume of a parallelepiped in "real space" corresponding to an infinitesimal cuboid ( \(d u, d v, d w\) ) in ( \(u, v, w\) ) space.
 \end{remark}
 
-\begin{remark}
+\begin{proposition}
   If \((u, v, w)\) are orthogonal curvilinear coordinates, then
 
 \[
 \left|\frac{\partial \boldsymbol{x}}{\partial u} \cdot\left(\frac{\partial \boldsymbol{x}}{\partial v} \times \frac{\partial \boldsymbol{x}}{\partial w}\right)\right|=h_u h_v h_w .
 \]
-\end{remark}
+\end{proposition}
 
 \begin{proof}
-  insert proof here
+  Recall that \(\frac{\partial \boldsymbol{x}}{\partial u}=h_u \boldsymbol{e}_u\), and similarly for the other two tangent vectors. Since \(h_u, h_v, h_w \geq 0\),
+
+\[
+\left|\frac{\partial \boldsymbol{x}}{\partial u} \cdot\left(\frac{\partial \boldsymbol{x}}{\partial v} \times \frac{\partial \boldsymbol{x}}{\partial w}\right)\right|=h_u h_v h_w\left|\boldsymbol{e}_u \cdot\left(\boldsymbol{e}_v \times \boldsymbol{e}_w\right)\right|=h_u h_v h_w\left|\boldsymbol{e}_u \cdot\left( \pm \boldsymbol{e}_u\right)\right|=h_u h_v h_w .
+\]
 \end{proof}
 
 \begin{remark}
@@ -282,6 +318,14 @@ In our case, the boundaries \(x=0\) and \(y=0\) correspond to \(\theta=0\) and \
 \begin{proposition}
   The volume integral of a scalar field is independent of the choice of coordinates.
 \end{proposition}
+
+\begin{proof}
+  This is analogous to our proposition for a surface scalar integral , using the fact that a 3 -d change of variables obeys
+
+\[
+d x d y d z=\left|\frac{\partial \boldsymbol{x}}{\partial u} \cdot\left(\frac{\partial \boldsymbol{x}}{\partial v} \times \frac{\partial \boldsymbol{x}}{\partial w}\right)\right| d u d v d w .
+\]
+\end{proof}
 
 \begin{remark}
   Occasionally you will come across a vector-valued volume integral, \(\int_V f d V\).

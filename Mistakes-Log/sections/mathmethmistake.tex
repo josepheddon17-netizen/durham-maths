@@ -2,117 +2,416 @@
 
 \subsection{Mistakes and Tips}
 
-\begin{mistake}[What actualy is \(f(\mathbf{x}(t))\)?]
+\begin{blackbox}[Scalar Field vs Vector Field]
+  A scalar field assigns a scalar value to each point in space, while a vector field assigns a vector to each point. For example, temperature can be modelled by a scalar field, whereas fluid velocity can be modelled by a vector field.
+\end{blackbox}
 
-\(f(\mathbf{x}(t))\) is a function that acts on the entries for \(\mathbf{x}(t) = (x_1(t),x_2(t),x_3(t))\) of a curve. 
+\begin{blackbox}[Scalar Line Integral vs Vector Line Integral]
+  A scalar line integral accumulates a scalar field along a curve, weighted by arc length:
+  \[
+    \int_C f\,d\ell.
+  \]
+  If $\mathbf{x}(t)$ parametrises the curve for $t\in[a,b]$, then
+  \[
+    \int_C f\,d\ell
+    =\int_a^b f(\mathbf{x}(t))
+      \left|\frac{d\mathbf{x}}{dt}\right|\,dt.
+  \]
+  For example, if $f$ is linear mass density, this integral gives the mass of a wire.
 
+  A vector line integral (also called a work integral or circulation integral) measures the component of a vector field along the direction of travel:
+  \[
+    \int_C \mathbf{F}\cdot\hat{\mathbf{t}}\,d\ell
+    =\int_a^b \mathbf{F}(\mathbf{x}(t))
+      \cdot\frac{d\mathbf{x}}{dt}\,dt.
+  \]
+  Unlike a scalar line integral, a vector line integral depends on the orientation of the curve: reversing the direction reverses its sign.
+\end{blackbox}
+
+\begin{mistake}[What does $f(\mathbf{x}(t))$ mean?]
+  The parametrisation $\mathbf{x}(t)=(x(t),y(t),z(t))$ gives the point on the curve at parameter value $t$. To evaluate a scalar field $f(x,y,z)$ along the curve, substitute
+  $x=x(t)$, $y=y(t)$ and $z=z(t)$, giving $f(\mathbf{x}(t))=f(x(t),y(t),z(t))$. For a vector field, substitute in the same way into each component.
 \end{mistake}
 
-\begin{mistake}[\(\mid \frac{d \mathbf{x}}{dt} \mid \) differs]
-  \(\mid \frac{d \mathbf{x}}{dt} \mid \) is not always a fixed number and may be a function of \(t\) that differs.
+\begin{mistake}[The speed $|\mathbf{x}'(t)|$ may vary]
+  The quantity
+  \[
+    |\mathbf{x}'(t)|=\sqrt{x'(t)^2+y'(t)^2+z'(t)^2}
+  \]
+  is the speed along the parametrised curve. It is generally a function of $t$, not a constant.
 \end{mistake}
 
 \begin{mistake}[Parametrising implicit curves]
-  Sometimes you need to parametrise the function before you can integrate under the scalar field. Make sure to remember your polar coordinates and \textb{draw a diagran} if possible
+  If a curve is not already parametrised, choose a parameter that makes its equations and constraints easy to express. For circular or cylindrical symmetry, consider polar or cylindrical coordinates. Sketching the curve often helps identify the parameter range.
 \end{mistake}
 
-\begin{mistake}[Splitting piecewise smooth curves]
-  When a curve is piecwise smooth, make sure to split it when integrating.
+\begin{mistake}[Splitting piecewise-smooth curves]
+  If a curve consists of multiple smooth pieces, evaluate the integral on each piece and add the results. For vector line integrals, make sure each piece is parametrised in the direction of travel.
 \end{mistake}
 
-\begin{mistake}[Unit tangents and orthonormal]
-  You can always find the unit tangent vectors to a curve but they are not always orthonormal
+\begin{mistake}[Unit tangent vectors and orthonormal bases]
+  A unit tangent vector has magnitude $1$. Unit tangent vectors associated with different coordinate directions are not automatically mutually orthogonal. Check their dot products before treating them as an orthonormal basis.
 \end{mistake}
 
-
-\begin{mistake}['Length of a curve']
-  If it asks for the length of a curve, use arc length
+\begin{mistake}[Length of a curve]
+  If the question asks for the length of a curve, use the arc-length formula
+  \[
+    L=\int_a^b |\mathbf{x}'(t)|\,dt = \int_{t_0}^{t_1} \sqrt{\frac{d\mathbf{x}}{dt} \cdot \frac{d \mathbf{x}}{dt} }\,dt. 
+  \]
 \end{mistake}
 
+\begin{mistake}[Orientation matters for vector line integrals]
+  Reversing the direction of travel changes the sign of $\int_C\mathbf{F}\cdot d\mathbf{x}$, but does not change a scalar line integral $\int_C f\,d\ell$.
+\end{mistake}
 
 \subsection{Methods}
 
-\begin{nmeth}[Evaluating a Scalar Line Integral]\emph{}
-  \begin{enumerate}
-    \item Write $f(\mathbf{x}), \mathbf{x}(t) = (x_1(t),x_2(t),x_3(t))$ and $t \in [t_0,t_1]$
-    \item Find $\frac{d \mathbf{x}}{dt}$ and then take the magnitude (this may not be an integer but a function of $t$)
-    \item Substitute in and integrate
+\begin{nmeth}[Evaluating a Scalar Line Integral]
+  \begin{enumerate} \emph{}
+    \item Parametrise the curve as $\mathbf{x}(t)=(x(t),y(t),z(t))$, for $a\leq t\leq b$.
+    \item Differentiate to find $\mathbf{x}'(t)$.
+    \item Calculate the speed $|\mathbf{x}'(t)|$.
+    \item Substitute the parametrisation into the field to obtain $f(\mathbf{x}(t))$.
+    \item Evaluate
+    \[
+      \int_C f\,d\ell
+      =\int_a^b f(\mathbf{x}(t))|\mathbf{x}'(t)|\,dt.
+    \]
   \end{enumerate}
 \end{nmeth}
 
-
-\begin{nmeth}[Evaluating arc length]\emph{}
-  \begin{enumerate}
-    \item Write $\mathbf{x}(t) = (x_1(t),x_2(t),x_3(t))$
-    \item Find $\frac{d \mathbf{x}}{dt}$
-    \item Perform $\sqrt{\frac{d \mathbf{x}}{dt} \cdot \frac{d \mathbf{x}}{dt}}$
-    \item Use the formula for arclength
+\begin{nmeth}[Evaluating Arc Length]
+  \begin{enumerate} \emph{}
+    \item Parametrise the curve as $\mathbf{x}(t)$, for $a\leq t\leq b$.
+    \item Differentiate to find $\mathbf{x}'(t)$.
+    \item Calculate $|\mathbf{x}'(t)|=\sqrt{\mathbf{x}'(t)\cdot\mathbf{x}'(t)}$.
+    \item Integrate
+    \[
+      L=\int_a^b |\mathbf{x}'(t)|\,dt.
+    \]
   \end{enumerate}
 \end{nmeth}
 
-\begin{nmeth}[Evaluating a Vector Field Line Integral]\emph{}
-  
-\begin{enumerate}
-  \item Sketch $\mathbf{x}(t)$ if possible
-  \item Substitute $\mathbf{x}(t)$ into $\mathbf{F(x)}$ to form $\mathbf{F(x(}t))$
-  \item Find $\frac{d\mathbf{x}}{dt}$
-  \item Perform $\mathbf{F(x(}t)) \cdot \frac{d \mathbf{x}}{dt}$
-  \item Substitute into the formula 
-\end{enumerate}
-
+\begin{nmeth}[Evaluating a Vector Line Integral]
+  \begin{enumerate} \emph{}
+    \item Parametrise the curve in the required direction: $\mathbf{x}(t)$, $a\leq t\leq b$.
+    \item Substitute into the vector field to obtain $\mathbf{F}(\mathbf{x}(t))$.
+    \item Differentiate the curve to find $\mathbf{x}'(t)$.
+    \item Calculate the dot product $\mathbf{F}(\mathbf{x}(t))\cdot\mathbf{x}'(t)$.
+    \item Evaluate
+    \[
+      \int_C\mathbf{F}\cdot d\mathbf{x}
+      =\int_a^b\mathbf{F}(\mathbf{x}(t))\cdot\mathbf{x}'(t)\,dt.
+    \]
+    Do not multiply by $|\mathbf{x}'(t)|$ in this formula: the derivative vector already accounts for direction and parameter speed.
+  \end{enumerate}
 \end{nmeth}
 
-\begin{nmeth}[Finding unit tangent vectors]
-  To find the unit tangent vectors for the coordinate system $\mathbf{x}(u,v,w)$ use the formulas:
-  $$
-\boldsymbol{e}_u=\frac{1}{h_u} \frac{\partial \boldsymbol{x}}{\partial u}, \quad \boldsymbol{e}_v=\frac{1}{h_v} \frac{\partial \boldsymbol{x}}{\partial v}, \quad \boldsymbol{e}_w=\frac{1}{h_w} \frac{\partial \boldsymbol{x}}{\partial w},
-$$
-
-where
-
-$$
-h_u=\left|\frac{\partial \boldsymbol{x}}{\partial u}\right|, \quad h_v=\left|\frac{\partial \boldsymbol{x}}{\partial v}\right|, \quad h_w=\left|\frac{\partial \boldsymbol{x}}{\partial w}\right|
-$$
-
-are called the scale factors.
+\begin{nmeth}[Finding Unit Tangent Vectors in Orthogonal Coordinates]
+  For a coordinate map $\mathbf{x}(u,v,w)$, define the scale factors
+  \[
+    h_u=\left|\frac{\partial\mathbf{x}}{\partial u}\right|,
+    \quad
+    h_v=\left|\frac{\partial\mathbf{x}}{\partial v}\right|,
+    \quad
+    h_w=\left|\frac{\partial\mathbf{x}}{\partial w}\right|.
+  \]
+  The corresponding unit coordinate tangent vectors are
+  \[
+    \mathbf{e}_u=\frac{1}{h_u}\frac{\partial\mathbf{x}}{\partial u},
+    \quad
+    \mathbf{e}_v=\frac{1}{h_v}\frac{\partial\mathbf{x}}{\partial v},
+    \quad
+    \mathbf{e}_w=\frac{1}{h_w}\frac{\partial\mathbf{x}}{\partial w}.
+  \]
+  These formulae apply where the scale factors are nonzero. The coordinate directions are orthogonal only if their tangent vectors are mutually perpendicular.
 \end{nmeth}
 
-\begin{nmeth}[Ensuring an Orthonormal Basis]
-  To check if these unit tangent vectors form an orthonormal basis we will have to ensure that they are all mutually orthogonal.
+\begin{nmeth}[Checking an Orthonormal Basis]
+  Check that each vector has unit magnitude and that distinct vectors are mutually orthogonal:
+  \[
+    |\mathbf{e}_i|=1,\qquad
+    \mathbf{e}_i\cdot\mathbf{e}_j=0\quad(i\ne j).
+  \]
+  If these conditions hold, the vectors form an orthonormal set; in three dimensions, three such vectors form an orthonormal basis.
 \end{nmeth}
 
-\begin{nmeth}[Finding components of field in different coordinate system]
-  \begin{itemize}
-    \item Find $f_x,f_y,f_z$ and re-express them in the coordinate system for $\mathbf{x}(u,v,w)$ using the conversions. $f_x,_y,f_z$ refers to the functions / components along the corresponding axes in this context.
-    \item Find $e_u,e_v,e_w$ using either memorisation or derivation from the formula.
-    \item Follow the general pattern that $f_v = e_v \cdot $ to find all the components.t
-  \end{itemize}
+\begin{nmeth}[Finding Vector Components in an Orthogonal Coordinate System]
+  \begin{enumerate} \emph{}
+    \item Rewrite the Cartesian components and the position in the desired coordinates using the coordinate transformations.
+    \item Find the unit coordinate vectors $\mathbf{e}_u,\mathbf{e}_v,\mathbf{e}_w$.
+    \item Express the field in the orthonormal basis by taking dot products:
+    \[
+      F_u=\mathbf{F}\cdot\mathbf{e}_u,\qquad
+      F_v=\mathbf{F}\cdot\mathbf{e}_v,\qquad
+      F_w=\mathbf{F}\cdot\mathbf{e}_w.
+    \]
+    \item Write $\mathbf{F}=F_u\mathbf{e}_u+F_v\mathbf{e}_v+F_w\mathbf{e}_w$.
+  \end{enumerate}
+  Remember that changing the coordinate expressions of $x,y,z$ is not enough by itself: vector components must be resolved along the new unit coordinate vectors.
 \end{nmeth}
 
 \section{Surface and Volume Integrals}
 
 \subsection{Mistakes and Tips}
 
-\begin{blackbox}[Surface Area vs Surface Integral in a Scalar Field]
-  Surface area will contribute equal weighting from all positions in a scalar field (this being $1$). When finding our surface area, this means we take the integral to be:
+\begin{blackbox}[Scalar Surface Integral vs Vector Surface Integral]
+  A scalar surface integral accumulates a scalar quantity over a surface. For example, if $f$ represents surface mass density, then
+  \[
+    \iint_S f\,dS
+  \]
+  gives the total mass distributed over the surface.
 
-  \[\mid S \mid = \int_S 1 \, dS = \int_{V} \mid \frac{\partial \mathbf{x}}{\partial u} \times \frac{\partial \mathbf{x}}{\partial v}\mid \,du \,dv\]
-
-  When we are operating in a scalar field, each point may have a value other than $1$ given to it by a scalar function. To accumulate all of the weights, we integrate via the function:
-
-  \[\mid S \mid = \int_S f(\mathbf{x}(u,v)\ \, dS = \int_{V} f(\mathbf{x}(u,v)) \mid \frac{\partial \mathbf{x}}{\partial u}\frac{\partial \mathbf{x}}{\partial v}\mid \,du \,dv\]
-
+  A vector surface integral is often used to calculate the flux of a vector field through an oriented surface:
+  \[
+    \iint_S \mathbf{F}\cdot\hat{\mathbf{n}}\,dS.
+  \]
+  The dot product with the unit normal measures the component of the field passing through the surface, rather than the component running parallel to it.
 \end{blackbox}
 
-\begin{blackbox}
-    Volume will contribute equal weighting from all positions in a scalar field (this being $1$). When finding our surface area, this means we take the integral to be:
+\begin{blackbox}[Scalar Volume Integral vs Vector Volume Integral]
+  A scalar volume integral accumulates a scalar quantity throughout a three-dimensional region. For example, if $f$ is a mass density, then
+  \[
+    \iiint_V f\,dV
+  \]
+  gives the total mass within the volume.
 
-  \[\mid V \mid = \int_S 1 \, dS = \int_{V} \mid \frac{\partial \mathbf{x}}{\partial u}\frac{\partial \mathbf{x}}{\partial v}\mid \,du \,dv\]
-
-  When we are operating in a scalar field, each point may have a value other than $1$ given to it by a scalar function. To accumulate all of the weights, we integrate via the function:
-
-  \[\mid S \mid = \int_S f(\mathbf{x}(u,v)\ \, dS = \int_{V} f(\mathbf{x}(u,v)) \mid \frac{\partial \mathbf{x}}{\partial u}\frac{\partial \mathbf{x}}{\partial v}\mid \,du \,dv\]
-
+  A vector volume integral integrates each component of a vector field separately. Its result is a vector, not a scalar:
+  \[
+    \iiint_V \mathbf{F}\,dV
+    =
+    \begin{pmatrix}
+      \iiint_V F_x\,dV\\
+      \iiint_V F_y\,dV\\
+      \iiint_V F_z\,dV
+    \end{pmatrix}.
+  \]
+  This is not flux through the boundary; flux is a surface integral.
 \end{blackbox}
 
+\begin{blackbox}[Surface Area vs Scalar Surface Integral]
+  Surface area is the special case of a scalar surface integral where the integrand is $1$:
+  \[
+    \operatorname{Area}(S)=\iint_S 1\,dS.
+  \]
+  If $\mathbf{x}(u,v)$ parametrises $S$, then
+  \[
+    \operatorname{Area}(S)
+    =\iint_U
+    \left|\frac{\partial\mathbf{x}}{\partial u}
+    \times
+    \frac{\partial\mathbf{x}}{\partial v}\right|\,du\,dv.
+  \]
+  For a general scalar field $f$, use
+  \[
+    \iint_S f\,dS
+    =\iint_U f(\mathbf{x}(u,v))
+    \left|\frac{\partial\mathbf{x}}{\partial u}
+    \times
+    \frac{\partial\mathbf{x}}{\partial v}\right|\,du\,dv.
+  \]
+  The notation $\operatorname{Area}(S)$ should only be used when the integrand is $1$.
 \end{blackbox}
+
+\begin{blackbox}[Volume vs Scalar Volume Integral]
+  The volume of a region is the special case of a scalar volume integral where the integrand is $1$:
+  \[
+    \operatorname{Vol}(V)=\iiint_V 1\,dV.
+  \]
+  Under a coordinate transformation $\mathbf{x}=\mathbf{x}(u,v,w)$,
+  \[
+    \operatorname{Vol}(V)
+    =\iiint_{V'} |J|\,du\,dv\,dw,
+  \]
+  whereas a general scalar volume integral is
+  \[
+    \iiint_V f(\mathbf{x})\,dV
+    =\iiint_{V'} f(\mathbf{x}(u,v,w))|J|\,du\,dv\,dw.
+  \]
+  In Cartesian coordinates, $|J|=1$. The integrand is still $f(x,y,z)$ for a general scalar volume integral; use $1$ only when calculating the volume itself.
+\end{blackbox}
+
+\begin{blackbox}[Conceptual Understanding of Flux]
+  Flux measures the net amount of a vector field passing through an oriented surface:
+  \[
+    \iint_S \mathbf{F}\cdot\hat{\mathbf{n}}\,dS.
+  \]
+  The dot product selects the component of $\mathbf{F}$ in the normal direction. A field tangent to the surface contributes zero flux at that point. Reversing the normal reverses the sign of the flux.
+\end{blackbox}
+
+\begin{blackbox}[The 3D Jacobian]
+  For a coordinate transformation $\mathbf{x}=\mathbf{x}(u,v,w)$,
+  \[
+    J=\frac{\partial(x,y,z)}{\partial(u,v,w)}
+    =\det\begin{pmatrix}
+      x_u & x_v & x_w\\
+      y_u & y_v & y_w\\
+      z_u & z_v & z_w
+    \end{pmatrix}
+    =\mathbf{x}_u\cdot(\mathbf{x}_v\times\mathbf{x}_w).
+  \]
+  The absolute value $|J|$ is the local volume-scaling factor:
+  \[
+    dV=|J|\,du\,dv\,dw.
+  \]
+  In Cartesian coordinates the Jacobian determinant is $1$. In a general transformation it need not be $1$.
+\end{blackbox}
+
+\begin{mistake}[Do not always parametrise the whole surface at once]
+  A surface such as a cube is piecewise smooth. Split it into its faces, calculate the contribution from each face, and add the results. For flux, ensure each face's normal has the required orientation.
+\end{mistake}
+
+\begin{mistake}[Distinguish the normal vector from its magnitude]
+  For a parametrised surface, $\mathbf{x}_u\times\mathbf{x}_v$ is a normal area vector. Its magnitude gives the surface-area scaling, while its direction gives the orientation. Do not replace this vector by its magnitude in a flux integral.
+\end{mistake}
+
+\begin{mistake}[Number of parameters]
+  A surface is generally parametrised by two parameters, while a three-dimensional volume is generally described using three coordinates or parameters.
+\end{mistake}
+
+\begin{mistake}[Choose coordinates to simplify the region]
+  Use Cartesian coordinates for regions bounded simply by planes or coordinate-aligned surfaces; cylindrical coordinates for circular symmetry or expressions involving $x^2+y^2$; and spherical coordinates for spheres and radial symmetry. Always sketch the region and check the bounds after changing coordinates.
+\end{mistake}
+
+\begin{blackbox}[Standard Volume Elements]
+  \begin{itemize}
+    \item \textbf{Cartesian:}
+    \[
+      dV=dx\,dy\,dz.
+    \]
+    \item \textbf{Cylindrical:} $x=r\cos\theta$, $y=r\sin\theta$,
+    \[
+      dV=r\,dr\,d\theta\,dz.
+    \]
+    \item \textbf{Spherical:} using $\theta$ for the angle from the positive $z$-axis and $\phi$ for azimuth,
+    \[
+      dV=r^2\sin\theta\,dr\,d\theta\,d\phi.
+    \]
+  \end{itemize}
+  Check your lecture's spherical-coordinate convention, since some courses interchange $\theta$ and $\phi$.
+\end{blackbox}
+
+\subsection{Methods}
+
+\begin{nmeth}[Systematically Finding Limits for a Volume Integral]
+  \begin{enumerate}\emph{}
+    \item Sketch the region and identify its bounding surfaces.
+    \item Choose an order of integration, for example $dz\,dy\,dx$.
+    \item Find the lower and upper bounds for the innermost variable.
+    \item Project the region onto the plane of the two remaining variables and determine their bounds.
+    \item Translate the bounds into the chosen coordinate system.
+    \item If one set of bounds cannot describe the region, split it into simpler regions and add the integrals.
+  \end{enumerate}
+\end{nmeth}
+
+\begin{nmeth}[Evaluating Surface Area]
+  \begin{enumerate} \emph{}
+    \item Parametrise the surface as $\mathbf{x}(u,v)$ over a parameter domain $U$.
+    \item Calculate $\mathbf{x}_u$ and $\mathbf{x}_v$.
+    \item Calculate the magnitude $|\mathbf{x}_u\times\mathbf{x}_v|$.
+    \item Evaluate
+    \[
+      \operatorname{Area}(S)=\iint_U
+      |\mathbf{x}_u\times\mathbf{x}_v|\,du\,dv.
+    \]
+    \item For a piecewise-smooth surface, calculate the area of each piece and add them.
+  \end{enumerate}
+\end{nmeth}
+
+\begin{nmeth}[Evaluating a Scalar Surface Integral]
+  \begin{enumerate}\emph{}
+
+    \item Sketch or identify the surface and its parameter domain.
+    \item Parametrise the surface as $\mathbf{x}(u,v)$, or split a piecewise-smooth surface into faces.
+    \item Calculate $\mathbf{x}_u$, $\mathbf{x}_v$ and $|\mathbf{x}_u\times\mathbf{x}_v|$.
+    \item Substitute the parametrisation into the scalar field and evaluate
+    \[
+      \iint_S f\,dS
+      =\iint_U f(\mathbf{x}(u,v))
+      |\mathbf{x}_u\times\mathbf{x}_v|\,du\,dv.
+    \]
+    \item If the surface has multiple pieces, add the integral over each piece.
+  \end{enumerate}
+\end{nmeth}
+
+\begin{nmeth}[Evaluating Flux Through a Parametrised Surface]
+  \begin{enumerate}\emph{}
+
+    \item Parametrise the surface as $\mathbf{x}(u,v)$ over $U$.
+    \item Calculate $\mathbf{x}_u\times\mathbf{x}_v$.
+    \item Check the direction of this normal area vector. If it points opposite to the required orientation, reverse its sign.
+    \item Substitute $\mathbf{x}(u,v)$ into the vector field $\mathbf{F}$.
+    \item Take the dot product with the \emph{vector} normal area element and integrate:
+    \[
+      \iint_S \mathbf{F}\cdot\hat{\mathbf{n}}\,dS
+      =\iint_U \mathbf{F}(\mathbf{x}(u,v))
+      \cdot(\mathbf{x}_u\times\mathbf{x}_v)\,du\,dv.
+    \]
+    \item For a piecewise-smooth surface, sum the flux through all pieces using the required orientation on each.
+  \end{enumerate}
+\end{nmeth}
+
+\begin{nmeth}[Surface Given as a Graph $z=g(x,y)$]
+  For the upward orientation, parametrise the graph by
+  $\mathbf{x}(x,y)=(x,y,g(x,y))$. Then
+  \[
+    \mathbf{x}_x\times\mathbf{x}_y=(-g_x,-g_y,1).
+  \]
+  Hence, for a scalar field,
+  \[
+    \iint_S f\,dS
+    =\iint_D f(x,y,g(x,y))
+    \sqrt{1+g_x^2+g_y^2}\,dx\,dy,
+  \]
+  and for flux,
+  \[
+    \iint_S \mathbf{F}\cdot\hat{\mathbf{n}}\,dS
+    =\iint_D \mathbf{F}(x,y,g(x,y))
+    \cdot(-g_x,-g_y,1)\,dx\,dy.
+  \]
+  For downward orientation, reverse the sign of the normal vector in the flux formula.
+\end{nmeth}
+
+\begin{nmeth}[Finding the Volume of a Region]
+  \begin{enumerate}\emph{}
+
+    \item Sketch the region and determine the integration limits.
+    \item Choose Cartesian, cylindrical, spherical, or another suitable coordinate system.
+    \item Use the corresponding volume element, including its Jacobian:
+    \[
+      \operatorname{Vol}(V)=\iiint_{V'} |J|\,du\,dv\,dw.
+    \]
+    \item Integrate over the transformed region $V'$.
+  \end{enumerate}
+\end{nmeth}
+
+\begin{nmeth}[Evaluating a Scalar Volume Integral]
+  \begin{enumerate}\emph{}
+
+    \item Sketch the region and determine the limits of integration.
+    \item Choose coordinates that simplify the integrand or the region.
+    \item Rewrite the field in the new coordinates and calculate the absolute Jacobian $|J|$.
+    \item Evaluate
+    \[
+      \iiint_V f(x,y,z)\,dV
+      =\iiint_{V'} f(\mathbf{x}(u,v,w))|J|\,du\,dv\,dw.
+    \]
+    \item In Cartesian coordinates, $|J|=1$; do not replace $f$ by $1$ unless you are calculating the volume itself.
+  \end{enumerate}
+\end{nmeth}
+
+\begin{nmeth}[Evaluating a Vector Volume Integral]
+  If $\mathbf{F}=(F_x,F_y,F_z)$, integrate each component separately:
+  \[
+    \iiint_V \mathbf{F}\,dV
+    =
+    \begin{pmatrix}
+      \iiint_V F_x\,dV\\
+      \iiint_V F_y\,dV\\
+      \iiint_V F_z\,dV
+    \end{pmatrix}.
+  \]
+  Use the same region, limits and volume element for all three components. Under a coordinate transformation, include the absolute Jacobian $|J|$ in each component integral.
+\end{nmeth}
+
+

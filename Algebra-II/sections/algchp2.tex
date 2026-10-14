@@ -164,3 +164,161 @@ Thus \(q(x)=x-2\) and \(r(x)=x+1\). Think of \(q(x)\) as the "quotient" and \(r(
 
 
 \section{GCD's and the Euclidean Algorithm in \(F[x]\)}
+
+
+\begin{definition}[Monic Polynomial]
+  A polynomial in \(F[x]\) is said to be monic if its leading coefficient is 1 .
+\end{definition}
+
+\begin{definition}[GCD for Polynomials]
+Let \(f(x), g(x) \in F[x]\) with either \(f(x) \neq 0\) or \(g(x) \neq 0\). A greatest common divisor (GCD) of \(f(x)\) and \(g(x)\) is a polynomial of highest degree that divides both \(f(x)\) and \(g(x)\).
+\end{definition}
+
+\begin{example}
+  Example 2.11. Let \(f(x)=x^2+1\) and \(g(x)=x^2+3 x+1\) in \(\mathbb{Q}[x]\). We perform the Euclidean algorithm to find a \(\operatorname{gcd}(f(x), g(x))\). Long division of \(f(x)\) by \(g(x)\) :
+
+
+\begin{centering}
+
+  \begin{tabular}[h!]{|l|l|l|}
+\hline & 1 & \multirow{3}{*}{so \(f(x)=g(x)-3 x\)} \\
+\hline \(x^2+3 x+1\) & \(x^2+1\) \(-\left(x^2+3 x+1\right)\) & \\
+\hline & \(-3 x\) & \\
+\hline
+\end{tabular}
+
+\end{centering}
+
+Next, divide the divisor \(g(x)\) by the remainder \(-3 x\) :
+
+\begin{centering}
+  \begin{tabular}[h!]{|l|l|l|}
+\hline & \(-\frac{1}{3} x+1\) & \multirow{3}{*}{so \(g(x)=\left(-\frac{1}{3} x+1\right)(-3 x)+1\)} \\
+\hline \(-3 x\) & \[
+\begin{gathered}
+x^2+3 x+1 \\
+-\left(x^2+1\right)
+\end{gathered}
+\] & \\
+\hline & 1 & \\
+\hline
+\end{tabular}
+
+\end{centering}
+
+
+`
+Next, divide the divisor \(-3 x\) from the previous step by the remainder 1: This obviously just gives
+
+\[
+-3 x=(-3 x) \times 1+0 .
+\]
+
+Now the remainder is 0 , so we stop. A GCD of \(f(x)\) and \(g(x)\) is given by the last non-zero remainder: 1.
+
+Important for later: We can use this to write 1 as a linear combination of \(f(x)\) and \(g(x)\) :
+
+\[
+\begin{aligned}
+1 & =g(x)-\left(-\frac{1}{3} x-1\right)(-3 x) \\
+& =g(x)+\left(\frac{1}{3} x+1\right)(f(x)-g(x)) \\
+& =\left(\frac{1}{3} x+1\right) f(x)-\frac{1}{3} x g(x) .
+\end{aligned}
+\]
+
+
+\end{example}
+
+\begin{definition}[Degree Function]
+  Define the degree function \(d: R \backslash\{0\} \rightarrow \mathbb{N}\) by
+
+\[
+d(a):= \begin{cases}|a| & \text { if } a \in \mathbb{Z}, \\ \operatorname{deg} a & \text { if } a \in F[x] .\end{cases}
+\]
+
+For \(0 \in \mathbb{Z},|0|=0 \notin \mathbb{N}\) and for \(0 \in F[x], \operatorname{deg} 0=-\infty \notin \mathbb{N}\), which is why the domain of the function \(d\) is \(R \backslash\{0\}\), rather than \(R\)
+\end{definition}
+
+\begin{proposition}
+  Let \(R\) be either \(\mathbb{Z}\) or \(F[x]\). Then, for any \(a, b \in R, b \neq 0\), there exist \(q, r \in R\) such that
+
+\[
+\begin{equation*}
+a=q \cdot b+r, \quad r=0 \quad \text { or } \quad d(r)<d(b) \text {. } \tag{*}
+\end{equation*}
+\]
+\end{proposition}
+
+\begin{remark}
+  The use of the degree function is to generalise the definition of the Euclidean algorithm for both polynomials and integer rings. This is to carefully define the inequalitiy in the definition.
+\end{remark}
+
+\begin{lemma}
+  Let \(R\) be either \(\mathbb{Z}\) or \(F[x]\). If \(a, b \in R\) are such that \(a \mid b\), then \(d(a) \leq d(b)\).
+\end{lemma}
+
+\begin{proof}
+  Suppose that \(a \mid b\), that is, \(b=a m\), for some \(m \in R\). Then \(d(b)=d(a m)=|a| \cdot|m| \geq|a|\) when \(R=\mathbb{Z}\) and \(d(b)=d(a m)=\operatorname{deg} a+\operatorname{deg}(m) \geq \operatorname{deg} a=d(a)\) when \(R=F[x]\).
+\end{proof}
+
+\begin{theorem}[Euclidean Algorithm - More Generally]
+  
+Let \(R\) be either \(\mathbb{Z}\) or \(F[x], F\) a field and let \(a, b \in R\) such that \(a \neq 0\) or \(b \neq 0\). Then
+\begin{itemize}
+\item[i)] A GCD of \(a\) and \(b\) exists and can be computed by the Euclidean algorithm (given in the proof);
+\item[ii)] If \(R=F[x]\), the monic GCD is unique and we denote it by \(\operatorname{gcd}(a, b)\);
+\item[iii)] If \(d\) is a GCD of \(a\) and \(b\), then there exist \(\alpha, \beta \in R\) such that \(\alpha a+\beta b=d\).
+\end{itemize}
+
+\end{theorem}
+
+\begin{proof}
+  insert proof here
+\end{proof} 
+
+\section{Units and Irreducibles, unique factorisation}
+
+\begin{definition}[Invertible / Unit]
+  Let \(R\) be a ring. An element \(a \in R\) is said to be invertible or a unit in \(R\) if there exists a \(b \in R\) such that \(a b=b a=1\) ( \(b\) is then the inverse of \(a\) and we write \(b=a^{-1}\) ). The set of units in \(R\) is denoted \(R^{\times}\).
+\end{definition}
+
+\begin{example}
+  
+  \begin{itemize}\emph{}
+
+
+  \item[-] If \(a\) is a unit, then its inverse is unique: \(a b=1=a c=c a \Rightarrow c a b=c \Rightarrow b=c\).
+\item[-] The units in \(\mathbb{Z}\) are \(\pm 1\) : if \(a \in \mathbb{Z}\) is a unit and \(a b=1\), then \(a \mid 1\).
+\item[-] The units in \(F[x], F\) a field, are just the units in \(F\), that is, the non-zero constants. Proof: \(a(x) \in F[x]\) is a unit with \(a(x) b(x)=1\), for some \(b(x) \in F[x]\), then \(\operatorname{deg} a+\operatorname{deg} b=\operatorname{deg} 1=0\), and since \(\operatorname{deg} a, \operatorname{deg} b \geq 0\), we must have \(\operatorname{deg} a=\operatorname{deg} b=0\), which means that \(a\) (and \(b\) ) are non-zero constant polynomials.
+\end{itemize}
+\end{example}
+
+\begin{definition}[Irreducible Polynomial]
+A polynomial \(f(x) \in F[x]\) is irreducible if it is non-constant and does not have a proper factorisation, that is, \(f(x)\) cannot be written as \(f(x)=g(x) h(x)\) with \(\operatorname{deg} g>0\) and \(\operatorname{deg} h>0\). We generalise this definition to one that also captures the primes in \(\mathbb{Z}\).
+\end{definition}
+
+\begin{definition}[Irreducible Element of a Ring]
+  Let \(R\) be a ring. An element \(r \in R\) is called irreducible if is satisfies
+\begin{itemize}
+\item[-] \(r\) is not a unit;
+\item[-] If \(r=a b\), for some \(a, b \in R\), then \(a\) or \(b\) is a unit.
+\end{itemize}
+\end{definition}
+
+\begin{lemma}[Generalised prime statement]
+  Let \(R\) be either \(\mathbb{Z}\) or \(F[x], F\) a field. If \(p \in R\) is irreducible and \(p \mid\) ab for some \(a, b \in R\), then either \(p \mid a\) or \(p \mid b\).
+\end{lemma}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+\begin{theorem}
+ Let \(R\) be either \(\mathbb{Z}\) or \(F[x], F\) a field and let \(a \in R\) be a non-zero non-unit. Then a can be factorised uniquely into a product of irreducible elements, up to order of the factors and multiplication by invertible elements. 
+\end{theorem}
+
+\begin{proof}
+  Insert proof here
+\end{proof} 
+
+
