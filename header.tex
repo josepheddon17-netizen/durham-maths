@@ -242,6 +242,14 @@ right=17pt
 \definecolor{durhamplum}{RGB}{105,55,100}
 
 
+% Proof idea — soft green
+\definecolor{proofideabg}{RGB}{230,242,232}
+\definecolor{proofideaborder}{RGB}{55,115,75}
+
+% Formal proof — neutral background
+\definecolor{formalproofbg}{RGB}{245,245,248}
+\definecolor{formalproofborder}{RGB}{100,100,115}
+
 % ------------------------------------------------------------
 % Box background colours
 % ------------------------------------------------------------
@@ -437,6 +445,42 @@ right=17pt
     innerrightmargin=8pt,
 }
 
+
+% ============================================================
+% Proof Idea and Formal Proof
+% ============================================================
+
+\mdfdefinestyle{proofideastyle}{
+    backgroundcolor=proofideabg,
+    linecolor=proofideaborder,
+    linewidth=1.0pt,
+    roundcorner=4pt,
+    skipabove=8pt,
+    skipbelow=8pt,
+    innertopmargin=7pt,
+    innerbottommargin=7pt,
+    innerleftmargin=8pt,
+    innerrightmargin=8pt,
+    nobreak=false,
+    splittopskip=10pt,
+    splitbottomskip=10pt,
+}
+
+\mdfdefinestyle{formalproofstyle}{
+    backgroundcolor=formalproofbg,
+    linecolor=formalproofborder,
+    linewidth=1.0pt,
+    roundcorner=4pt,
+    skipabove=8pt,
+    skipbelow=8pt,
+    innertopmargin=7pt,
+    innerbottommargin=7pt,
+    innerleftmargin=8pt,
+    innerrightmargin=8pt,
+    nobreak=false,
+    splittopskip=10pt,
+    splitbottomskip=10pt,
+}
 
 
 % Callout environments
@@ -640,6 +684,33 @@ Mistake%
 \end{mdframed}%
 }
 
+% ============================================================
+% Proof Idea + Formal Proof Environment
+% ============================================================
+
+\newenvironment{proofidea}
+{%
+    \par\addvspace{6pt}
+    \begin{mdframed}[style=proofideastyle]
+    \textbf{\color{proofideaborder}Main Idea / Strategy}
+    \par\vspace{4pt}
+}
+{%
+    \end{mdframed}
+}
+
+\newenvironment{formalproof}
+{%
+    \begin{mdframed}[style=formalproofstyle]
+    \textbf{\color{formalproofborder}Formal Proof}
+    \par\vspace{4pt}
+    \pushQED{\qed}
+}
+{%
+    \popQED
+    \end{mdframed}
+}
+
 % ------------------------------------------------------------
 % Unboxed numbered environments
 % ------------------------------------------------------------
@@ -649,6 +720,7 @@ Mistake%
 \newtheorem{example}[genericthm]{Example}
 \newtheorem{remark}[genericthm]{Remark}
 \newtheorem{notation}[genericthm]{Notation}
+
 
 
 % ------------------------------------------------------------

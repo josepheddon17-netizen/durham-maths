@@ -102,3 +102,687 @@
 
 \end{method}
 
+
+\section{Arithmetic in \(\mathbb{Z}\) and \(F[x]\)}
+
+\subsection{Mistakes}
+
+\begin{blackbox}[Defining the GCD]
+  Other than the algorithm, we need to actually categorise the greatest common divisor (GCD) by its properties. From this, we can produce a definition for the GCD
+
+\begin{definition}[GCD via conditions]
+  
+The \(\operatorname{gcd}(a, b)\) is the unique number \(d \in \mathbb{N}_0\), such that the following two conditions hold:
+\begin{itemize}
+\item[i.] \(d\) is a common divisor of \(a\) and \(b\);
+\item[ii.] \(d\) is divisible by any common divisor of \(a\) and \(b\).
+\end{itemize}
+This number can be determined using the Euclidean Algorithm.
+
+\end{definition}
+
+
+This number can also be defined according to the prime factorisation of any number:
+
+\begin{definition}[GCD via formula]
+  Let \(a, b \in \mathbb{N}\) have prime factorisations
+
+\[
+a=p_1^{e_1} \cdots p_r^{e_r}, \quad b=q_1^{f_1} \cdots q_s^{f_s} .
+\]
+
+Assume that \(r \leq s\) and order the prime factors so that \(p_i=q_i\) for \(1 \leq i \leq k\), for some \(0 \leq k \leq r\) and \(p_i \neq q_j\) for all \(i, j>k\) (note that \(k=0\) precisely when \(p_i \neq q_j\) for all \(i, j\) ). Show that
+
+\[
+\operatorname{gcd}(a, b)=\prod_{i=1}^k p_i^{\min \left\{e_i, f_i\right\}}
+\]
+
+(when \(k=0\) this is the "empty product" 1).
+\end{definition}
+
+\end{blackbox}
+
+\begin{mistake}[Determining a common divisor]
+  We know that \(n\) is a common divisor of \(a\) and \(b\) if \(n \mid \operatorname{gcd}(a,b)\) and vice versa
+\end{mistake}
+
+\begin{mistake}[GCD squared result]
+ \[
+\operatorname{gcd}(a, b)^2=\operatorname{gcd}\left(a^2, b^2\right) .
+\] 
+\end{mistake}
+
+\begin{mistake}[Coprime Meaning]
+  Numbers are coprime if \(\operatorname{gcd}(a,b) = 1\)
+\end{mistake}
+
+\begin{mistake}[Bezout's Identity]
+  Bézout's identity states that, for integers \(a, b\), there exist \(x, y \in \mathbb{Z}\) such that
+
+\[
+\operatorname{gcd}(a, b)=a x+b y .
+\]
+
+In particular, if \(\operatorname{gcd}(a, b)=1\), then
+
+\[
+a x+b y=1
+\]
+
+for some integers \(x, y\).
+\end{mistake}
+
+\begin{mistake}[Key Number Properties]
+\textbf{Basic divisibility properties}
+\begin{itemize}
+    \item If $c\mid a$, then $c\mid ab$ for any $b\in\mathbb Z$.
+    \item If $c\mid a$ and $c\mid b$, then
+    $c\mid ma+nb$ for any $m,n\in\mathbb Z$.
+    \item If $a\mid b$ and $b\mid c$, then $a\mid c$.
+    \item If $a\mid b$ and $b\mid a$, then $a=\pm b$.
+    \item If $a\mid b$ and $a\mid c$, then $a\mid(b\pm c)$.
+    \item If $a\mid b$, then $a\mid(b+ka)$ for any $k\in\mathbb Z$.
+    \item If $a\mid b$, then $a\mid -b$ and $-a\mid b$.
+\end{itemize}
+
+\textbf{Zero and units}
+\begin{itemize}
+    \item If $a\neq0$, then $a\mid0$.
+    \item For every $a\in\mathbb Z$, $1\mid a$ and $-1\mid a$.
+    \item If $a\mid1$, then $a=\pm1$.
+    \item $0\mid a$ if and only if $a=0$.
+    \item If $a\mid b$, $a\neq0$ and $b\neq0$, then $|a|\leq|b|$.
+\end{itemize}
+
+\textbf{Products and powers}
+\begin{itemize}
+    \item If $a\mid b$ and $c\mid d$, then $ac\mid bd$.
+    \item If $a\mid b$, then $a^k\mid b^k$ for every integer $k\geq1$.
+    \item If $a\mid b$, then $a\mid bc$ for any $c\in\mathbb Z$.
+\end{itemize}
+
+\textbf{Cancellation and coprimality}
+\begin{itemize}
+    \item If $ac\mid bc$ and $c\neq0$, then $a\mid b$.
+    \item If $a\mid bc$ and $\gcd(a,b)=1$, then $a\mid c$.
+    \item that If \(\operatorname{gcd}(a,b) = 1\) and \(m \mid a\) and \(n \mid a\), for some integer \(a\), then \(mn \mid a\)
+    \item If $\gcd(a,b)=1$ and $a\mid b$, then $a=\pm1$.
+    \item $\gcd(a,b)=1$ if and only if there exist
+    $m,n\in\mathbb Z$ such that $ma+nb=1$.
+    \item If $\gcd(a,b)=1$, then
+    $\gcd(a,bc)=\gcd(a,c)$.
+    \item If $\gcd(a,b)=1$, $a\mid c$ and $b\mid c$,
+    then $|ab|\mid c$.
+\end{itemize}
+
+\textbf{Greatest common divisor (GCD)}
+\begin{itemize}
+    \item $\gcd(a,b)\mid a$ and $\gcd(a,b)\mid b$.
+    \item If $d\mid a$ and $d\mid b$, then $d\mid\gcd(a,b)$.
+    \item $\gcd(a,b)=\gcd(b,a)$.
+    \item $\gcd(a,b)=\gcd(|a|,|b|)$.
+    \item $\gcd(a,0)=|a|$.
+    \item $\gcd(a,b)=\gcd(a,b-ka)$ for any $k\in\mathbb Z$.
+    \item $\gcd(ka,kb)=|k|\gcd(a,b)$ for any $k\in\mathbb Z$.
+    \item \(\operatorname{gcd}\left(\frac{m}{\operatorname{gcd}(m, n)}, \frac{n}{\operatorname{gcd}(m, n)}\right)=1\).
+    \item Let \(a, b, n \in \mathbb{N}\) and let \(d\) be a common divisor of \(a\) and \(b\). Show that if \(a \equiv b\) \((\bmod n)\), then
+
+\[
+\frac{a}{d} \equiv \frac{b}{d} \quad(\bmod n / \operatorname{gcd}(d, n)) .
+\]
+\end{itemize}  
+\end{mistake}
+
+\begin{mistake}[The GCD of three or more integers]
+  We can define the gcd of three or more integers: If \(a_1, \ldots, a_k \in \mathbb{Z}\), define \(\operatorname{gcd}\left(a_1, \ldots, a_k\right)\) to be the largest integer \(d\) such that \(d \mid a_i\), for all \(1 \leq i \leq k\).
+\end{mistake}
+
+\begin{mistake}[GCD and primes]
+  A common divisor cannot contain any prime power with an exponent greater than the exponent available in either number. The gcd takes the largest possible exponent for each prime, independently.
+\end{mistake}
+
+\begin{mistake}[Proving a gcd identity by comparing prime exponents]
+  Operations on \(\operatorname{gcd}\) can sometimes be quicker with the prime characterisation
+\end{mistake}
+
+\begin{mistake}[What is what in Euclidean algorithm for polynomials]
+  When we do the Euclidean algorithm on a polynomial, the polynomial we are dividng by when we produce a 0 in the long division remainder is our \(\operatornam{gcd}\). In general, we have the remainder being the term we can't get rid of, the divisor being the polynomial 'waiting outside the bus stop' and the quotient being the polynomial 'on top of the bus stop'.
+\end{mistake}
+
+\begin{mistake}[Euclidean algorithm on polynomials in \(\mathbb{Z}/n\)]
+  When we do the Euclidean algorithm on a polynomial in \(\mathbb{Z}/n\), we do normal division and then rewrite any numbers as the residue at each stage before continuing.
+\end{mistake}
+
+\subsection{Methods}
+
+\begin{method}[Proving divisibility statmenets]
+  When proving divisiblity statement, its important to start from the definition \(c \mid a \longleftrightarrow a=c k \quad \text { for some } k \in \mathbb{Z}\). From here, we can use algebra to draw out what we need.
+\end{method}
+
+\begin{method}[Using the Euclidean Algorithm on integers]
+  Given positive integers \(a>b\), repeatedly divide the previous divisor by the previous remainder and record the subsequent remainders:
+
+\[
+\begin{aligned}
+a & =q_1 b+r_1, \\
+b & =q_2 r_1+r_2, \\
+r_1 & =q_3 r_2+r_3, \\
+& \vdots \\
+r_{k-2} & =q_k r_{k-1}+r_k, \\
+r_{k-1} & =q_{k+1} r_k .
+\end{aligned}
+\]
+
+
+The last nonzero remainder is
+
+\[
+\operatorname{gcd}(a, b)=r_k .
+\]
+\end{method}
+
+\begin{method}[Finding the integers in the Bezout representation]
+ 
+  \begin{itemize}\emph{}
+  \item[1.] Find the gcd using ordinary Euclidean divisions.
+\item[2.] Rearrange the penultimate equation to express the gcd in terms of the preceding remainders.
+\item[3.] Substitute expressions from earlier equations, working backwards.
+\item[4.] Continue until the expression contains only the original \(a\) and \(b\).
+\item[5.] Read off the coefficients \(x, y\).
+\end{itemize} 
+\end{method}
+
+\begin{method}[Polynomial division over a field]
+  For polynomials \(f, g \in F[x]\), where \(F\) is a field and \(g \neq 0\), there exist unique \(q, r \in F[x]\) such that
+
+\[
+f=q g+r, \quad r=0 \text { or } \operatorname{deg} r<\operatorname{deg} g .
+\]
+
+
+Polynomial long division
+\begin{itemize}
+\item[1.] Divide the leading term of the current dividend by the leading term of \(g\).
+\item[2.] Put the resulting term into the quotient.
+\item[3.] Multiply it by \(g\) and subtract.
+\item[4.] Repeat until the remainder is zero or has degree smaller than \(\operatorname{deg} g\).
+\end{itemize}
+\end{method}
+
+\begin{method}[Euclidean Algorithm for polynomials]
+  For \(f, g \in F[x]\), divide repeatedly:
+
+\[
+\begin{aligned}
+f & =q_1 g+r_1, \\
+g & =q_2 r_1+r_2, \\
+r_1 & =q_3 r_2+r_3, \\
+& \vdots
+\end{aligned}
+\]
+
+Continue until the remainder is zero. The last nonzero remainder is a greatest common divisor, up to multiplication by a nonzero constant.
+
+Two details matter in your questions:
+\begin{itemize}
+\item[-] Monic gcd: Divide the final nonzero remainder by its leading coefficient so that its leading coefficient becomes 1.
+\item[-] Bézout representation: Work backwards through the divisions to express the gcd as
+
+\[
+\gcd(f,g)=A(x)f(x)+B(x)g(x).
+\]
+
+\end{itemize}
+\end{method}
+
+\section{Units, Zero divisors and integral domains}
+
+
+\subsection{Mistakes and Tips}
+
+\begin{mistake}[Checking whether an element is a unit]
+  An element $a\in R$ is a unit if there exists $b\in R$ such that $ab=ba=1$. Do not assume that every nonzero element is a unit unless $R$ is a field.
+
+  In $\mathbb{Z}/n\mathbb{Z}$, use
+  \[
+  \overline{a}\text{ is a unit}
+  \iff \gcd(a,n)=1.
+  \]
+\end{mistake}
+
+\begin{mistake}[Finding inverses modulo $n$]
+  To find the inverse of $\overline{a}$ in $\mathbb{Z}/n\mathbb{Z}$, use the extended Euclidean algorithm to find
+  \[
+  ax+ny=1.
+  \]
+  Reducing modulo $n$ gives $ax\equiv1\pmod n$, so
+  \[
+  \overline{a}^{-1}=\overline{x}.
+  \]
+\end{mistake}
+
+\begin{mistake}[Units form a group]
+  The set of units $R^\times$ is a group under multiplication. In particular, products of units are units, and the inverse of a unit is a unit.
+
+  If $a,b\in R^\times$ with $ac=1$ and $bd=1$, then
+  \[
+  (ab)(dc)=1.
+  \]
+  The order of the factors matters in a noncommutative ring.
+\end{mistake}
+
+\begin{mistake}[Distinguishing fields and integral domains]
+  A field requires every nonzero element to be a unit, whereas an integral domain only requires that there are no nonzero zero divisors.
+
+  Every field is an integral domain, but an integral domain need not be a field. For example, $\mathbb{Z}$ is an integral domain but not a field.
+\end{mistake}
+
+\begin{mistake}[Finding zero divisors]
+  To disprove that a ring is an integral domain, find $a,b\neq0$ such that
+  \[
+  ab=0.
+  \]
+  In $\mathbb{Z}/n\mathbb{Z}$, a nonzero residue $\overline{a}$ is a zero divisor precisely when
+  \[
+  \gcd(a,n)>1.
+  \]
+\end{mistake}
+
+\begin{mistake}[Cancelling elements]
+  Cancellation is valid in an integral domain:
+  \[
+  ax=bx,\quad x\neq0\implies a=b.
+  \]
+  In an arbitrary ring, cancellation may fail if $x$ is a zero divisor.
+
+  When proving cancellation, rearrange to obtain
+  \[
+  (a-b)x=0
+  \]
+  and use the absence of nonzero zero divisors.
+\end{mistake}
+
+\begin{mistake}[Proving that a quotient ring is a field]
+  For $\mathbb{Z}/n\mathbb{Z}$, use the criterion
+  \[
+  \mathbb{Z}/n\mathbb{Z}\text{ is a field}
+  \iff n\text{ is prime}.
+  \]
+  If $n$ is composite, write $n=ab$ with $1<a,b<n$. Then $\overline{a}$ and $\overline{b}$ are nonzero but their product is zero.
+\end{mistake}
+
+\begin{mistake}[Prime versus irreducible]
+  A prime element satisfies
+  \[
+  p\mid ab\implies p\mid a\text{ or }p\mid b.
+  \]
+  An irreducible element is a nonzero nonunit whose every factorisation has a unit factor.
+
+  In an integral domain, every prime element is irreducible, but the converse does not hold in every integral domain.
+\end{mistake}
+
+\begin{mistake}[Checking whether two factors are genuinely different]
+  Two elements are associates if one is a unit multiple of the other. In a UFD, uniqueness is only up to order and associates.
+
+  Therefore, two different-looking factorizations do not disprove unique factorisation until all factors have been shown irreducible and the factors cannot be matched up to associates.
+\end{mistake}
+
+\begin{mistake}[Using degree in polynomial rings]
+  For nonzero polynomials over an integral domain,
+  \[
+  \deg(fg)=\deg f+\deg g.
+  \]
+  This is useful for proving that a polynomial is irreducible or that a polynomial ring has no zero divisors.
+\end{mistake}
+
+
+\subsection{Methods}
+
+\begin{method}[Proving the unit criterion in $\mathbb{Z}/n\mathbb{Z}$]
+  To prove
+  \[
+  \overline{a}\in(\mathbb{Z}/n\mathbb{Z})^\times
+  \iff\gcd(a,n)=1,
+  \]
+  use the following two directions.
+
+  \begin{itemize}
+    \item[$(\Leftarrow)$] If $\gcd(a,n)=1$, Bézout's identity gives integers $x,y$ such that
+    \[
+    ax+ny=1.
+    \]
+    Hence $ax\equiv1\pmod n$, so $\overline{a}$ is a unit.
+
+    \item[$(\Rightarrow)$] If $\overline{a}$ is a unit, then $ax\equiv1\pmod n$ for some integer $x$. Thus $ax+ny=1$ for some integer $y$. Every common divisor of $a$ and $n$ divides $1$, so $\gcd(a,n)=1$.
+  \end{itemize}
+\end{method}
+
+\begin{method}[Proving that $\mathbb{Z}/n\mathbb{Z}$ is a field]
+  Use the fact that a commutative ring with identity is a field if and only if every nonzero element is a unit.
+
+  \begin{itemize}
+    \item If $n=p$ is prime, every nonzero $\overline{a}$ has $\gcd(a,p)=1$. Therefore every nonzero element is invertible.
+    \item If $n$ is composite, write $n=ab$ with $1<a,b<n$. Then
+    \[
+    \overline{a}\neq\overline{0},\qquad
+    \overline{b}\neq\overline{0},\qquad
+    \overline{a}\,\overline{b}=\overline{0}.
+    \]
+    Hence the ring is not a field.
+  \end{itemize}
+\end{method}
+
+\begin{method}[Finding a zero divisor in $\mathbb{Z}/n\mathbb{Z}$]
+  If $\gcd(a,n)=d>1$, write
+  \[
+  a=da',\qquad n=dn'.
+  \]
+  Choose $b=n'=\frac{n}{d}$. Then $\overline{b}\neq\overline{0}$ and
+  \[
+  ab=da'\frac{n}{d}=a'n\equiv0\pmod n.
+  \]
+  Since $\overline{a}\neq\overline{0}$ when $n\nmid a$, both factors are nonzero, so $\overline{a}$ is a zero divisor.
+\end{method}
+
+\begin{method}[Proving cancellation in an integral domain]
+  Suppose $ax=bx$ with $x\neq0$.
+
+  \begin{enumerate}
+    \item Rearrange:
+    \[
+    (a-b)x=0.
+    \]
+    \item Since $R$ has no nonzero zero divisors and $x\neq0$, it follows that $a-b=0$.
+    \item Therefore $a=b$.
+  \end{enumerate}
+
+  This proves cancellation without dividing by $x$ or assuming that $x$ is a unit.
+\end{method}
+
+\begin{method}[Proving that the polynomial set of an integral domain is an integral domain]
+  Let $R$ be an integral domain and let $f,g\in R[x]$ be nonzero:
+  \[
+  f=a_mx^m+\cdots,\qquad
+  g=b_nx^n+\cdots,
+  \]
+  where $a_m,b_n\neq0$.
+
+  The leading coefficient of $fg$ is $a_mb_n$. Since $R$ has no nonzero zero divisors,
+  \[
+  a_mb_n\neq0.
+  \]
+  Hence $fg\neq0$. Thus $R[x]$ has no nonzero zero divisors. Since polynomial addition and multiplication inherit the relevant ring properties from $R$, the polynomial ring is an integral domain.
+\end{method}
+
+\begin{method}[Proving that a prime element is irreducible]
+  Let $p$ be prime in an integral domain $R$. By definition, $p$ is nonzero and not a unit.
+
+  Suppose
+  \[
+  p=ab.
+  \]
+  Since $p\mid ab$, primality gives $p\mid a$ or $p\mid b$.
+
+  Without loss of generality, suppose $p\mid a$. Write $a=pc$ for some $c\in R$. Then
+  \[
+  p=ab=pcb.
+  \]
+  Since $p\neq0$ and $R$ is an integral domain, cancellation gives
+  \[
+  1=cb.
+  \]
+  Hence $b$ is a unit. Therefore every factorisation of $p$ has a unit factor, so $p$ is irreducible.
+\end{method}
+
+\begin{method}[Showing that an element is irreducible]
+  To prove that a nonzero nonunit $a$ is irreducible, consider an arbitrary factorisation
+  \[
+  a=bc.
+  \]
+  Show that $b$ or $c$ must be a unit.
+
+  Useful techniques include:
+  \begin{itemize}
+    \item In $\mathbb{Z}$, use absolute values and the size of factors.
+    \item In $F[x]$, use polynomial degrees:
+    \[
+    \deg a=\deg b+\deg c.
+    \]
+    \item In other rings, use a suitable multiplicative norm or another invariant.
+  \end{itemize}
+
+  To disprove irreducibility, exhibit a factorisation into two nonunits.
+\end{method}
+
+\begin{method}[Disproving unique factorisation]
+  To show that an integral domain is not a UFD, find a nonzero nonunit with two genuinely different factorizations into irreducibles.
+
+  \begin{enumerate}
+    \item Find two factorizations of the same element.
+    \item Prove every factor in both factorizations is irreducible.
+    \item Show that no reordering and multiplication by units makes the factorizations agree.
+  \end{enumerate}
+
+  Merely finding two different-looking factorizations is insufficient.
+\end{method}
+ 
+\section{Irreducibility in \(F[x]\)}
+
+\subsection{Mistakes and Tips}
+
+\begin{mistake}[Irreducibility and the Degree of a Polynomial]
+The relationship between roots and irreducibility depends on the degree of the polynomial.
+
+\begin{itemize}
+    \item Degree 1: every non-constant linear polynomial over a field is irreducible.
+    \item Degrees 2 and 3: a polynomial is irreducible if and only if it has no roots in the field.
+    \item Degree 4: having no roots is not sufficient for irreducibility, since the polynomial may factorise into two irreducible quadratics.
+\end{itemize}
+
+More generally, if \(f(x)\in F[x]\) is reducible, then
+\[
+f(x)=g(x)h(x),
+\qquad
+1\leq \deg g,\deg h < \deg f.
+\]
+
+In particular, a polynomial of degree \(n\) is reducible if and only if it has a factor of degree at most \(\lfloor n/2\rfloor\).Thus, for degree 4, one must check for both linear factors and quadratic factors. A linear factor exists precisely when the polynomial has a root in \(F\).
+\end{mistake}
+
+\begin{mistake}[Irreducibility Depends on the Field]
+A polynomial can be irreducible over one field but reducible over a larger field.For example,
+\[
+x^2+1
+\]
+is irreducible in \(\mathbb{R}[x]\) only if it has no real roots; however, it is reducible in \(\mathbb{C}[x]\), since
+\[
+x^2+1=(x-i)(x+i).
+\]
+
+Always identify the coefficient field when deciding irreducibility. The existence of a factorisation depends on which coefficients are permitted.
+\end{mistake}
+
+\begin{mistake}[Primitive Polynomials and Gauss's Lemma]
+A polynomial in \(\mathbb{Z}[x]\) is called primitive if the greatest common divisor of all its coefficients is 1.Gauss's lemma establishes the equivalence of irreducibility in \(\mathbb{Z}[x]\) and \(\mathbb{Q}[x]\) for primitive polynomials. For example,
+\[
+2x+2=2(x+1)
+\]
+is reducible in \(\mathbb{Z}[x]\), but the distinction between integer and rational coefficients must be handled carefully: \(2\) is not a unit in \(\mathbb{Z}\), whereas it is a unit in \(\mathbb{Q}\). Therefore, do not apply Gauss's lemma directly to a polynomial whose coefficients have a non-trivial common divisor. First extract the content (the GCD of its coefficients).
+\end{mistake}
+
+\begin{mistake}[The Rational Root Test Gives Necessary Conditions]
+If \(f(x)\in\mathbb{Z}[x]\) has a rational root \(p/q\), written in lowest terms, then
+\[
+p\mid a_0,
+\qquad
+q\mid a_n.
+\]
+
+These conditions restrict the possible rational roots but do not guarantee that any candidate is actually a root.A candidate must still be substituted into \(f(x)\) and checked. Furthermore, having no rational roots proves irreducibility over \(\mathbb{Q}\) only when the degree is 2 or 3. For degree 4 or higher, the polynomial may factorise into higher-degree factors without possessing rational roots.
+\end{mistake}
+
+\begin{mistake}[Eisenstein's Criterion Is Sufficient, Not Necessary]
+Eisenstein's criterion provides a sufficient condition for irreducibility over \(\mathbb{Q}\), not a necessary one. A polynomial failing the criterion for a particular prime is not necessarily reducible. For example, a polynomial may be irreducible even though no prime satisfies the required divisibility conditions in its original form. One should also consider translating the polynomial before applying the criterion, since a substitution such as \(x\mapsto x+1\) can produce a polynomial satisfying Eisenstein's criterion.
+\end{mistake}
+
+
+\subsection{Methods}
+
+\begin{method}[Testing Irreducibility Using Polynomial Degree]
+To test whether \(f(x)\in F[x]\) is irreducible, use its degree to determine which factorisations are possible.
+
+\begin{itemize}
+    \item Degree 1: automatically irreducible.
+    \item Degree 2 or 3: test whether \(f(x)\) has a root in \(F\). If it has none, it is irreducible.
+    \item Degree 4: first test for roots in \(F\), then test whether it factorises into two quadratics.
+\end{itemize}
+
+More generally, for a polynomial of degree \(n\), it is sufficient to rule out factors of degrees
+\[
+1,2,\ldots,\left\lfloor\frac n2\right\rfloor.
+\]
+
+This follows because if \(f=gh\) is a non-trivial factorisation, at least one of \(g,h\) must have degree at most \(n/2\).
+\end{method}
+
+\begin{method}[Rational Root Test]
+For
+\[
+f(x)=a_0+a_1x+\cdots+a_nx^n\in\mathbb{Z}[x],
+\]
+suppose \(p/q\in\mathbb{Q}\) is a root, where
+\[
+\gcd(p,q)=1,\qquad q>0.
+\]
+
+Then
+\[
+\boxed{p\mid a_0,\qquad q\mid a_n.}
+\]
+
+To apply the test:
+
+\begin{enumerate}
+    \item List the integer divisors of the constant coefficient \(a_0\).
+    \item List the positive divisors of the leading coefficient \(a_n\).
+    \item Form all possible fractions \(p/q\), including negative numerators.
+    \item Substitute the candidates into \(f(x)\) to identify any actual roots.
+\end{enumerate}
+
+If \(a_0=0\), then \(x\) is already a factor and should be extracted before applying the test to the remaining polynomial.
+
+If \(f\) has degree 2 or 3, finding no rational roots proves that it is irreducible over \(\mathbb{Q}\).
+\end{method}
+
+\begin{method}[Gauss's Lemma: Reducing Irreducibility to Integer Coefficients]
+For a non-zero polynomial \(f\in\mathbb{Z}[x]\), define its content by
+\[
+\operatorname{cont}(f)=\gcd(a_0,a_1,\ldots,a_n),
+\]
+taken to be positive.
+
+A polynomial is primitive precisely when its content is 1.
+
+Gauss's lemma states that if \(f\in\mathbb{Z}[x]\) is primitive and non-constant, then
+\[
+\boxed{
+f\text{ irreducible in }\mathbb{Z}[x]
+\iff
+f\text{ irreducible in }\mathbb{Q}[x].
+}
+\]
+
+A useful consequence is that a primitive polynomial reducible over \(\mathbb{Q}\) must also admit a factorisation into non-constant polynomials in \(\mathbb{Z}[x]\).
+
+To test irreducibility in \(\mathbb{Q}[x]\):
+
+\begin{enumerate}
+    \item Calculate the GCD of the coefficients.
+    \item If necessary, extract the content to obtain a primitive polynomial.
+    \item Work with the primitive polynomial in \(\mathbb{Z}[x]\).
+    \item Apply integer factorisation techniques, such as the rational root test or Eisenstein's criterion.
+\end{enumerate}
+
+If the original polynomial is non-primitive, its non-unit integer content already gives a non-trivial factorisation in \(\mathbb{Z}[x]\), provided the content has absolute value greater than 1.
+\end{method}
+
+\begin{method}[Irreducibility Preserved by Multiplication by a Unit]
+Let \(R\) be a commutative ring, let \(f\in R\) be irreducible and let \(u\in R^\times\) be a unit.
+
+Then
+\[
+\boxed{f\text{ irreducible}\implies uf\text{ irreducible}.}
+\]
+
+Indeed, suppose
+\[
+uf=ab.
+\]
+Multiplying by \(u^{-1}\) gives
+\[
+f=(u^{-1}a)b.
+\]
+Since \(f\) is irreducible, either \(u^{-1}a\) or \(b\) is a unit. Hence either \(a\) or \(b\) is a unit.
+
+Thus multiplication by a unit does not change irreducibility.
+
+This is particularly useful when working over \(\mathbb{Q}[x]\), where every non-zero rational constant is a unit, and when extracting non-zero constant factors from polynomials.
+\end{method}
+
+\begin{method}[Eisenstein's Criterion]
+Let
+\[
+f(x)=a_0+a_1x+\cdots+a_nx^n\in\mathbb{Z}[x],
+\qquad n\geq 1.
+\]
+
+If there exists a prime \(p\) such that
+\[
+\begin{aligned}
+p&\mid a_0,a_1,\ldots,a_{n-1},\\
+p&\nmid a_n,\\
+p^2&\nmid a_0,
+\end{aligned}
+\]
+then
+\[
+\boxed{f(x)\text{ is irreducible in }\mathbb{Q}[x].}
+\]
+
+To apply the criterion:
+
+\begin{enumerate}
+    \item Identify a prime \(p\) dividing every coefficient except the leading coefficient.
+    \item Check that \(p\) does not divide the leading coefficient.
+    \item Check that \(p^2\) does not divide the constant coefficient.
+    \item Conclude irreducibility over \(\mathbb{Q}\).
+\end{enumerate}
+
+The criterion also implies that \(f\) is primitive: since \(p\nmid a_n\), no prime dividing all coefficients can be \(p\), and since every other coefficient is divisible by \(p\), any common divisor must divide \(a_n\) as well as the other coefficients. The conditions therefore force the content to be 1.
+
+\end{method}
+
+\begin{method}[Applying Eisenstein After a Change of Variable]
+Sometimes a polynomial does not satisfy Eisenstein's criterion directly, but a translated polynomial does.
+
+Consider
+\[
+g(x)=f(x+c),
+\qquad c\in\mathbb{Z}.
+\]
+
+If \(g(x)\) satisfies Eisenstein's criterion for some prime \(p\), then \(g(x)\) is irreducible in \(\mathbb{Q}[x]\).
+
+Since the substitution \(x\mapsto x+c\) is invertible, with inverse \(x\mapsto x-c\), irreducibility is preserved:
+\[
+\boxed{
+f(x)\text{ irreducible}
+\iff
+f(x+c)\text{ irreducible}.
+}
+\]
+
+Thus, when direct application fails, try a small integer translation and expand the resulting polynomial before checking the divisibility conditions.
+
+More generally, substitutions \(x\mapsto x+c\) for \(c\in\mathbb{Z}\) preserve irreducibility over \(\mathbb{Q}\).
+\end{method}

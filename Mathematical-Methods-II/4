@@ -1,0 +1,157 @@
+\section{Differentiating Scalar Fields}
+
+\begin{definition}[Gradient of a Scalar Field]
+  The gradient of a scalar field \(f: \mathbb{R}^3 \rightarrow \mathbb{R}\) is the operator
+
+\[
+\left.\nabla f\right|_x=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S f \hat{n} d S,
+\]
+
+where \(S\) is a closed surface around \(\boldsymbol{x}\) with outward normal \(\hat{\boldsymbol{n}}\), enclosed volume \(|V|\), and diameter \(\mathrm{d}(S)=\sup _{\boldsymbol{x}, \boldsymbol{y} \in S}|\boldsymbol{x}-\boldsymbol{y}|\).
+\end{definition}
+
+\begin{remark}
+  Note that \(\boldsymbol{\nabla} f\) is a vector field \(\mathbb{R}^3 \rightarrow \mathbb{R}^3\). The intuition is that it points in the direction of fastest increase of \(f\), and its magnitude tells you the maximum rate of increase.
+\end{remark}
+
+\begin{lemma}
+  If a scalar field \(f: \mathbb{R}^2 \rightarrow \mathbb{R}\) is continuous on a closed, bounded and connected domain \(A \subset \mathbb{R}^2\) then there exists \(\boldsymbol{x}_* \in A\) such that
+
+\[
+\int_A f d S=|A| f\left(\boldsymbol{x}_*\right) .
+\]
+\end{lemma}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+\begin{proposition}
+  In Cartesian coordinates,
+
+\[
+\nabla f=\frac{\partial f}{\partial x} \boldsymbol{e}_1+\frac{\partial f}{\partial y} \boldsymbol{e}_2+\frac{\partial f}{\partial z} \boldsymbol{e}_3 .
+\]
+\end{proposition}
+
+\begin{proof}
+  insert proof here
+\end{proof}
+
+\begin{proposition}
+  In orthogonal curvilinear coordinates \((u, v, w)\), the gradient has the expression
+
+\[
+\nabla f=\frac{1}{h_u} \frac{\partial f}{\partial u} \boldsymbol{e}_u+\frac{1}{h_v} \frac{\partial f}{\partial v} \boldsymbol{e}_v+\frac{1}{h_w} \frac{\partial f}{\partial w} \boldsymbol{e}_w .
+\]
+\end{proposition}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+\section{Differentiating Vector Fields}
+
+\begin{definition}[Divergence and Curl of \(\mathbf{f}\)]
+  There are two ways to differentiate a vector field \(\mathbf{f}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\):
+
+1. The divergence of \(\boldsymbol{f}\) is the scalar field
+
+\[
+\left.\boldsymbol{\nabla} \cdot \boldsymbol{f}\right|_{\boldsymbol{x}}=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S \hat{\boldsymbol{n}} \cdot \boldsymbol{f} d S .
+\]
+
+2. The curl of \(\boldsymbol{f}\) is the vector field
+
+\[
+\boldsymbol{\nabla} \times\left.\boldsymbol{f}\right|_{\boldsymbol{x}}=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S \hat{\boldsymbol{n}} \times \boldsymbol{f} d S .
+\]
+
+\end{definition}
+
+\begin{remark}
+  The intuition for divergence is that it measures whether (on average) the vector field is pointing outward ( \(\boldsymbol{\nabla} \cdot \boldsymbol{f}>0\) ) or inward ( \(\boldsymbol{\nabla} \cdot \boldsymbol{f}<0\) ) at a particular point.
+
+PLACE IMAGE
+
+The intuition for curl is that it measures how much (on average) the vector field at a particular point is rotating around any given axis.
+
+PLACE IMAGE
+\end{remark}
+
+\begin{lemma}
+  If \(\boldsymbol{a} \in \mathbb{R}^3\) is a constant vector and \(f: \mathbb{R}^3 \rightarrow \mathbb{R}\) is a \(C^1\) scalar field, then
+\begin{itemize}
+\item[(i)] \(\boldsymbol{\nabla} \cdot(f \boldsymbol{a})=(\boldsymbol{\nabla} f) \cdot \boldsymbol{a}\),
+\item[(ii)] \(\boldsymbol{\nabla} \times(f \boldsymbol{a})=(\boldsymbol{\nabla} f) \times \boldsymbol{a}\).
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+\begin{proposition}
+  In Cartesian coordinates, divergence and curl are given by
+\begin{itemize}
+\item[(i)] \(\boldsymbol{\nabla} \cdot \boldsymbol{f}=\frac{\partial f_1}{\partial x}+\frac{\partial f_2}{\partial y}+\frac{\partial f_3}{\partial z}\).
+\item[(ii)]
+
+\[
+\boldsymbol{\nabla} \times \boldsymbol{f}=\left|\begin{array}{ccc}
+\boldsymbol{e}_1 & \boldsymbol{e}_2 & \boldsymbol{e}_3 \\
+\frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\
+f_1 & f_2 & f_3
+\end{array}\right|=\left(\frac{\partial f_3}{\partial y}-\frac{\partial f_2}{\partial z}\right) \boldsymbol{e}_1+\left(\frac{\partial f_1}{\partial z}-\frac{\partial f_3}{\partial x}\right) \boldsymbol{e}_2+\left(\frac{\partial f_2}{\partial x}-\frac{\partial f_1}{\partial y}\right) \boldsymbol{e}_3 .
+\]
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+
+\begin{corollary}
+  If \(f: \mathbb{R}^3 \rightarrow \mathbb{R}\) is a scalar field, and \(\boldsymbol{f}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\) is a vector field, both with continuous second derivatives, then
+\begin{itemize}
+\item[(i)] \(\boldsymbol{\nabla} \cdot(\boldsymbol{\nabla} \times \boldsymbol{f}) \equiv 0\),
+\item[(ii)] \(\boldsymbol{\nabla} \times(\boldsymbol{\nabla} f) \equiv \mathbf{0}\).
+\end{itemize}
+\end{corollary}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+\section{Product Rules}
+
+\begin{proposition}[Product Rules]
+  If \(f, g: \mathbb{R}^3 \rightarrow \mathbb{R}\) are scalar fields, and \(\boldsymbol{f}, \boldsymbol{g}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\) are vector fields, all \(C^1\), then
+\begin{itemize}
+\item[(i)] \(\boldsymbol{\nabla}(f g) \equiv g \boldsymbol{\nabla} f+f \boldsymbol{\nabla} g\),
+\item[(ii)] \(\boldsymbol{\nabla} \cdot(g \boldsymbol{f}) \equiv(\boldsymbol{\nabla} g) \cdot \boldsymbol{f}+g \boldsymbol{\nabla} \cdot \boldsymbol{f}\),
+\item[(iii)] \(\boldsymbol{\nabla} \cdot(\boldsymbol{f} \times \boldsymbol{g}) \equiv \boldsymbol{g} \cdot(\boldsymbol{\nabla} \times \boldsymbol{f})-\boldsymbol{f} \cdot(\boldsymbol{\nabla} \times \boldsymbol{g})\),
+\item[(iv)] \(\boldsymbol{\nabla} \times(g \boldsymbol{f}) \equiv g(\boldsymbol{\nabla} \times \boldsymbol{f})+(\boldsymbol{\nabla} g) \times \boldsymbol{f}\),
+\item[(v)] \(\boldsymbol{\nabla} \times(\boldsymbol{f} \times \boldsymbol{g}) \equiv(\boldsymbol{g} \cdot \boldsymbol{\nabla}) \boldsymbol{f}-(\boldsymbol{f} \cdot \boldsymbol{\nabla}) \boldsymbol{g}+\boldsymbol{f}(\boldsymbol{\nabla} \cdot \boldsymbol{g})-\boldsymbol{g}(\boldsymbol{\nabla} \cdot \boldsymbol{f})\).
+\item[(vi)] \(\nabla(f \cdot g) \equiv(g \cdot \nabla) f+(f \cdot \nabla) g+f \times(\nabla \times g)+g \times(\nabla \times f)\).
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+  Insert Proof here
+\end{proof}
+
+\section{Divergence and Curl in Curvilinear Coordinates}
+
+\begin{proposition}
+  In orthogonal curvilinear coordinates \((u, v, w)\), the divergence and curl are given by
+\begin{itemize}
+\item[(i)] \(\boldsymbol{\nabla} \cdot \boldsymbol{f}=\frac{1}{h_u h_v h_w}\left[\frac{\partial}{\partial u}\left(h_v h_w f_u\right)+\frac{\partial}{\partial v}\left(h_u h_w f_v\right)+\frac{\partial}{\partial w}\left(h_u h_v f_w\right)\right]\).
+\item[(ii)] \(\boldsymbol{\nabla} \times \boldsymbol{f}=\frac{1}{h_u h_v h_w}\left|\begin{array}{ccc}h_u \boldsymbol{e}_u & h_v \boldsymbol{e}_v & h_w \boldsymbol{e}_w \\ \frac{\partial}{\partial u} & \frac{\partial}{\partial v} & \frac{\partial}{\partial w} \\ h_u f_u & h_v f_v & h_w f_w\end{array}\right|\).
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+  Insert proof here
+\end{proof}

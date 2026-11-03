@@ -216,7 +216,7 @@ then
 \end{example}
 
 \begin{remark}[How to Use the Error Formula]
-  \begin{enumerate}
+  \begin{enumerate} \emph{}
     \item Identify the interpolation degree \(n\).
     \item Differentiate the function \(n+1\) times.
     \item Find an upper bound \(M\) for \(|f^{(n+1)}|\) on the interval.
@@ -341,7 +341,7 @@ Equivalently,
 Round up to the next integer if necessary.
 
 \begin{remark}[Advantages and Disadvantages]
-  \begin{itemize}
+  \begin{itemize} \emph{}
     \item Guaranteed convergence when continuity and a sign-changing initial interval are satisfied.
     \item The error bound is explicit.
     \item Convergence is linear, with the interval length halved at every step.
@@ -484,7 +484,7 @@ For a simple root, the error satisfies asymptotically
 \end{example}
 
 \begin{remark}[Advantages and Disadvantages]
-  \begin{itemize}
+  \begin{itemize} \emph{}
     \item Usually very fast near a simple root.
     \item Has quadratic local convergence under suitable conditions.
     \item Requires evaluation of the derivative.
@@ -584,7 +584,7 @@ Substituting this into Newton's iteration gives the secant method.
 \end{remark}
 
 \begin{remark}[Advantages and Disadvantages]
-  \begin{itemize}
+  \begin{itemize} \emph{}
     \item Does not require an explicit derivative.
     \item Often converges faster than bisection.
     \item Usually has lower derivative-evaluation cost than Newton's method.
@@ -612,7 +612,7 @@ Substituting this into Newton's iteration gives the secant method.
 \subsection{Problem-Solving Checklist}
 
 \begin{remark}[Choosing and Applying a Method]
-  \begin{enumerate}
+  \begin{enumerate}\emph{}
     \item \textbf{Bisection:} check continuity and a sign change at the endpoints.
     \item \textbf{Fixed-point iteration:} rearrange the equation as \(x=g(x)\), then investigate whether \(g\) maps the interval into itself and whether \(|g'(x)|<1\).
     \item \textbf{Newton's method:} calculate \(f'\), check that the derivative is non-zero at the iterates, and use a suitable initial guess.

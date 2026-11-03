@@ -1,0 +1,492 @@
+\section{Differentiating Scalar Fields}
+
+\begin{definition}[Gradient of a Scalar Field]
+  The gradient of a scalar field \(f: \mathbb{R}^3 \rightarrow \mathbb{R}\) is the operator
+
+\[
+\left.\nabla f\right|_x=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S f \hat{n} d S,
+\]
+
+where \(S\) is a closed surface around \(\boldsymbol{x}\) with outward normal \(\hat{\boldsymbol{n}}\), enclosed volume \(|V|\), and diameter \(\mathrm{d}(S)=\sup _{\boldsymbol{x}, \boldsymbol{y} \in S}|\boldsymbol{x}-\boldsymbol{y}|\).
+\end{definition}
+
+\begin{remark}
+  Note that \(\boldsymbol{\nabla} f\) is a vector field \(\mathbb{R}^3 \rightarrow \mathbb{R}^3\). The intuition is that it points in the direction of fastest increase of \(f\), and its magnitude tells you the maximum rate of increase.
+\end{remark}
+
+\begin{lemma}
+  If a scalar field \(f: \mathbb{R}^2 \rightarrow \mathbb{R}\) is continuous on a closed, bounded and connected domain \(A \subset \mathbb{R}^2\) then there exists \(\boldsymbol{x}_* \in A\) such that
+
+\[
+\int_A f d S=|A| f\left(\boldsymbol{x}_*\right) .
+\]
+\end{lemma}
+
+\begin{proofidea}
+
+  \begin{itemize}
+    \item   Having \(A\) be closed and bounded tells us it is compact. We can then guarantee a minimum and maximum for \(f\) on \(A\)
+    \item We can produce an inequality bounding \(f(\mathbf{x}\) and its minimum and maximum and then integrate the inequality
+    \item By assuming the area (\(\mid A \mid \)) is none zero, we can divide by it to bound our integral
+    \item Finally, the function is continuous and \(A\) is connected meaning \(f(A)\) is connected and it follows that we have an average value.
+  \end{itemize}
+ 
+  \end{proofidea}
+
+\begin{formalproof}
+  
+Since \(A \subset \mathbb{R}^2\) is closed and bounded, it is compact. As \(f\) is continuous on \(A\), the extreme value theorem implies that there exist \(\boldsymbol{x}_m, \boldsymbol{x}_M \in A\) such that
+
+\[
+m:=f\left(\boldsymbol{x}_m\right) \leq f(\boldsymbol{x}) \leq f\left(\boldsymbol{x}_M\right)=: M
+\]
+
+for all \(\boldsymbol{x} \in A\).
+Integrating these inequalities over \(A\), we obtain
+
+\[
+m|A| \leq \int_A f d S \leq M|A|
+\]
+
+Assuming \(|A|>0\), division by \(|A|\) gives
+
+\[
+m \leq \frac{1}{|A|} \int_A f d S \leq M
+\]
+
+Now, since \(A\) is connected and \(f\) is continuous, the continuous image \(f(A) \subset \mathbb{R}\) is connected. Every connected subset of \(\mathbb{R}\) is an interval. Since \(m, M \in f(A)\), it follows that
+
+\[
+[m, M] \subseteq f(A) .
+\]
+
+Consequently, there exists \(\boldsymbol{x}_* \in A\) such that
+
+\[
+f\left(\boldsymbol{x}_*\right)=\frac{1}{|A|} \int_A f d S
+\]
+
+Multiplying by \(|A|\), we conclude that
+
+\[
+\int_A f d S=|A| f\left(\boldsymbol{x}_*\right) .
+\]
+
+\end{formalproof}
+ 
+
+
+\begin{proposition}
+  In Cartesian coordinates,
+
+\[
+\nabla f=\frac{\partial f}{\partial x} \boldsymbol{e}_1+\frac{\partial f}{\partial y} \boldsymbol{e}_2+\frac{\partial f}{\partial z} \boldsymbol{e}_3 .
+\]
+\end{proposition}
+
+\begin{proofidea}
+ 
+Here we will use the given definition of the gradient and choose \(S\) to be the boundary of a small right circular cylinder centred at \(\mathbf{x}(x,y,z)\) with its axis parallel to \(\mathbf{e}_1\). We break this shape down:
+
+\begin{itemize}
+  \item Evaluate the first component of the surface integral \(\oint_S f \hat{\boldsymbol{n}} d S\). The curved surface contributes zero to this component because its outward normal has no \(\boldsymbol{e}_1\) -component.
+  \item The two circular end caps contribute the difference between the integrals of \(f\) over the two discs.
+  \item Apply the previous integral mean value lemma to each disc integral. Their difference, divided by the cylinder's volume, becomes a difference quotient for \(f\) in the \(x\) -direction.
+  \item Shrink the cylinder to \(\boldsymbol{x}\). The difference quotient converges to \(\partial f / \partial x\). Repeat for the other two components.
+\end{itemize}
+
+\end{proofidea}
+  
+\begin{formalproof}
+  
+Let \(f: \mathbb{R}^3 \rightarrow \mathbb{R}\) be continuously differentiable, and fix \(\boldsymbol{x}=(x, y, z)\).
+We use the definition
+
+\[
+\left.\nabla f\right|_{\boldsymbol{x}}=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S f \hat{\boldsymbol{n}} d S .
+\]
+
+Take \(S\) to be the boundary of the cylinder
+
+\[
+V_h=[x-h, x+h] \times D_r,
+\]
+
+where \(D_r\) is the disc of radius \(r\), centred at \((y, z)\) in the \(y z\)-plane. Its volume is
+
+\[
+\left|V_h\right|=2 h \pi r^2 .
+\]
+
+Write \(S=S_{+} \cup S_{-} \cup S_{\text {side }}\), where \(S_{+}\)and \(S_{-}\)are the end caps at \(x+h\) and \(x-h\), respectively.
+
+On the curved side, the outward normal has zero \(\boldsymbol{e}_1\)-component. On the end caps, the outward normals are \(\boldsymbol{e}_1\) and \(-\boldsymbol{e}_1\), respectively. Hence
+
+\[
+\begin{aligned}
+\oint_S f \hat{\boldsymbol{n}} \cdot \boldsymbol{e}_1 d S= & \int_{S_{+}} f d S-\int_S f d S \\
+= & \int_{D_r} f\left(x+h, y^{\prime}, z^{\prime}\right) d A \\
+& -\int_{D_r} f\left(x-h, y^{\prime}, z^{\prime}\right) d A .
+\end{aligned}
+\]
+
+Therefore, the first component of the gradient approximation is
+
+\[
+\begin{aligned}
+G_1(h, r)=\frac{1}{2 h \pi r^2} & {\left[\int_{D_r} f\left(x+h, y^{\prime}, z^{\prime}\right) d A\right.} \\
+& \left.-\int_{D_r} f\left(x-h, y^{\prime}, z^{\prime}\right) d A\right] .
+\end{aligned}
+\]
+
+By the integral mean value lemma, applied to each disc, there exist points
+
+\[
+\boldsymbol{p}_{+} \in S_{+}, \quad \boldsymbol{p}_{-} \in S_{-}
+\]
+
+such that
+
+\[
+\int_{S_{+}} f d S=\pi r^2 f\left(\boldsymbol{p}_{+}\right), \quad \int_S f d S=\pi r^2 f\left(\boldsymbol{p}_{-}\right) .
+\]
+
+Consequently,
+
+\[
+G_1(h, r)=\frac{f\left(\boldsymbol{p}_{+}\right)-f\left(\boldsymbol{p}_{-}\right)}{2 h} .
+\]
+
+Now choose a family of cylinders with \(h \rightarrow 0\) and \(r \rightarrow 0\), for example \(r=h\). Then
+
+\[
+\boldsymbol{p}_{+} \rightarrow \boldsymbol{x}, \quad \boldsymbol{p}_{-} \rightarrow \boldsymbol{x},
+\]
+
+but this alone does not establish that the quotient converges to the partial derivative: the two points may have different transverse coordinates. To justify the limit rigorously, we use the fundamental theorem of calculus on the original disc integrals instead:
+
+\[
+\begin{aligned}
+G_1(h, r) & =\frac{1}{2 h \pi r^2} \int_{D_r}\left[f\left(x+h, y^{\prime}, z^{\prime}\right)-f\left(x-h, y^{\prime}, z^{\prime}\right)\right] d A \\
+& =\frac{1}{2 h \pi r^2} \int_{D_r} \int_{x-h}^{x+h} \frac{\partial f}{\partial x}\left(s, y^{\prime}, z^{\prime}\right) d s d A
+\end{aligned}
+\]
+
+Thus \(G_1(h, r)\) is the average value of \(\partial f / \partial x\) over \(V_h\). By continuity of \(\partial f / \partial x\),
+
+\[
+\lim _{h \rightarrow 0} G_1(h, h)=\frac{\partial f}{\partial x}(\boldsymbol{x}) .
+\]
+By choosing cylinders whose axes are parallel to \(\boldsymbol{e}_2\) and \(\boldsymbol{e}_3\), the same argument applies allowing us to define the gradient as the proposition suggests
+
+\end{formalproof}
+  
+
+\begin{proposition}
+  In orthogonal curvilinear coordinates \((u, v, w)\), the gradient has the expression
+
+\[
+\nabla f=\frac{1}{h_u} \frac{\partial f}{\partial u} \boldsymbol{e}_u+\frac{1}{h_v} \frac{\partial f}{\partial v} \boldsymbol{e}_v+\frac{1}{h_w} \frac{\partial f}{\partial w} \boldsymbol{e}_w .
+\]
+\end{proposition}
+
+\begin{proofidea}
+
+  This directly follows on from the previous proposition by dot producting the new unit tangents with the cartesian formula.
+  
+\end{proofidea}
+  
+\begin{formalproof}
+  
+Looking at the first component
+
+\[
+\boldsymbol{e}_u \cdot \nabla f=\left(\frac{1}{h_u} \frac{\partial \boldsymbol{x}}{\partial u}\right) \cdot \nabla f=\frac{1}{h_u}\left(\frac{\partial x}{\partial u} \frac{\partial f}{\partial x}+\frac{\partial y}{\partial u} \frac{\partial f}{\partial y}+\frac{\partial z}{\partial u} \frac{\partial f}{\partial z}\right)=\frac{1}{h_u} \frac{\partial f}{\partial u},
+\]
+
+where the last step used the Chain Rule. The \(\boldsymbol{e}_v\) and \(\boldsymbol{e}_w\) components are analogous.
+
+\end{formalproof}
+
+\section{Differentiating Vector Fields}
+
+\begin{definition}[Divergence and Curl of \(\mathbf{f}\)]
+  There are two ways to differentiate a vector field \(\mathbf{f}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\):
+
+1. The divergence of \(\boldsymbol{f}\) is the scalar field
+
+\[
+\left.\boldsymbol{\nabla} \cdot \boldsymbol{f}\right|_{\boldsymbol{x}}=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S \hat{\boldsymbol{n}} \cdot \boldsymbol{f} d S .
+\]
+
+2. The curl of \(\boldsymbol{f}\) is the vector field
+
+\[
+\boldsymbol{\nabla} \times\left.\boldsymbol{f}\right|_{\boldsymbol{x}}=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S \hat{\boldsymbol{n}} \times \boldsymbol{f} d S .
+\]
+
+\end{definition}
+
+\begin{remark}
+  The intuition for divergence is that it measures whether (on average) the vector field is pointing outward ( \(\boldsymbol{\nabla} \cdot \boldsymbol{f}>0\) ) or inward ( \(\boldsymbol{\nabla} \cdot \boldsymbol{f}<0\) ) at a particular point.
+
+PLACE IMAGE
+
+The intuition for curl is that it measures how much (on average) the vector field at a particular point is rotating around any given axis.
+
+PLACE IMAGE
+\end{remark}
+
+\begin{lemma}
+  If \(\boldsymbol{a} \in \mathbb{R}^3\) is a constant vector and \(f: \mathbb{R}^3 \rightarrow \mathbb{R}\) is a \(C^1\) scalar field, then
+\begin{itemize}
+\item[(i)] \(\boldsymbol{\nabla} \cdot(f \boldsymbol{a})=(\boldsymbol{\nabla} f) \cdot \boldsymbol{a}\),
+\item[(ii)] \(\boldsymbol{\nabla} \times(f \boldsymbol{a})=(\boldsymbol{\nabla} f) \times \boldsymbol{a}\).
+\end{itemize}
+\end{lemma}
+
+\begin{proofidea}
+  
+  We just use the integral definitions of the formulas and then use the fact that \(\mathbf{a}\) is constant to take it out.
+
+\end{proofidea}
+  
+\begin{formalproof}
+  
+\[
+\boldsymbol{\nabla} \cdot(f \boldsymbol{a})=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S \hat{\boldsymbol{n}} \cdot(f \boldsymbol{a}) d S=\left(\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S f \hat{\boldsymbol{n}} d S\right) \cdot \boldsymbol{a}=(\boldsymbol{\nabla} f) \cdot \boldsymbol{a},
+\]
+
+and
+
+\[
+\boldsymbol{\nabla} \times(f \boldsymbol{a})=\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S \hat{\boldsymbol{n}} \times(f \boldsymbol{a}) d S=\left(\lim _{\mathrm{d}(S) \rightarrow 0} \frac{1}{|V|} \oint_S f \hat{\boldsymbol{n}} d S\right) \times \boldsymbol{a}=(\boldsymbol{\nabla} f) \times \boldsymbol{a} .
+\]
+
+\end{formalproof}
+
+\begin{proposition}
+  In Cartesian coordinates, divergence and curl are given by
+\begin{itemize}
+\item[(i)] \(\boldsymbol{\nabla} \cdot \boldsymbol{f}=\frac{\partial f_1}{\partial x}+\frac{\partial f_2}{\partial y}+\frac{\partial f_3}{\partial z}\).
+\item[(ii)]
+
+\[
+\boldsymbol{\nabla} \times \boldsymbol{f}=\left|\begin{array}{ccc}
+\boldsymbol{e}_1 & \boldsymbol{e}_2 & \boldsymbol{e}_3 \\
+\frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\
+f_1 & f_2 & f_3
+\end{array}\right|=\left(\frac{\partial f_3}{\partial y}-\frac{\partial f_2}{\partial z}\right) \boldsymbol{e}_1+\left(\frac{\partial f_1}{\partial z}-\frac{\partial f_3}{\partial x}\right) \boldsymbol{e}_2+\left(\frac{\partial f_2}{\partial x}-\frac{\partial f_1}{\partial y}\right) \boldsymbol{e}_3 .
+\]
+\end{itemize}
+\end{proposition}
+
+\begin{proofidea}
+  We use the lemma acting on constant vectors and consider the vector \((1,1,1)\) with respect to cartesian basis.
+  
+\end{proofidea}
+  
+\begin{formalproof}
+  
+\[
+\begin{aligned}
+\boldsymbol{\nabla} \cdot \boldsymbol{f} & =\boldsymbol{\nabla} \cdot\left(f_1 e_1+f_2 e_2+f_3 e_3\right) \\
+& =\boldsymbol{\nabla} \cdot\left(f_1 e_1\right)+\boldsymbol{\nabla} \cdot\left(f_2 e_2\right)+\boldsymbol{\nabla} \cdot\left(f_3 e_3\right) \quad \text { [since the divergence is clearly linear] } \\
+& =\left(\boldsymbol{\nabla} f_1\right) \cdot \boldsymbol{e}_1+\left(\boldsymbol{\nabla} f_2\right) \cdot \boldsymbol{e}_2+\left(\boldsymbol{\nabla} f_3\right) \cdot \boldsymbol{e}_3 \\
+& =\frac{\partial f_1}{\partial x}+\frac{\partial f_2}{\partial y}+\frac{\partial f_3}{\partial z} . \quad \text { [from definition of the gradient] }
+\end{aligned}
+\]
+
+\begin{itemize}
+\item[(ii)] Using Lemma 3.2 (ii), we have that
+
+\[
+\boldsymbol{\nabla} \times\left(f_1 \boldsymbol{e}_1\right)=\left(\boldsymbol{\nabla} f_1\right) \times \boldsymbol{e}_1=\frac{\partial f_1}{\partial y} \boldsymbol{e}_2 \times \boldsymbol{e}_1+\frac{\partial f_1}{\partial z} \boldsymbol{e}_3 \times \boldsymbol{e}_1=-\frac{\partial f_1}{\partial y} \boldsymbol{e}_3+\frac{\partial f_1}{\partial z} \boldsymbol{e}_2 .
+\]
+
+The other terms are obtained similarly.
+\end{itemize}
+
+\end{formalproof}
+
+
+\begin{corollary}
+  If \(f: \mathbb{R}^3 \rightarrow \mathbb{R}\) is a scalar field, and \(\boldsymbol{f}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\) is a vector field, both with continuous second derivatives, then
+\begin{itemize}
+\item[(i)] \(\boldsymbol{\nabla} \cdot(\boldsymbol{\nabla} \times \boldsymbol{f}) \equiv 0\),
+\item[(ii)] \(\boldsymbol{\nabla} \times(\boldsymbol{\nabla} f) \equiv \mathbf{0}\).
+\end{itemize}
+\end{corollary}
+
+\begin{proofidea}
+  
+  We simply use the Cartesian versions for divergence and curl since the expressions on the left are independent of any choice of coordinates. We then just apply the formulae
+  
+\end{proofidea}
+  
+\begin{formalproof}
+
+For (i),
+
+\[
+\begin{aligned}
+\boldsymbol{\nabla} \cdot(\boldsymbol{\nabla} \times \boldsymbol{f}) & =\frac{\partial}{\partial x}\left(\frac{\partial f_3}{\partial y}-\frac{\partial f_2}{\partial z}\right)+\frac{\partial}{\partial y}\left(\frac{\partial f_1}{\partial z}-\frac{\partial f_3}{\partial x}\right)+\frac{\partial}{\partial z}\left(\frac{\partial f_2}{\partial x}-\frac{\partial f_1}{\partial y}\right) \\
+& =\frac{\partial^2 f_1}{\partial y \partial z}-\frac{\partial^2 f_1}{\partial z \partial y}+\frac{\partial^2 f_2}{\partial z \partial x}-\frac{\partial^2 f_2}{\partial x \partial z}+\frac{\partial^2 f_2}{\partial x \partial y}-\frac{\partial^2 f_3}{\partial y \partial x}=0
+\end{aligned}
+\]
+
+where the mixed partial derivatives commute because they are continuous. For (ii),
+
+\[
+\boldsymbol{\nabla} \times(\boldsymbol{\nabla} f)=\left(\frac{\partial^2 f}{\partial y \partial z}-\frac{\partial^2 f}{\partial z \partial y}\right) \boldsymbol{e}_1+\left(\frac{\partial^2 f}{\partial z \partial x}-\frac{\partial^2 f}{\partial x \partial z}\right) \boldsymbol{e}_2+\left(\frac{\partial^2 f}{\partial x \partial y}-\frac{\partial^2 f}{\partial y \partial x}\right) \boldsymbol{e}_3=\mathbf{0} .
+\]
+
+\end{formalproof}
+
+\section{Product Rules}
+
+\begin{proposition}[Product Rules]
+Let \(\phi,\psi\) be scalar fields and \(\boldsymbol{f},\boldsymbol{g}\) be vector fields. Then
+\begin{align*}
+\nabla(\phi\psi)
+&= \phi\nabla\psi+\psi\nabla\phi,\\[6pt]
+\nabla\cdot(\phi\boldsymbol{f})
+&= \phi(\nabla\cdot\boldsymbol{f})
++\boldsymbol{f}\cdot\nabla\phi,\\[6pt]
+\nabla\times(\phi\boldsymbol{f})
+&= \phi(\nabla\times\boldsymbol{f})
++\nabla\phi\times\boldsymbol{f},\\[6pt]
+\nabla\cdot(\boldsymbol{f}\times\boldsymbol{g})
+&= \boldsymbol{g}\cdot(\nabla\times\boldsymbol{f})
+-\boldsymbol{f}\cdot(\nabla\times\boldsymbol{g}),\\[6pt]
+\nabla\times(\boldsymbol{f}\times\boldsymbol{g})
+&= \boldsymbol{f}(\nabla\cdot\boldsymbol{g})
+-\boldsymbol{g}(\nabla\cdot\boldsymbol{f})\\
+&\qquad +(\boldsymbol{g}\cdot\nabla)\boldsymbol{f}
+-(\boldsymbol{f}\cdot\nabla)\boldsymbol{g}.
+\end{align*}
+\end{proposition}
+
+\begin{proofidea}
+  Similarly, this can be proved true for all coordinate systems just using cartesian coordinates. We apply the operations carefully using the formulae.
+  
+\end{proofidea}
+  
+\begin{formalproof}
+  
+\begin{itemize}
+\item[(i)] We use the regular (single-variable) product rule to obtain
+
+\[
+\begin{aligned}
+\boldsymbol{\nabla}(f g) & =\frac{\partial}{\partial x}(f g) \boldsymbol{e}_1+\frac{\partial}{\partial y}(f g) \boldsymbol{e}_2+\frac{\partial}{\partial z}(f g) \boldsymbol{e}_3 \\
+& =\left(\frac{\partial f}{\partial x} g+f \frac{\partial g}{\partial x}\right) \boldsymbol{e}_1+\left(\frac{\partial f}{\partial y} g+f \frac{\partial g}{\partial y}\right) \boldsymbol{e}_2+\left(\frac{\partial f}{\partial z} g+f \frac{\partial g}{\partial z}\right) \boldsymbol{e}_3 \\
+& =\left(\frac{\partial f}{\partial x} \boldsymbol{e}_1+\frac{\partial f}{\partial y} \boldsymbol{e}_2+\frac{\partial f}{\partial z} \boldsymbol{e}_3\right) g+f\left(\frac{\partial g}{\partial x} \boldsymbol{e}_1+\frac{\partial g}{\partial y} \boldsymbol{e}_2+\frac{\partial g}{\partial z} \boldsymbol{e}_3\right) \\
+& =g \boldsymbol{\nabla} f+f \boldsymbol{\nabla} g .
+\end{aligned}
+\]
+
+\item[(ii)] By Lemma 3.2 (i) we have
+
+\[
+\begin{aligned}
+\boldsymbol{\nabla} \cdot(g \boldsymbol{f}) & =\boldsymbol{\nabla} \cdot\left(g f_1 e_1+g f_2 e_2+g f_3 e_3\right) \\
+& =\boldsymbol{\nabla}\left(g f_1\right) \cdot e_1+\boldsymbol{\nabla}\left(g f_2\right) \cdot e_2+\boldsymbol{\nabla}\left(g f_3\right) \cdot e_3 \\
+& =f_1 \boldsymbol{\nabla} g \cdot e_1+g \boldsymbol{\nabla} f_1 \cdot e_1+f_2 \boldsymbol{\nabla} g \cdot e_2+g \boldsymbol{\nabla} f_2 \cdot e_2+f_3 \boldsymbol{\nabla} g \cdot e_3+g \boldsymbol{\nabla} f_3 \cdot e_3 \\
+& =(\boldsymbol{\nabla} g) \cdot\left(f_1 e_1+f_2 e_2+f_3 e_3\right)+g\left(\frac{\partial f_1}{\partial x}+\frac{\partial f_2}{\partial y}+\frac{\partial f_3}{\partial z}\right) \\
+& =(\boldsymbol{\nabla} g) \cdot \boldsymbol{f}+g \boldsymbol{\nabla} \cdot \boldsymbol{f} .
+\end{aligned}
+\]
+
+\item[(iii)] Evaluating the cross product first gives
+
+\[
+\begin{aligned}
+\boldsymbol{\nabla} \cdot(\boldsymbol{f} \times \boldsymbol{g})= & \boldsymbol{\nabla} \cdot\left|\begin{array}{lll}
+e_1 & e_2 & e_3 \\
+f_1 & f_2 & f_3 \\
+g_1 & g_2 & g_3
+\end{array}\right| \\
+= & \frac{\partial}{\partial x}\left(f_2 g_3-f_3 g_2\right)+\frac{\partial}{\partial y}\left(f_3 g_1-f_1 g_3\right)+\frac{\partial}{\partial z}\left(f_1 g_2-f_2 g_1\right) \\
+= & g_1\left(\frac{\partial f_3}{\partial y}-\frac{\partial f_2}{\partial z}\right)+g_2\left(\frac{\partial f_1}{\partial z}-\frac{\partial f_3}{\partial x}\right)+g_3\left(\frac{\partial f_2}{\partial x}-\frac{\partial f_1}{\partial y}\right) \\
+& +f_1\left(\frac{\partial g_2}{\partial z}-\frac{\partial g_3}{\partial y}\right)+f_2\left(\frac{\partial g_3}{\partial x}-\frac{\partial g_1}{\partial z}\right)+f_3\left(\frac{\partial g_1}{\partial y}-\frac{\partial g_2}{\partial x}\right) \\
+= & \boldsymbol{g} \cdot(\boldsymbol{\nabla} \times \boldsymbol{f})-\boldsymbol{f} \cdot(\boldsymbol{\nabla} \times \boldsymbol{g}) .
+\end{aligned}
+\]
+
+[Note the minus sign here, expected since \(\boldsymbol{f} \times \boldsymbol{g}\) is antisymmetric.]
+\item [(iv)] By Lemma 3.2 (ii), we have
+
+\[
+\begin{aligned}
+\boldsymbol{\nabla} \times(g \boldsymbol{f})= & \boldsymbol{\nabla} \times\left(g f_1 \boldsymbol{e}_1+g f_2 \boldsymbol{e}_2+g f_3 \boldsymbol{e}_3\right) \\
+= & \boldsymbol{\nabla}\left(g f_1\right) \times \boldsymbol{e}_1+\boldsymbol{\nabla}\left(g f_2\right) \times \boldsymbol{e}_2+\boldsymbol{\nabla}\left(g f_3\right) \times \boldsymbol{e}_3 \\
+= & \frac{\partial}{\partial y}\left(g f_1\right) \boldsymbol{e}_2 \times \boldsymbol{e}_1+\frac{\partial}{\partial z}\left(g f_1\right) \boldsymbol{e}_3 \times \boldsymbol{e}_1+\frac{\partial}{\partial x}\left(g f_2\right) \boldsymbol{e}_1 \times \boldsymbol{e}_2+\frac{\partial}{\partial z}\left(g f_2\right) \boldsymbol{e}_3 \times \boldsymbol{e}_2 \\
+& +\frac{\partial}{\partial x}\left(g f_3\right) \boldsymbol{e}_1 \times \boldsymbol{e}_3+\frac{\partial}{\partial y}\left(g f_3\right) \boldsymbol{e}_2 \times \boldsymbol{e}_3 \\
+= & -\frac{\partial}{\partial y}\left(g f_1\right) \boldsymbol{e}_3+\frac{\partial}{\partial z}\left(g f_1\right) \boldsymbol{e}_2+\frac{\partial}{\partial x}\left(g f_2\right) \boldsymbol{e}_3-\frac{\partial}{\partial z}\left(g f_2\right) \boldsymbol{e}_1-\frac{\partial}{\partial x}\left(g f_3\right) \boldsymbol{e}_2+\frac{\partial}{\partial y}\left(g f_3\right) \boldsymbol{e}_1 \\
+= & g\left[\left(\frac{\partial f_3}{\partial y}-\frac{\partial f_2}{\partial z}\right) \boldsymbol{e}_1+\left(\frac{\partial f_1}{\partial z}-\frac{\partial f_3}{\partial x}\right) \boldsymbol{e}_2+\left(\frac{\partial f_2}{\partial x}-\frac{\partial f_1}{\partial y}\right) \boldsymbol{e}_3\right] \\
+& \left(\frac{\partial g}{\partial y} f_3-\frac{\partial g}{\partial z} f_2\right) \boldsymbol{e}_1+\left(\frac{\partial g}{\partial z} f_1-\frac{\partial g}{\partial x} f_3\right) \boldsymbol{e}_2+\left(\frac{\partial g}{\partial x} f_2-\frac{\partial g}{\partial y} f_1\right) \boldsymbol{e}_3 \\
+= & g(\boldsymbol{\nabla} \times \boldsymbol{f})+(\boldsymbol{\nabla} g) \times \boldsymbol{f} .
+\end{aligned}
+\]
+
+\end{itemize}
+
+The rest are left till chapter 5 to reduce writing load
+
+\end{formalproof}
+
+\section{Divergence and Curl in Curvilinear Coordinates}
+
+\begin{proposition}
+  In orthogonal curvilinear coordinates \((u, v, w)\), the divergence and curl are given by
+\begin{itemize}
+\item[(i)] \(\boldsymbol{\nabla} \cdot \boldsymbol{f}=\frac{1}{h_u h_v h_w}\left[\frac{\partial}{\partial u}\left(h_v h_w f_u\right)+\frac{\partial}{\partial v}\left(h_u h_w f_v\right)+\frac{\partial}{\partial w}\left(h_u h_v f_w\right)\right]\).
+\item[(ii)] \(\boldsymbol{\nabla} \times \boldsymbol{f}=\frac{1}{h_u h_v h_w}\left|\begin{array}{ccc}h_u \boldsymbol{e}_u & h_v \boldsymbol{e}_v & h_w \boldsymbol{e}_w \\ \frac{\partial}{\partial u} & \frac{\partial}{\partial v} & \frac{\partial}{\partial w} \\ h_u f_u & h_v f_v & h_w f_w\end{array}\right|\).
+\end{itemize}
+\end{proposition}
+
+\begin{proofidea}
+  
+  The coordinate system is orthogonal and so we can rewrite any unit tangent in terms of the others. We then use the formula for the gradient in curvilinear coordinates to rewrite aspects of the expanded equation. We can then show that each component follows similarly:
+  
+\end{proofidea}
+  
+\begin{formalproof}
+
+First, note from Proposition 3.2 that \(\boldsymbol{\nabla} v=\frac{1}{h_v} \boldsymbol{e}_v\), so \(\boldsymbol{e}_v=h_v \boldsymbol{\nabla} v\), and similarly \(\boldsymbol{e}_w=h_w \boldsymbol{\nabla} w\).
+
+For (i), note that using orthogonality followed by Proposition 3.4 (ii), we get
+
+\[
+\begin{aligned}
+\boldsymbol{\nabla} \cdot\left(f_u \boldsymbol{e}_u\right) & =\boldsymbol{\nabla} \cdot\left(f_u \boldsymbol{e}_v \times \boldsymbol{e}_w\right) \\
+& =\boldsymbol{\nabla} \cdot\left(f_u h_v h_w \boldsymbol{\nabla} v \times \boldsymbol{\nabla} w\right) \\
+& =\boldsymbol{\nabla}\left(f_u h_v h_w\right) \cdot \boldsymbol{\nabla} v \times \boldsymbol{\nabla} w+f_u h_v h_w \boldsymbol{\nabla} \cdot(\boldsymbol{\nabla} v \times \boldsymbol{\nabla} w) \\
+& =\boldsymbol{\nabla}\left(f_u h_v h_w\right) \cdot \boldsymbol{\nabla} v \times \boldsymbol{\nabla} w+f_u h_v h_w \boldsymbol{\nabla} \cdot(\boldsymbol{\nabla} \times[v \boldsymbol{\nabla} w]) \quad \text { [from previous lecture] } \\
+& =\boldsymbol{\nabla}\left(f_u h_v h_w\right) \cdot \boldsymbol{\nabla} v \times \boldsymbol{\nabla} w \quad[\text { using } \boldsymbol{\nabla} \cdot(\boldsymbol{\nabla} \times \boldsymbol{f}) \equiv 0] \\
+& =\boldsymbol{\nabla}\left(f_u h_v h_w\right) \cdot \frac{\boldsymbol{e}_v \times \boldsymbol{e}_w}{h_v h_w} \\
+& =\frac{1}{h_v h_w} \boldsymbol{e}_u \cdot \boldsymbol{\nabla}\left(f_u h_v h_w\right) \\
+& =\frac{1}{h_u h_v h_w} \frac{\partial}{\partial u}\left(h_v h_w f_u\right),
+\end{aligned}
+\]
+
+where the last step used Proposition 3.2. The other components are similar.
+For (ii), we use \(\boldsymbol{e}_u=h_u \boldsymbol{\nabla} u\) and Proposition 3.4 (iv) to find
+
+\[
+\begin{aligned}
+\boldsymbol{\nabla} \times\left(f_u \boldsymbol{e}_u\right) & =\boldsymbol{\nabla} \times\left(f_u h_u \boldsymbol{\nabla} u\right) \\
+& =\boldsymbol{\nabla}\left(f_u h_u\right) \times \boldsymbol{\nabla} u+f_u h_u \boldsymbol{\nabla} \times \boldsymbol{\nabla} u \\
+& =\boldsymbol{\nabla}\left(f_u h_u\right) \times \boldsymbol{\nabla} u \quad[\text { using } \boldsymbol{\nabla} \times \boldsymbol{\nabla} f=0] \\
+& =\frac{1}{h_u} \boldsymbol{\nabla}\left(f_u h_u\right) \times \boldsymbol{e}_u \\
+& =\frac{1}{h_u} \boldsymbol{\nabla}\left(f_u h_u\right) \times\left(\boldsymbol{e}_v \times \boldsymbol{e}_w\right) \\
+& =\frac{1}{h_u} \boldsymbol{e}_v\left[\boldsymbol{e}_w \cdot \boldsymbol{\nabla}\left(f_u h_u\right)\right]-\boldsymbol{e}_w\left[\boldsymbol{e}_v \cdot \boldsymbol{\nabla}\left(f_u h_u\right)\right] \\
+& =\frac{1}{h_u h_w} \frac{\partial}{\partial w}\left(h_u f_u\right) \boldsymbol{e}_v-\frac{1}{h_u h_v} \frac{\partial}{\partial v}\left(h_u f_u\right) \boldsymbol{e}_w .
+\end{aligned}
+\]
+
+The penultimate step used the vector triple product identity \(\boldsymbol{a} \times(\boldsymbol{b} \times \boldsymbol{c})=\boldsymbol{b}(\boldsymbol{a} \cdot \boldsymbol{c})-\boldsymbol{c}(\boldsymbol{a} \cdot \boldsymbol{b})\). Again, the other components are similar.
+
+  
+\end{formalproof}

@@ -414,4 +414,954 @@
   Use the same region, limits and volume element for all three components. Under a coordinate transformation, include the absolute Jacobian $|J|$ in each component integral.
 \end{nmeth}
 
+\section{Differential Operators}
 
+
+\subsection{Mistakes and Tips}
+
+\begin{mistake}[Distinguishing scalar and vector fields]
+  A scalar field $f:\mathbb{R}^3\to\mathbb{R}$ assigns a scalar to each point, whereas a vector field $\boldsymbol{f}:\mathbb{R}^3\to\mathbb{R}^3$ assigns a vector.
+
+  \begin{itemize}
+    \item $\nabla f$ is a vector field.
+    \item $\nabla\cdot\boldsymbol{f}$ is a scalar field.
+    \item $\nabla\times\boldsymbol{f}$ is a vector field.
+  \end{itemize}
+\end{mistake}
+
+\begin{mistake}[Understanding the operator $\nabla$]
+  The symbol $\nabla$ is a differential operator, not an ordinary vector.
+
+  In Cartesian coordinates,
+  \[
+  \nabla=
+  \boldsymbol{e}_1\frac{\partial}{\partial x}
+  +\boldsymbol{e}_2\frac{\partial}{\partial y}
+  +\boldsymbol{e}_3\frac{\partial}{\partial z}.
+  \]
+
+  The expression $\boldsymbol{f}\cdot\nabla$ is an operator that differentiates in the direction of $\boldsymbol{f}$:
+  \[
+  (\boldsymbol{f}\cdot\nabla)
+  =f_1\frac{\partial}{\partial x}
+  +f_2\frac{\partial}{\partial y}
+  +f_3\frac{\partial}{\partial z}.
+  \]
+  When applied to a scalar field, it gives a directional derivative. When applied to a vector field, it differentiates each component.
+\end{mistake}
+
+\begin{mistake}[Gradient is not the same as directional differentiation]
+  The gradient $\nabla f$ points in the direction of steepest increase of $f$, and its magnitude is the maximum directional derivative.
+
+  For a unit vector $\boldsymbol{u}$, the directional derivative is
+  \[
+  D_{\boldsymbol{u}}f=\boldsymbol{u}\cdot\nabla f.
+  \]
+
+  Do not confuse the vector $\nabla f$ with the scalar $\boldsymbol{u}\cdot\nabla f$.
+\end{mistake}
+
+\begin{mistake}[Remembering the meaning of divergence]
+  Divergence measures the local net outward flux per unit volume.
+
+  \[
+  \nabla\cdot\boldsymbol{f}>0
+  \]
+  indicates local net outflow, whereas
+  \[
+  \nabla\cdot\boldsymbol{f}<0
+  \]
+  indicates local net inflow.
+
+  A zero divergence means there is no local net outflow, not necessarily that the vector field is zero.
+\end{mistake}
+
+\begin{mistake}[Remembering the meaning of curl]
+  Curl measures local circulation and the axis and direction of rotation.
+
+  In Cartesian coordinates, the first component is
+  \[
+  (\nabla\times\boldsymbol{f})_1
+  =\frac{\partial f_3}{\partial y}
+  -\frac{\partial f_2}{\partial z}.
+  \]
+
+  Use the right-hand rule to interpret the direction of curl. A zero curl does not necessarily mean that the vector field itself is zero.
+\end{mistake}
+
+\begin{mistake}[Curl determinant signs]
+  When expanding the determinant for curl, the middle component has a minus sign in the cofactor expansion.
+
+  \[
+  \nabla\times\boldsymbol{f}
+  =
+  \begin{pmatrix}
+  \partial_y f_3-\partial_z f_2\\
+  \partial_z f_1-\partial_x f_3\\
+  \partial_x f_2-\partial_y f_1
+  \end{pmatrix}.
+  \]
+
+  Always check the cyclic order of the components rather than memorising the formula without its signs.
+\end{mistake}
+
+\begin{mistake}[Using mixed partial derivatives]
+  When proving
+  \[
+  \nabla\times(\nabla f)=\boldsymbol{0}
+  \quad\text{or}\quad
+  \nabla\cdot(\nabla\times\boldsymbol{f})=0,
+  \]
+  expand the components and use equality of mixed partial derivatives, assuming the required second derivatives are continuous.
+
+  For example,
+  \[
+  \frac{\partial^2 f}{\partial x\partial y}
+  =
+  \frac{\partial^2 f}{\partial y\partial x}.
+  \]
+\end{mistake}
+
+\begin{mistake}[Applying product rules]
+  Do not treat $\nabla$ as an ordinary vector when differentiating products. Derivatives act on every factor that depends on position.
+
+  For example,
+  \[
+  \nabla\times(g\boldsymbol{f})
+  =(\nabla g)\times\boldsymbol{f}
+  +g(\nabla\times\boldsymbol{f}).
+  \]
+
+  The order of the cross product matters:
+  \[
+  (\nabla g)\times\boldsymbol{f}
+  =-\boldsymbol{f}\times(\nabla g).
+  \]
+\end{mistake}
+
+\begin{mistake}[Distinguishing $\boldsymbol{f}\cdot\nabla$ from $\nabla\cdot\boldsymbol{f}$]
+  These expressions are different operators.
+
+  \begin{itemize}
+    \item $\nabla\cdot\boldsymbol{f}$ differentiates the components of $\boldsymbol{f}$ and sums them, producing a scalar.
+    \item $(\boldsymbol{f}\cdot\nabla)g$ differentiates the scalar field $g$ in the direction of $\boldsymbol{f}$, producing a scalar.
+    \item $(\boldsymbol{f}\cdot\nabla)\boldsymbol{g}$ differentiates the components of $\boldsymbol{g}$ in the direction of $\boldsymbol{f}$, producing a vector.
+  \end{itemize}
+\end{mistake}
+
+\begin{mistake}[Curvilinear coordinates require scale factors]
+  Do not use Cartesian gradient, divergence or curl formulas unchanged in curvilinear coordinates.
+
+  For orthogonal coordinates $(u,v,w)$, use the appropriate scale factors $h_u,h_v,h_w$ and the components of the vector field in the corresponding orthonormal basis.
+
+  In particular, the components $f_u,f_v,f_w$ in the standard orthogonal-coordinate formulas are components along the unit vectors $\boldsymbol{e}_u,\boldsymbol{e}_v,\boldsymbol{e}_w$.
+\end{mistake}
+
+\begin{mistake}[Differentiating in curvilinear coordinates]
+  The scale factors account for the physical distance associated with a coordinate change:
+  \[
+  ds_u=h_u\,du,\qquad
+  ds_v=h_v\,dv,\qquad
+  ds_w=h_w\,dw.
+  \]
+
+  Consequently, the gradient contains factors $1/h_u$, $1/h_v$ and $1/h_w$. Divergence and curl have their own formulas and must not be obtained by simply inserting scale factors into the Cartesian expressions.
+\end{mistake}
+
+\begin{mistake}[Using vector identities without checking conventions]
+  Product rules and vector identities depend on the order of cross products and on which field the differential operator acts upon.
+
+  For example,
+  \[
+  \nabla\cdot(\boldsymbol{f}\times\boldsymbol{g})
+  =
+  \boldsymbol{g}\cdot(\nabla\times\boldsymbol{f})
+  -\boldsymbol{f}\cdot(\nabla\times\boldsymbol{g}).
+  \]
+
+  If unsure, expand into Cartesian components and apply the ordinary product rule.
+\end{mistake}
+
+\begin{mistake}[Confusing the vector calculus product rules]
+The product rules depend on whether the fields are scalar or vector-valued. In particular, distinguish
+\[
+\nabla\cdot\boldsymbol{f}
+\qquad\text{from}\qquad
+\boldsymbol{f}\cdot\nabla.
+\]
+The first is the divergence of a vector field and produces a scalar field. The second is a differential operator that differentiates whatever follows it in the direction of \(\boldsymbol{f}\).
+
+For scalar fields \(\phi,\psi\) and vector fields \(\boldsymbol{f},\boldsymbol{g}\), remember:
+\begin{itemize}
+    \item \(\nabla(\phi\psi)\): use the scalar product rule.
+    \item \(\nabla\cdot(\phi\boldsymbol{f})\): use the divergence product rule.
+    \item \(\nabla\times(\phi\boldsymbol{f})\): use the curl product rule.
+    \item \(\nabla\cdot(\boldsymbol{f}\times\boldsymbol{g})\): use the cross-product divergence rule.
+    \item \(\nabla\times(\boldsymbol{f}\times\boldsymbol{g})\): use the cross-product curl rule.
+\end{itemize}
+
+Do not treat these as ordinary scalar multiplication rules: the order and type of each operation matter.
+\end{mistake}
+
+
+\begin{mistake}[Interpreting directional derivative terms]
+In expressions such as
+\[
+(\boldsymbol{f}\cdot\nabla)\boldsymbol{g},
+\]
+the operator \(\boldsymbol{f}\cdot\nabla\) acts on the vector field \(\boldsymbol{g}\). In Cartesian coordinates, if
+\[
+\boldsymbol{f}=(f_1,f_2,f_3),
+\qquad
+\boldsymbol{g}=(g_1,g_2,g_3),
+\]
+then
+\[
+(\boldsymbol{f}\cdot\nabla)\boldsymbol{g}
+=
+\begin{pmatrix}
+f_1\dfrac{\partial g_1}{\partial x}
++f_2\dfrac{\partial g_1}{\partial y}
++f_3\dfrac{\partial g_1}{\partial z}\\[8pt]
+f_1\dfrac{\partial g_2}{\partial x}
++f_2\dfrac{\partial g_2}{\partial y}
++f_3\dfrac{\partial g_2}{\partial z}\\[8pt]
+f_1\dfrac{\partial g_3}{\partial x}
++f_2\dfrac{\partial g_3}{\partial y}
++f_3\dfrac{\partial g_3}{\partial z}
+\end{pmatrix}.
+\]
+The result is a vector field. By contrast,
+\[
+\nabla\cdot\boldsymbol{f}
+=
+\frac{\partial f_1}{\partial x}
++\frac{\partial f_2}{\partial y}
++\frac{\partial f_3}{\partial z}
+\]
+is a scalar field. The dot in \(\boldsymbol{f}\cdot\nabla\) combines the components of \(\boldsymbol{f}\) with differential operators; it does not mean that the divergence is being calculated.
+\end{mistake}
+
+\subsection{Methods}
+
+\begin{method}[Calculating the gradient in Cartesian coordinates]
+  For a scalar field $f(x,y,z)$, calculate the three partial derivatives:
+  \[
+  \boxed{
+  \nabla f=
+  \frac{\partial f}{\partial x}\boldsymbol{e}_1
+  +\frac{\partial f}{\partial y}\boldsymbol{e}_2
+  +\frac{\partial f}{\partial z}\boldsymbol{e}_3
+  }
+  \]
+
+  \begin{enumerate}
+    \item Differentiate $f$ with respect to $x$, holding $y,z$ constant.
+    \item Differentiate $f$ with respect to $y$, holding $x,z$ constant.
+    \item Differentiate $f$ with respect to $z$, holding $x,y$ constant.
+    \item Assemble the three components in the corresponding unit-vector directions.
+  \end{enumerate}
+\end{method}
+
+\begin{method}[Calculating divergence in Cartesian coordinates]
+  For
+  \[
+  \boldsymbol{f}=f_1\boldsymbol{e}_1
+  +f_2\boldsymbol{e}_2+f_3\boldsymbol{e}_3,
+  \]
+  use
+  \[
+  \boxed{
+  \nabla\cdot\boldsymbol{f}
+  =\frac{\partial f_1}{\partial x}
+  +\frac{\partial f_2}{\partial y}
+  +\frac{\partial f_3}{\partial z}
+  }
+  \]
+
+  Differentiate each component with respect to its corresponding coordinate and add the results. The answer is a scalar.
+\end{method}
+
+\begin{method}[Calculating curl in Cartesian coordinates]
+  For
+  \[
+  \boldsymbol{f}=f_1\boldsymbol{e}_1
+  +f_2\boldsymbol{e}_2+f_3\boldsymbol{e}_3,
+  \]
+  use the determinant mnemonic
+  \[
+  \nabla\times\boldsymbol{f}
+  =
+  \begin{vmatrix}
+  \boldsymbol{e}_1&\boldsymbol{e}_2&\boldsymbol{e}_3\\
+  \partial_x&\partial_y&\partial_z\\
+  f_1&f_2&f_3
+  \end{vmatrix}.
+  \]
+
+  Expand along the first row, remembering the alternating signs:
+  \[
+  \boxed{
+  \begin{aligned}
+  \nabla\times\boldsymbol{f}
+  ={}&
+  (\partial_y f_3-\partial_z f_2)\boldsymbol{e}_1\\
+  &+(\partial_z f_1-\partial_x f_3)\boldsymbol{e}_2\\
+  &+(\partial_x f_2-\partial_y f_1)\boldsymbol{e}_3.
+  \end{aligned}
+  }
+  \]
+
+  The determinant is a mnemonic for the differential operator, rather than an ordinary determinant of numerical entries.
+\end{method}
+
+\begin{method}[Proving that the curl of a gradient is zero]
+  Let $f$ have continuous second partial derivatives. In Cartesian coordinates,
+  \[
+  \nabla f=(f_x,f_y,f_z).
+  \]
+
+  Then
+  \[
+  \nabla\times(\nabla f)
+  =
+  \begin{pmatrix}
+  f_{zy}-f_{yz}\\
+  f_{xz}-f_{zx}\\
+  f_{yx}-f_{xy}
+  \end{pmatrix}
+  =
+  \boldsymbol{0},
+  \]
+  since mixed partial derivatives are equal.
+
+  \textbf{Reusable principle:} Expand the curl and cancel the mixed partial derivatives in pairs.
+\end{method}
+
+\begin{method}[Proving that the divergence of a curl is zero]
+  Let $\boldsymbol{f}=(f_1,f_2,f_3)$ have continuous second partial derivatives. First write
+  \[
+  \nabla\times\boldsymbol{f}
+  =
+  \begin{pmatrix}
+  f_{3y}-f_{2z}\\
+  f_{1z}-f_{3x}\\
+  f_{2x}-f_{1y}
+  \end{pmatrix}.
+  \]
+
+  Taking the divergence gives
+  \[
+  \begin{aligned}
+  \nabla\cdot(\nabla\times\boldsymbol{f})
+  ={}&f_{3yx}-f_{2zx}
+  +f_{1zy}-f_{3xy}\\
+  &+f_{2xz}-f_{1yz}=0,
+  \end{aligned}
+  \]
+  by equality of mixed partial derivatives.
+
+  \textbf{Reusable principle:} Expand first, then pair equal mixed partial derivatives with opposite signs.
+\end{method}
+
+\begin{method}[Using the product rule for a gradient]
+  For scalar fields $f,g$, apply the ordinary product rule to each coordinate:
+  \[
+  \boxed{\nabla(fg)=g\nabla f+f\nabla g.}
+  \]
+
+  For example, the $x$-component is
+  \[
+  \frac{\partial(fg)}{\partial x}
+  =g\frac{\partial f}{\partial x}
+  +f\frac{\partial g}{\partial x}.
+  \]
+
+  The $y$- and $z$-components follow identically.
+\end{method}
+
+\begin{method}[Using the product rule for divergence]
+  For a scalar field $g$ and vector field $\boldsymbol{f}$,
+  \[
+  \boxed{
+  \nabla\cdot(g\boldsymbol{f})
+  =(\nabla g)\cdot\boldsymbol{f}
+  +g(\nabla\cdot\boldsymbol{f})
+  }
+  \]
+
+  Write $g\boldsymbol{f}=(gf_1,gf_2,gf_3)$ and differentiate each component with respect to its corresponding coordinate. Apply the ordinary product rule and collect terms.
+\end{method}
+
+\begin{method}[Using the product rule for curl]
+  For a scalar field $g$ and vector field $\boldsymbol{f}$,
+  \[
+  \boxed{
+  \nabla\times(g\boldsymbol{f})
+  =(\nabla g)\times\boldsymbol{f}
+  +g(\nabla\times\boldsymbol{f})
+  }
+  \]
+
+  Expand the curl componentwise and apply the ordinary product rule. The terms involving derivatives of $g$ assemble into $(\nabla g)\times\boldsymbol{f}$.
+\end{method}
+
+\begin{method}[Proving a vector identity]
+  When asked to prove a vector identity involving gradients, divergence, curl or products:
+
+  \begin{enumerate}
+    \item Start with the more complicated side.
+    \item Expand using Cartesian components if the identity is unfamiliar.
+    \item Apply the ordinary product rule to every differentiated product.
+    \item Rearrange terms and use equality of mixed partial derivatives where applicable.
+    \item Collect the resulting terms into the expression on the other side.
+  \end{enumerate}
+
+  Alternatively, use a known vector identity, but check the order of all cross products and which field each derivative acts upon.
+\end{method}
+
+\begin{method}[Calculating the gradient in orthogonal curvilinear coordinates]
+  For orthogonal coordinates $(u,v,w)$ with scale factors $h_u,h_v,h_w$,
+  \[
+  \boxed{
+  \nabla f=
+  \frac{1}{h_u}\frac{\partial f}{\partial u}\boldsymbol{e}_u
+  +\frac{1}{h_v}\frac{\partial f}{\partial v}\boldsymbol{e}_v
+  +\frac{1}{h_w}\frac{\partial f}{\partial w}\boldsymbol{e}_w
+  }
+  \]
+
+  \begin{enumerate}
+    \item Identify the coordinate system and its scale factors.
+    \item Calculate the partial derivative with respect to each coordinate.
+    \item Divide each derivative by its corresponding scale factor.
+    \item Attach the appropriate unit vector to each component.
+  \end{enumerate}
+\end{method}
+
+\begin{method}[Calculating divergence in orthogonal curvilinear coordinates]
+  For
+  \[
+  \boldsymbol{f}=f_u\boldsymbol{e}_u+
+  f_v\boldsymbol{e}_v+f_w\boldsymbol{e}_w,
+  \]
+  use
+  \[
+  \boxed{
+  \begin{aligned}
+  \nabla\cdot\boldsymbol{f}
+  =\frac{1}{h_uh_vh_w}\bigg[
+  &\frac{\partial}{\partial u}(h_vh_wf_u)\\
+  +{}&\frac{\partial}{\partial v}(h_uh_wf_v)\\
+  +{}&\frac{\partial}{\partial w}(h_uh_vf_w)
+  \bigg].
+  \end{aligned}
+  }
+  \]
+
+  \textbf{Exam trick:} Multiply each vector component by the two scale factors belonging to the other coordinates, differentiate with respect to its own coordinate, add the terms, and divide by $h_uh_vh_w$.
+\end{method}
+
+\begin{method}[Calculating curl in orthogonal curvilinear coordinates]
+  Use the scale-factor determinant:
+  \[
+  \boxed{
+  \nabla\times\boldsymbol{f}
+  =\frac{1}{h_uh_vh_w}
+  \begin{vmatrix}
+  h_u\boldsymbol{e}_u&h_v\boldsymbol{e}_v&h_w\boldsymbol{e}_w\\
+  \partial_u&\partial_v&\partial_w\\
+  h_uf_u&h_vf_v&h_wf_w
+  \end{vmatrix}.
+  }
+  \]
+
+  \begin{enumerate}
+    \item Insert the correct scale factors and vector components.
+    \item Expand along the first row.
+    \item Apply each derivative to the entire expression beneath it.
+    \item Simplify each component and check the signs.
+  \end{enumerate}
+
+  As with the Cartesian determinant, this is a mnemonic for a differential operator, not an ordinary numerical determinant.
+\end{method}
+
+\begin{method}[Checking a curvilinear-coordinate calculation]
+  After calculating a gradient, divergence or curl, check the following:
+
+  \begin{itemize}
+    \item The correct scale factors appear in each term.
+    \item Derivatives act on all coordinate-dependent factors inside their brackets.
+    \item Divergence is a scalar; gradient and curl are vectors.
+    \item The result reduces to the Cartesian formula when all scale factors are $1$ and the basis vectors are constant.
+  \end{itemize}
+\end{method}
+
+\begin{method}[Product rules for gradient, divergence and curl]
+Let \(\phi,\psi\) be scalar fields and \(\boldsymbol{f},\boldsymbol{g}\) be vector fields. Then
+\begin{align*}
+\nabla(\phi\psi)
+&= \phi\nabla\psi+\psi\nabla\phi,\\[6pt]
+\nabla\cdot(\phi\boldsymbol{f})
+&= \phi(\nabla\cdot\boldsymbol{f})
++\boldsymbol{f}\cdot\nabla\phi,\\[6pt]
+\nabla\times(\phi\boldsymbol{f})
+&= \phi(\nabla\times\boldsymbol{f})
++\nabla\phi\times\boldsymbol{f},\\[6pt]
+\nabla\cdot(\boldsymbol{f}\times\boldsymbol{g})
+&= \boldsymbol{g}\cdot(\nabla\times\boldsymbol{f})
+-\boldsymbol{f}\cdot(\nabla\times\boldsymbol{g}),\\[6pt]
+\nabla\times(\boldsymbol{f}\times\boldsymbol{g})
+&= \boldsymbol{f}(\nabla\cdot\boldsymbol{g})
+-\boldsymbol{g}(\nabla\cdot\boldsymbol{f})\\
+&\qquad +(\boldsymbol{g}\cdot\nabla)\boldsymbol{f}
+-(\boldsymbol{f}\cdot\nabla)\boldsymbol{g}.
+\end{align*}
+\end{method}
+
+\section{Integral Theorems}
+
+\subsection{Mistakes and Tips}
+
+
+
+\begin{mistake}[Conservative Fields and Path Independence]
+A conservative vector field has line integrals that depend only on the endpoints, not on the path taken between them. However, having zero curl is not automatically sufficient to establish that a field is conservative.
+
+For a \(C^1\) vector field on a simply connected open region of \(\mathbb R^3\),
+\[
+\nabla\times\boldsymbol f=\boldsymbol 0
+\quad\Longrightarrow\quad
+\boldsymbol f\text{ is conservative}.
+\]
+
+Without the simply connected condition, this implication can fail.
+
+\end{mistake}
+
+
+\begin{mistake}[Orientation in Stokes' Theorem]
+The orientation of the boundary curve \(C\) must be consistent with the chosen surface normal \(\hat{\boldsymbol n}\). The positive orientation follows the right-hand rule: point your right thumb in the direction of \(\hat{\boldsymbol n}\); your fingers curl in the positive direction around the boundary.
+
+Equivalently, if \(\hat{\boldsymbol n}_c\) is the outward unit co-normal to the boundary within the surface, then
+\[
+\boxed{
+\hat{\boldsymbol t}
+=
+\hat{\boldsymbol n}\times\hat{\boldsymbol n}_c.
+}
+\]
+
+Reversing either the surface normal or the boundary orientation changes the sign of the integral. Both orientations must be reversed together to preserve the value of the integral.
+\end{mistake}
+
+\begin{mistake}[The Divergence Theorem Requires a Closed Surface]
+The divergence theorem relates the flux through a closed surface to the volume integral of the divergence inside it. If a surface is open, it may be necessary to introduce an additional surface to form a closed boundary, apply the divergence theorem, and subtract the flux through the additional surface.
+
+\end{mistake}
+
+\begin{mistake}[Direction of normal in Divergence Theorem]
+  The normal in divergence theorem must point outward from the enclosed volume. Using an inward normal reverses the sign of the flux.
+\end{mistake}
+
+\begin{mistake}[Stokes' Theorem Is Not Restricted to One Surface]
+If several surfaces share the same boundary curve and have consistent orientations, the value of
+\[
+\int_S(\nabla\times\boldsymbol f)\cdot\hat{\boldsymbol n}\,dS
+\]
+is the same for each surface. This allows a complicated surface to be replaced by a simpler one, provided the boundary and orientation remain unchanged.
+\end{mistake}
+
+
+\subsection{Methods}
+
+\begin{method}[Fundamental Theorem of Line Integrals]
+Use this theorem whenever a vector field can be expressed as the gradient of a scalar potential.
+
+If
+\[
+\boldsymbol f=\nabla g
+\]
+for some \(C^1\) scalar field \(g\), and \(C\) is parametrised by \(\boldsymbol x(t)\), \(t\in[t_0,t_1]\), then
+\[
+\boxed{
+\int_C\boldsymbol f\cdot d\boldsymbol x
+=
+g(\boldsymbol x(t_1))-g(\boldsymbol x(t_0)).
+}
+\]
+
+The key observation is the chain rule:
+\begin{aligned}
+\frac{d}{dt}g(\boldsymbol x(t))
+&=
+\nabla g(\boldsymbol x(t))\cdot\boldsymbol x'(t)\\
+&=
+\boldsymbol f(\boldsymbol x(t))\cdot\boldsymbol x'(t).
+\end{aligned}
+
+Integrating with respect to \(t\) gives the result.
+
+In practice:
+\begin{enumerate}
+    \item Identify the potential function \(g\).
+    \item Determine the initial and terminal points.
+    \item Evaluate \(g\) at both endpoints.
+    \item Subtract the initial value from the terminal value.
+\end{enumerate}
+
+The path itself is irrelevant once the potential is known.
+
+The curve may be piecewise \(C^1\), provided the integral is well-defined.
+\end{method}
+
+\begin{method}[Testing Whether a Vector Field Is Conservative]
+For a \(C^1\) vector field
+\[
+\boldsymbol f=(P,Q,R)
+\]
+on a simply connected open region \(V\subseteq\mathbb R^3\), use the following criterion:
+\[
+\boxed{
+\boldsymbol f\text{ conservative}
+\iff
+\nabla\times\boldsymbol f=\boldsymbol 0.
+}
+\]
+
+Explicitly, calculate
+\[
+\nabla\times\boldsymbol f
+=
+\begin{pmatrix}
+R_y-Q_z\\
+P_z-R_x\\
+Q_x-P_y
+\end{pmatrix}.
+\]
+
+Thus, the conditions are
+\[
+R_y=Q_z,\qquad
+P_z=R_x,\qquad
+Q_x=P_y.
+\]
+
+If all three hold throughout the domain, the field is conservative, provided the domain is simply connected.
+
+For a two-dimensional field
+\[
+\boldsymbol f=(P,Q),
+\]
+the corresponding condition on a simply connected open region of \(\mathbb R^2\) is
+\[
+\boxed{
+\frac{\partial Q}{\partial x}
+=
+\frac{\partial P}{\partial y}.
+}
+\]
+
+If the domain is not simply connected, these conditions remain necessary but are not sufficient in general.
+\end{method}
+
+\begin{method}[Finding a Scalar Potential]
+Suppose
+\[
+\boldsymbol f
+=
+P(x,y,z)\boldsymbol e_1
++
+Q(x,y,z)\boldsymbol e_2
++
+R(x,y,z)\boldsymbol e_3
+\]
+is conservative, so that
+\[
+\nabla g=\boldsymbol f.
+\]
+
+Then
+\[
+\frac{\partial g}{\partial x}=P,\qquad
+\frac{\partial g}{\partial y}=Q,\qquad
+\frac{\partial g}{\partial z}=R.
+\]
+
+To find \(g\):
+
+\begin{enumerate}
+    \item Integrate the first component with respect to \(x\):
+    \[
+    g(x,y,z)=\int P(x,y,z)\,dx+\phi(y,z).
+    \]
+
+    The integration term \(\phi(y,z)\) must be retained because it may depend on the other variables.
+
+    \item Differentiate the resulting expression with respect to \(y\), and compare with \(Q\):
+    \[
+    \frac{\partial g}{\partial y}=Q.
+    \]
+    This determines \(\phi(y,z)\) up to a function of \(z\).
+
+    \item Differentiate with respect to \(z\), and compare with \(R\):
+    \[
+    \frac{\partial g}{\partial z}=R.
+    \]
+    This determines any remaining dependence on \(z\).
+
+    \item Verify that all three partial derivatives reproduce the original vector field.
+\end{enumerate}
+
+The potential is unique up to an additive constant on each connected component of the domain.
+
+Once \(g\) is obtained, line integrals can be evaluated using the fundamental theorem of line integrals.
+\end{method}
+
+\begin{method}[Using Path Independence]
+If \(\boldsymbol f\) is conservative, then for any two piecewise smooth curves \(C_1,C_2\) with the same initial and terminal points,
+\[
+\boxed{
+\int_{C_1}\boldsymbol f\cdot d\boldsymbol x
+=
+\int_{C_2}\boldsymbol f\cdot d\boldsymbol x.
+}
+\]
+
+Equivalently, every closed curve has zero circulation:
+\[
+\boxed{
+\oint_C\boldsymbol f\cdot d\boldsymbol x=0.
+}
+\]
+
+These statements are equivalent to conservativeness on a path-connected open region.
+
+To exploit path independence, choose the simplest convenient path between the endpoints. For example, a piecewise linear path consisting of coordinate-parallel segments often simplifies the calculation.
+
+Alternatively, if a potential is known, use the fundamental theorem of line integrals directly.
+\end{method}
+
+\begin{method}[Divergence Theorem]
+Use the divergence theorem when calculating the flux of a vector field through a closed surface, particularly when the surface integral is difficult but the volume integral is simpler.
+
+For a \(C^1\) vector field \(\boldsymbol f\) and a sufficiently smooth closed boundary surface \(S=\partial V\),
+\[
+\boxed{
+\oint_S\boldsymbol f\cdot\hat{\boldsymbol n}\,dS
+=
+\int_V\nabla\cdot\boldsymbol f\,dV.
+}
+\]
+
+Here \(\hat{\boldsymbol n}\) is the outward unit normal.
+
+Procedure:
+
+\begin{enumerate}
+    \item Confirm that the surface is closed.
+    \item Identify the enclosed volume \(V\).
+    \item Calculate the divergence:
+    \[
+    \nabla\cdot\boldsymbol f.
+    \]
+    \item Set up the volume integral over \(V\), choosing an appropriate coordinate system.
+    \item Evaluate the integral.
+\end{enumerate}
+
+Useful coordinate forms include
+\[
+dV=
+\begin{cases}
+dx\,dy\,dz & \text{Cartesian},\\
+r\,dr\,d\theta\,dz & \text{cylindrical},\\
+\rho^2\sin\phi\,d\rho\,d\phi\,d\theta
+& \text{spherical}.
+\end{cases}
+\]
+
+The divergence theorem is especially useful when the flux through individual faces or curved surfaces would be tedious to calculate separately.
+\end{method}
+
+\begin{method}[Closing an Open Surface for the Divergence Theorem]
+If \(S\) is an open surface, introduce an additional surface \(S_c\) such that
+\[
+S_{\mathrm{closed}}=S\cup S_c
+\]
+bounds a volume \(V\).
+
+Applying the divergence theorem gives
+\[
+\oint_{S_{\mathrm{closed}}}
+\boldsymbol f\cdot\hat{\boldsymbol n}\,dS
+=
+\int_V\nabla\cdot\boldsymbol f\,dV.
+\]
+
+Splitting the surface integral,
+\[
+\int_S\boldsymbol f\cdot\hat{\boldsymbol n}\,dS
++
+\int_{S_c}\boldsymbol f\cdot\hat{\boldsymbol n}\,dS
+=
+\int_V\nabla\cdot\boldsymbol f\,dV.
+\]
+
+Therefore,
+\[
+\boxed{
+\int_S\boldsymbol f\cdot\hat{\boldsymbol n}\,dS
+=
+\int_V\nabla\cdot\boldsymbol f\,dV
+-
+\int_{S_c}\boldsymbol f\cdot\hat{\boldsymbol n}\,dS.
+}
+\]
+
+Choose the closing surface so that its flux is easy to evaluate, ideally zero.
+\end{method}
+
+\begin{method}[Stokes' Theorem]
+Use Stokes' theorem when calculating circulation around a closed curve, or when the line integral is difficult but the surface integral of the curl is simpler.
+
+For a \(C^1\) vector field \(\boldsymbol f\), an oriented surface \(S\), and its positively oriented boundary \(C=\partial S\),
+\[
+\boxed{
+\oint_C\boldsymbol f\cdot d\boldsymbol x
+=
+\int_S(\nabla\times\boldsymbol f)
+\cdot\hat{\boldsymbol n}\,dS.
+}
+\]
+
+Procedure:
+
+\begin{enumerate}
+    \item Identify the boundary curve \(C\).
+    \item Choose a convenient surface \(S\) bounded by \(C\).
+    \item Determine the corresponding surface normal using the right-hand rule.
+    \item Calculate the curl:
+    \[
+    \nabla\times\boldsymbol f.
+    \]
+    \item Evaluate its flux through \(S\).
+\end{enumerate}
+
+An important simplification is that the surface can be replaced by any other suitably smooth surface with the same boundary, provided the orientation is consistent.
+
+For example, a curved surface may be replaced by a planar disc if both have the same boundary curve.
+\end{method}
+
+\begin{method}[Green's Theorem]
+Green's theorem is the two-dimensional analogue of Stokes' theorem.
+
+For a \(C^1\) vector field
+\[
+\boldsymbol f(x,y)=P(x,y)\boldsymbol e_1+Q(x,y)\boldsymbol e_2
+\]
+and a positively oriented (anticlockwise) simple closed curve \(C\) bounding a region \(A\),
+\[
+\boxed{
+\oint_C P\,dx+Q\,dy
+=
+\iint_A
+\left(
+\frac{\partial Q}{\partial x}
+-
+\frac{\partial P}{\partial y}
+\right)dA.
+}
+\]
+
+To apply it:
+
+\begin{enumerate}
+    \item Identify \(P\) and \(Q\).
+    \item Calculate
+    \[
+    \frac{\partial Q}{\partial x}
+    -
+    \frac{\partial P}{\partial y}.
+    \]
+    \item Describe the enclosed region \(A\).
+    \item Evaluate the resulting double integral.
+\end{enumerate}
+
+The orientation is important: the standard formula assumes anticlockwise traversal. For clockwise traversal, the result changes sign.
+
+Green's theorem can be viewed as Stokes' theorem applied to a planar surface in \(\mathbb R^3\), with normal \(\boldsymbol e_3\).
+\end{method}
+
+\begin{method}[Choosing Between the Integral Theorems]
+When faced with a line, surface or volume integral, identify the geometric object and the operation being integrated.
+
+\begin{itemize}
+    \item \textbf{Fundamental theorem of line integrals:} Use when integrating a gradient field along a curve. Replace the integral with the difference in potential at the endpoints.
+
+    \item \textbf{Divergence theorem:} Use for flux through a closed surface. Replace the surface integral with a volume integral of divergence.
+
+    \item \textbf{Stokes' theorem:} Use for circulation around a closed curve. Replace the line integral with a surface integral of curl.
+
+    \item \textbf{Green's theorem:} Use for circulation around a closed planar curve. Replace the line integral with a double integral over the enclosed region.
+\end{itemize}
+
+The key relationships are
+\[
+\begin{aligned}
+\int_C\nabla g\cdot d\boldsymbol x
+&=g(B)-g(A),\\[4pt]
+\oint_{\partial V}\boldsymbol f\cdot\hat{\boldsymbol n}\,dS
+&=\int_V\nabla\cdot\boldsymbol f\,dV,\\[4pt]
+\oint_{\partial S}\boldsymbol f\cdot d\boldsymbol x
+&=\int_S(\nabla\times\boldsymbol f)
+\cdot\hat{\boldsymbol n}\,dS.
+\end{aligned}
+\]
+
+The general strategy is to replace a difficult integral with an equivalent integral over a higher- or lower-dimensional geometric object that is easier to evaluate.
+\end{method}
+
+\begin{method}[Useful Vector Calculus Identities]
+The following identities are useful when simplifying vector fields and applying the integral theorems.
+
+For sufficiently smooth scalar fields \(\phi,\psi\) and vector fields \(\boldsymbol f,\boldsymbol g\):
+\[
+\begin{aligned}
+\nabla\cdot(\nabla\times\boldsymbol f)
+&=0,\\
+\nabla\times(\nabla\phi)
+&=\boldsymbol 0,\\
+\nabla\cdot(\phi\boldsymbol f)
+&=\nabla\phi\cdot\boldsymbol f
++\phi(\nabla\cdot\boldsymbol f),\\
+\nabla\times(\phi\boldsymbol f)
+&=\nabla\phi\times\boldsymbol f
++\phi(\nabla\times\boldsymbol f),\\
+\nabla\cdot(\boldsymbol f\times\boldsymbol g)
+&=\boldsymbol g\cdot(\nabla\times\boldsymbol f)
+-\boldsymbol f\cdot(\nabla\times\boldsymbol g),\\
+\nabla\times(\boldsymbol f\times\boldsymbol g)
+&=
+\boldsymbol f(\nabla\cdot\boldsymbol g)
+-\boldsymbol g(\nabla\cdot\boldsymbol f)\\
+&\quad+
+(\boldsymbol g\cdot\nabla)\boldsymbol f
+-(\boldsymbol f\cdot\nabla)\boldsymbol g.
+\end{aligned}
+\]
+
+In particular,
+\[
+\boxed{
+\nabla\cdot(\nabla\times\boldsymbol f)=0
+}
+\]
+and
+\[
+\boxed{
+\nabla\times(\nabla\phi)=\boldsymbol 0.
+}
+\]
+
+These identities explain why the curl of a gradient field vanishes and why the divergence of a curl field vanishes.
+\end{method}

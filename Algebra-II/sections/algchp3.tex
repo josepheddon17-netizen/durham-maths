@@ -38,7 +38,7 @@ If \(R=\mathrm{M}_n(F)\) (ring of matrices over a field \(F\) ), then \(R^{\time
 \end{definition}
 
 \begin{definition}[Integral Domain]
-  Definition 3.5. A ring \(R\) which is commutative, has at least two elements \((0 \neq 1)\), and does not have any zero divisors apart from 0 , is called an integral domain.
+A ring \(R\) which is commutative, has at least two elements \((0 \neq 1)\), and does not have any zero divisors apart from 0 , is called an integral domain.
 
 The essential property of an integral domain is the multiplicative cancellation property:
 
@@ -64,4 +64,38 @@ and this holds even if \(x\) is not a unit and you can't divide by it.
 \begin{proof}
   Insert proof here
 \end{proof}
+
+\section{Prime Elements and Unique Factorisation Domains}
+
+\begin{definition}[Prime Element]
+  Let \(R\) be a commutative ring. An element \(x \in R\) is called prime (or a prime element) if the following conditions hold:
+\begin{itemize}
+\item[i)] \(x\) is non-zero and not a unit.
+\item[ii)] If \(x \mid a b\), for \(a, b \in R\), then \(x \mid a\) or \(x \mid b\).
+\end{itemize}
+\end{definition}
+
+\begin{lemma}[Relating prime elements to irreducible]
+  Let \(R\) be an integral domain. If \(x \in R\) a prime element, then \(x\) is irreducible.
+\end{lemma}
+
+\begin{proof}
+  Insert proof here
+\end{proof}
+
+\begin{method}[Showing uniqueness of two factorisations]
+  To show that these two factorisations are genuinely different we need two things:
+\begin{itemize}
+\item[-] That all the factors are irreducible
+\item[-] No factor is a unit multiplied by another element
+
+\end{itemize}
+\end{method}
+
+\begin{definition}[Unique Factorisation Domain]
+  An integral domain \(R\) is called a \emph{Unique Factorisation Domain (UFD)} if every non-zero non-unit element of \(R\) can be written as a product of irreducible elements and this product is unique up to order of the factors and multiplication by units.
+\end{definition}
+
+
+
 

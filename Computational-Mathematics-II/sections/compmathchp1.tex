@@ -1,208 +1,497 @@
-\section{Fixed-point numbers}
+```latex
+\section{Representations of Numbers}
 
-We see that when we attempt $0.1+0.2 == 0.3$ in MATLAB, we return a false value due to rounding in binary causing issues. Numbers like $0.1$ and $0.2$ cannot be stored in binary exactly and thus the two sides will differ by $5.6 \times 10^{-17}$. We utilise real numbers and integers within computational systems to speed up manipulating mathematical objects. We can do this symbolically with \emph{Computer Algebra Systems} but we trade off time.
+\subsection{Symbolic and Numerical Representations}
 
-\begin{definition}[Fixed-point numbers]
-  A \emph{fixed-point number} representation of a real number is given as:
-  $$
-x= \pm\left(d_1 d_2 \cdots d_{k-1} \cdot d_k \cdots d_n\right)_\beta, \quad \text { where } \quad d_1, \ldots, d_n \in\{0,1, \ldots, \beta-1\} .
-$$
+Computers represent and manipulate mathematical objects using finite amounts of memory. There are two broad approaches to computation:
 
-Here $\beta$ is the base (e.g. 10 for decimal arithmetic or 2 for binary). The word fixed refers to the position of the point: a fixed-point system uses a fixed number of digits before and after the point, so the numbers it can represent are equally spaced, a distance $\beta^{-(n-k+1)}$ apart.
+\begin{definition}[Symbolic Computation]
+  Symbolic computation manipulates mathematical expressions exactly, retaining their algebraic structure. For example,
+  \[
+    \frac{1}{3}+\frac{1}{6}=\frac{1}{2}.
+  \]
+  Computer Algebra Systems (CAS), such as MATLAB's Symbolic Math Toolbox, can perform symbolic differentiation, integration and algebraic simplification.
 \end{definition}
 
-\begin{remark}
-  This system can be used to represent any real number uniquely. We must remove representations ending in infinitely many $9$'s (when in decimal) or infinitely many $b-1$'s where $b$ represents the base. For example in denary we cannot use $3.14=3.1400 \ldots = 3.139999 \ldots$ as we are excluding the $10-1$'s expansion. 
+\begin{definition}[Numerical Computation]
+  Numerical computation represents quantities using finite numerical formats and approximates mathematical operations. For example, a computer may store an approximation to \(\frac{1}{3}\) rather than its exact value.
+\end{definition}
+
+\begin{remark}[Symbolic vs Numerical Computation]
+  \begin{itemize} \emph{}
+    \item Symbolic computation can preserve exact results, but expressions may become expensive to manipulate as their complexity increases.
+    \item Numerical computation is generally more efficient for large-scale calculations, but finite precision introduces rounding errors.
+    \item Symbolic and numerical methods are complementary: symbolic computation can derive or simplify formulas, while numerical computation can evaluate them efficiently.
+  \end{itemize}
 \end{remark}
 
-\section{Floating-point numbers}
+\begin{example}
+  In MATLAB, compare
+  \begin{lstlisting}[language=Matlab]
+  0.1 + 0.2 == 0.3
+  \end{lstlisting}
+  with
+  \begin{lstlisting}[language=Matlab]
+  sym(1)/10 + sym(2)/10 == sym(3)/10
+  \end{lstlisting}
+  The first comparison can return false because \(0.1\) and \(0.2\) do not have exact finite binary floating-point representations. The symbolic calculation retains the exact rational values and returns true.
+\end{example}
 
-\begin{definition}[Floating-point numbers]
-Fix a base $\beta \geq 2$, a number of digits $m$, and an exponent range $e_{\min } \leq e \leq e_{\max }$. Only numbers in the floating-point number system $F \subset \mathbb{R}$ can be represented exactly, where
+\subsection{Integer Representations}
 
-$$
-F=\left\{ \pm\left(0 . d_1 d_2 \cdots d_m\right)_\beta \beta^e \mid d_i \in\{0,1, \ldots, \beta-1\}, e \in \mathbb{Z}, e_{\min } \leq e \leq e_{\max }\right\}
-$$
+Integers are represented using a finite number of binary digits, called bits. Each bit stores either \(0\) or \(1\).
 
-Here $\left(0 . d_1 d_2 \cdots d_m\right)_\beta$ is called the fraction (or significand or mantissa), and $e$ is the exponent.
+An unsigned integer represented using \(w\) bits has the range
+\[
+  \boxed{0\leq n\leq 2^w-1.}
+\]
+
+For example, using four bits,
+\[
+  (1011)_2=1\cdot2^3+0\cdot2^2+1\cdot2^1+1\cdot2^0=11.
+\]
+
+Signed integers require a convention for representing negative values. A common representation is \emph{two's complement}. Using \(w\) bits, its range is
+\[
+  \boxed{-2^{w-1}\leq n\leq 2^{w-1}-1.}
+\]
+
+\begin{remark}[Integer Overflow]
+  Integer arithmetic can produce a mathematical result outside the range representable by the chosen integer type. This is called integer overflow. The resulting behaviour depends on the programming language and numeric type; fixed-width integer arithmetic may wrap around or raise an error.
+\end{remark}
+
+\subsection{Fixed-Point Numbers}
+
+\begin{definition}[Fixed-Point Numbers]
+  A fixed-point number represents a number using a fixed number of digits before and after the radix point. In base \(\beta\), a finite representation can be written as
+  \[
+    x=\pm(d_1d_2\cdots d_{k-1}.d_k\cdots d_n)_\beta,
+  \]
+  where
+  \[
+    d_i\in\{0,1,\ldots,\beta-1\}.
+  \]
+  The base \(\beta\) determines the number system: \(\beta=10\) gives decimal and \(\beta=2\) gives binary.
+\end{definition}
+
+For a fixed-point system with \(q\) digits after the radix point, the spacing between adjacent representable numbers is
+\[
+  \boxed{\Delta=\beta^{-q}.}
+\]
+
+For example, a decimal fixed-point system with two digits after the decimal point has spacing
+\[
+  \Delta=10^{-2}=0.01.
+\]
+
+\begin{remark}[Properties of Fixed-Point Numbers]
+  \begin{itemize} \emph{}
+    \item The position of the radix point is fixed.
+    \item Representable values are equally spaced.
+    \item The spacing determines the resolution of the representation.
+    \item The number of digits before the point limits the magnitude of representable values.
+    \item Values that do not lie on the fixed-point grid must be rounded or truncated.
+  \end{itemize}
+\end{remark}
+
+\begin{example}
+  Suppose a decimal fixed-point system stores two digits after the decimal point. Then
+  \[
+    3.14
+  \]
+  is representable exactly, whereas
+  \[
+    3.14159
+  \]
+  must be approximated, for example by \(3.14\) when rounded to two decimal places.
+\end{example}
+
+\subsection{Floating-Point Numbers}
+
+Fixed-point numbers have constant spacing, which limits the range of magnitudes that can be represented conveniently. Floating-point numbers address this by allowing the radix point to move through the use of an exponent.
+
+\begin{definition}[Floating-Point Numbers]
+  A floating-point system is specified by:
+  \begin{itemize}
+    \item a base \(\beta\geq2\);
+    \item a significand precision of \(m\) digits;
+    \item a permitted range of exponents.
+  \end{itemize}
+  A finite floating-point number can be written as
+  \[
+    \boxed{
+      x=\pm(0.d_1d_2\cdots d_m)_\beta\,\beta^e,
+    }
+  \]
+  where \(d_i\in\{0,1,\ldots,\beta-1\}\) and \(e\) is an integer in the permitted exponent range.
+
+  The digits \(d_1,\ldots,d_m\) form the \emph{significand}, also called the fraction or mantissa, and \(e\) is the exponent.
 \end{definition}
 
 \begin{example}
-  \noindent Suppose we set $\beta = 10$ and $m=3$ and:
-$$
--2 \leq e \leq 2 \text {. }
-$$
-
-\noindent Then we could represent
-
-$$
-0.123 \times 10^2=12.3
-$$
-
-\noindent or
-
-$$
-0.456 \times 10^{-2}=0.00456 \text {. }
-$$
-
-\noindent We could also represent
-
-$$
--0.789 \times 10^1=-7.89 .
-$$
-
-\noindent But something like
-
-$$
-12.3456
-$$
-
-cannot be represented exactly, because we only have 3 digits available for the significand.
+  Consider a decimal floating-point system with three significand digits and exponents between \(-2\) and \(2\). It can represent numbers such as
+  \[
+    0.123\times10^2=12.3,
+  \]
+  \[
+    0.456\times10^{-2}=0.00456,
+  \]
+  and
+  \[
+    -0.789\times10^1=-7.89.
+  \]
+  However, \(12.3456\) cannot be represented exactly with only three significand digits.
 \end{example}
 
 \begin{example}
-  \noindent Now consider a system with $\beta = 2$ so we are working in binary. We set $m=3$ and once more we have:
-
-$$
-  -2 \leq e \leq 2 \text {. }
-$$
-\noindent We now represent numbers such as:
-
-$$(0.101)_2 2^2 = (\frac{1}{2} + \frac{1}{8})\times 4 = \frac{5}{8} \times 4 = 2.5$$ 
-
-\noindent or something like
-
-$$(0.100)_2 2^1 = (\frac{1}{8}) \times 2 = 0.25$$
-
-
-
+  In binary,
+  \[
+    (0.101)_2
+    =1\cdot2^{-1}+0\cdot2^{-2}+1\cdot2^{-3}
+    =\frac{5}{8}.
+  \]
+  Hence
+  \[
+    (0.101)_2\,2^2=\frac58\cdot4=2.5.
+  \]
+  Similarly,
+  \[
+    (0.100)_2\,2^1=\frac12\cdot2=1.
+  \]
 \end{example}
 
-\begin{definition}[Normalisation]
-  We use normalisation, enforcing the requirement $d_1  \neq 0$ to create a unique numbering system and so we assume that our system is \emph{normalised} by default. This is useful as we can represent a larger range of numbers at the loss of equally spaced numbers.
+\subsection{Normalisation}
+
+\begin{definition}[Normalised Floating-Point Numbers]
+  A non-zero floating-point number is normalised when its significand is written so that its first digit is non-zero:
+  \[
+    x=\pm(0.d_1d_2\cdots d_m)_\beta\,\beta^e,
+    \qquad d_1\neq0.
+  \]
+\end{definition}
+
+Normalisation gives a standard representation and maximises the precision available for a given number of significand digits. Unlike fixed-point representation, floating-point spacing changes with the magnitude of the number.
+
+\begin{remark}[Spacing Between Floating-Point Numbers]
+  For a normalised base-\(\beta\) system with \(m\) significand digits, the spacing between adjacent numbers is proportional to the magnitude of the numbers being represented. Numbers of larger magnitude generally have larger absolute spacing, while the relative spacing remains approximately constant within a fixed exponent range.
+\end{remark}
+
+\subsection{IEEE 754 Double Precision}
+
+MATLAB normally uses IEEE 754 double-precision floating-point arithmetic for standard numerical calculations.
+
+A double-precision number occupies 64 bits:
+\begin{itemize}
+  \item 1 sign bit;
+  \item 11 exponent bits;
+  \item 52 explicitly stored fraction bits.
+\end{itemize}
+
+For normalised numbers, the leading binary digit is implicitly \(1\). If \(E\) is the stored exponent, then
+\[
+  \boxed{
+    x=(-1)^s(1.d_1d_2\cdots d_{52})_2\,2^{E-1023},
+  }
+\]
+where \(s\) is the sign bit and \(1\leq E\leq2046\).
+
+Equivalently,
+\[
+  x=(-1)^s(0.1d_1d_2\cdots d_{52})_2\,2^{E-1022}.
+\]
+
+\begin{remark}[Exponent Bias]
+  The stored exponent is biased by \(1023\). For normalised double-precision numbers, the unbiased exponent therefore ranges from \(-1022\) to \(1023\) in the conventional \(1.d_1\cdots d_{52}\) representation.
+\end{remark}
+
+The approximate limits of double precision are
+\[
+  \boxed{\texttt{realmin}\approx2.2251\times10^{-308}}
+\]
+and
+\[
+  \boxed{\texttt{realmax}\approx1.7977\times10^{308}.}
+\]
+
+In MATLAB, these values can be inspected using
+\begin{lstlisting}[language=Matlab]
+realmin
+realmax
+\end{lstlisting}
+
+\begin{remark}[Subnormal Numbers and Special Values]
+  IEEE 754 reserves the extreme exponent fields for special cases:
+  \begin{itemize}
+    \item A zero exponent field represents signed zero or a subnormal number.
+    \item An all-ones exponent field represents infinity or NaN (\emph{not a number}).
+  \end{itemize}
+  Subnormal numbers extend the range of representable non-zero values below the smallest positive normal number, but with reduced precision.
+\end{remark}
+
+\section{Rounding and Numerical Errors}
+
+\subsection{Rounding}
+
+A computer cannot store every real number exactly using a finite floating-point format. Rounding maps a real number to a representable floating-point number.
+
+\begin{definition}[Floating-Point Rounding]
+  The rounded floating-point representation of a real number \(x\) is denoted by
+  \[
+    \boxed{\operatorname{fl}(x).}
+  \]
+  Under round-to-nearest arithmetic, \(\operatorname{fl}(x)\) is a representable number closest to \(x\). When \(x\) lies exactly halfway between two representable values, IEEE 754 normally rounds to the value whose last significand digit is even.
+\end{definition}
+
+\begin{remark}[Why Round to Nearest Even?]
+  Ties-to-even rounding helps avoid a systematic bias that could arise from always rounding halfway cases in the same direction.
+\end{remark}
+
+\subsection{Significant Figures}
+
+\begin{definition}[Significant Figures]
+  Significant figures begin at the first non-zero digit and include all subsequent digits. Trailing zeros after a decimal point count as significant when they indicate stated precision.
 \end{definition}
 
 \begin{example}
-  Here \(\beta=2\), and there are 52 bits for the fraction, 11 for the exponent, and 1 for the sign. The stored exponent field is \(E=\left(e_1 e_2 \cdots e_{11}\right)_2 \in[0,2047]\), and a normalised number has the value
-
-\[
-\pm\left(1 . d_1 \cdots d_{52}\right)_2 2^{E-1023}= \pm\left(0.1 d_1 \cdots d_{52}\right)_2 2^{E-1022} .
-\]
-
-When \(\beta=2\), the first digit of a normalised number is always 1, so it doesn't need to be stored in memory. The standard's \textbf{exponent bias} is 1023; in the \((0.1 \cdots)_2\) form used in these notes it becomes 1022, so the exponents \(e=E-1022\) lie in the range -1022 to 1025. The two extreme values of the exponent field are reserved: \(E=0\) stores \(\pm 0\) and the subnormal numbers (see below), and \(E=2047\) stores \(\pm \infty\) and NaN ("not a number"). Normalised numbers therefore have exponents from -1021 to 1024.
+  The number \(0.004560\) has four significant figures:
+  \[
+    4,\quad5,\quad6,\quad0.
+  \]
+  The leading zeros locate the decimal point and are not significant.
 \end{example}
 
-\begin{remark}
-  The smallest positive normalised number in this system is \((0.1)_2 2^{-1021} \approx 2.225 \times 10^{-308}\), and the largest number is \((0.1 \cdots 1)_2 2^{1024} \approx 1.798 \times 10^{308}\). In MATLAB, these are returned by realmin and realmax.
+\subsection{Absolute and Relative Errors}
+
+\begin{definition}[Absolute Error]
+  If \(x\) is the true value and \(\hat{x}\) is an approximation, the absolute error is
+  \[
+    \boxed{E_{\mathrm{abs}}=|\hat{x}-x|.}
+  \]
+\end{definition}
+
+\begin{definition}[Relative Error]
+  Provided \(x\neq0\), the relative error is
+  \[
+    \boxed{
+      E_{\mathrm{rel}}=\frac{|\hat{x}-x|}{|x|}.
+    }
+  \]
+  The percentage relative error is \(100E_{\mathrm{rel}}\%\).
+\end{definition}
+
+\begin{remark}[Interpreting Error]
+  Absolute error measures the size of the discrepancy in the original units. Relative error measures the discrepancy compared with the magnitude of the true value, making it useful for comparing accuracy across different scales.
 \end{remark}
 
-\begin{definition}[Over and Under Flow]
-  Numbers outside the finite set \(F\) cannot be represented exactly. If a calculation produces a non-zero result that is smaller in absolute value than the smallest normalised number, it is called \textbf{underflow}; IEEE arithmetic first represents such results using subnormal numbers (see below), and results smaller still are rounded to \(\boldsymbol{o}\). If a result is larger in absolute value than the largest number in \(F\), it is called \textbf{overflow}; in IEEE arithmetic (and hence in MATLAB), the result is \(\pm \infty\), so that \(2^*\) realmax returns 'Inf'.
-\end{definition}
+\begin{example}
+  Suppose the true value is \(x=1000\) and the approximation is \(\hat{x}=999\). Then
+  \[
+    E_{\mathrm{abs}}=1,
+    \qquad
+    E_{\mathrm{rel}}=\frac{1}{1000}=0.001.
+  \]
+  The percentage relative error is \(0.1\%\).
+\end{example}
 
-\begin{definition}[Rounding]
-  The mapping from \(\mathbb{R}\) to \(F\) is called rounding and denoted \(\operatorname{fl}(x)\). Usually it is simply the nearest number in \(F\) to \(x\). If \(x\) lies exactly midway between two numbers in \(F\), a method of breaking ties is required. The IEEE standard specifies round to nearest even-i.e., take the neighbour with last digit o in the fraction. Ties are then rounded up and down equally often, which avoids statistical bias or prolonged drift in one direction.
-\end{definition}
+\subsection{Relative Error in Floating-Point Rounding}
 
-\section{Significant Figures}
-
-\begin{definition}[Signficant Figures]
-  To count the number of significant figures in a number \(x\), start with the first non-zero digit from the left, and count all the digits thereafter, including final zeros if they are after the decimal point.
-\end{definition}
-
-\section{Rounding Error}
-
-\begin{definition}[Absolute and Relative Errors]
-  If \(x\) is the true value of a number and \(\hat{x}\) is an approximation, we define the absolute error of this approximation as the quantity
-
+For a non-zero value whose rounded result is finite and non-zero, we can write
 \[
-|\hat{x}-x|,
+  \boxed{
+    \operatorname{fl}(x)=x(1+\delta),
+  }
+\]
+where
+\[
+  \boxed{
+    \delta=\frac{\operatorname{fl}(x)-x}{x}.
+  }
 \]
 
-while the relative error of the approximation is given by
+The quantity \(\delta\) is the signed relative rounding error. Its magnitude is the relative error introduced by rounding.
 
-\[
-\frac{|\hat{x}-x|}{|x|},
-\]
+\subsection{Unit Roundoff and Machine Epsilon}
 
-assuming \(x \neq 0\).
+\begin{definition}[Unit Roundoff]
+  Consider a normalised floating-point system with base \(\beta\) and \(m\) significand digits. Under round-to-nearest arithmetic, provided the result remains in the normal range,
+  \[
+    \operatorname{fl}(x)=x(1+\delta),
+  \]
+  where
+  \[
+    \boxed{
+      |\delta|\leq u,
+      \qquad
+      u=\frac12\beta^{1-m}.
+    }
+  \]
+  The constant \(u\) is called the \emph{unit roundoff}.
 \end{definition}
 
-\begin{remark}
-  Relative errors are often more useful because they are scale invariant
+The bound follows because rounding changes the significand by at most half a unit in its final digit. The first digit of a normalised significand is non-zero, so its magnitude is at least \(\beta^{-1}\). Comparing the absolute rounding error with the magnitude of \(x\) gives
+\[
+  |\delta|\leq\frac12\beta^{1-m}.
+\]
+
+\begin{remark}[Unit Roundoff vs Machine Epsilon]
+  These quantities are related but are not always defined identically:
+  \begin{itemize}
+    \item \textbf{Unit roundoff} \(u\) is the standard upper bound on relative error under round-to-nearest arithmetic.
+    \item \textbf{Machine epsilon} is commonly used to describe the spacing between \(1\) and the next larger representable number.
+  \end{itemize}
+  For IEEE 754 double precision,
+  \[
+    \boxed{u=2^{-53}\approx1.11\times10^{-16},}
+  \]
+  whereas MATLAB's
+  \[
+    \boxed{\texttt{eps}=2^{-52}\approx2.22\times10^{-16}.}
+  \]
+  Thus, for MATLAB double precision, \texttt{eps} is twice the unit roundoff.
 \end{remark}
 
-\begin{definition}[Relative Error in Rounding]
-  If \(|x|\) lies between the smallest non-zero number in \(F\) and the largest number in \(F\), then we can write
+\begin{remark}[Correctly Rounded Arithmetic]
+  For the basic operations \(+,-,\times,\div\), IEEE 754 correctly rounded arithmetic produces the exact mathematical result rounded to the floating-point format, subject to the relevant exceptional cases. When the exact result is in the normal range and no exceptional behaviour occurs,
+  \[
+    \boxed{
+      \operatorname{fl}(x\circ y)
+      =(x\circ y)(1+\delta),
+      \qquad |\delta|\leq u,
+    }
+  \]
+  where \(\circ\) denotes one of these operations and the exact result is non-zero.
+\end{remark}
 
-\[
-\mathrm{fl}(x)=x(1+\delta), \quad \text { where } \quad \delta=\frac{\operatorname{fl}(x)-x}{x},
-\]
+\section{Overflow and Underflow}
 
-so that \(|\delta|\) is the relative error incurred by rounding.
+\begin{definition}[Overflow]
+  Overflow occurs when a computed result exceeds the largest finite magnitude representable in the floating-point format. In standard IEEE 754 arithmetic, the result of an overflowing operation is typically \(+\infty\) or \(-\infty\), depending on the sign.
 \end{definition}
 
-\begin{definition}[Unit Round Off]
-  To bound \(|\delta|\), write \(x=\left(0 . d_1 d_2 \cdots\right)_\beta \beta^e\) with \(d_1 \neq 0\) and \(e \in\left[e_{\min }, e_{\max }\right]\). If \(x \notin F\), this significand will not terminate after \(m\) digits, but rounding changes it by at most \(\frac{1}{2} \beta^{-m}\), so
+\begin{example}
+  In MATLAB, a sufficiently large calculation can produce infinity:
+  \begin{lstlisting}[language=Matlab]
+  2 * realmax
+  \end{lstlisting}
+\end{example}
 
-\[
-|\mathrm{fl}(x)-x| \leq \frac{1}{2} \beta^{-m} \beta^e .
-\]
-
-Since \(d_1 \neq 0\), the significand of \(x\) is at least \((0.1)_\beta=\beta^{-1}\), so \(|x| \geq \beta^{-1} \beta^e\). Therefore
-
-\[
-|\delta|=\frac{|\mathrm{fl}(x)-x|}{|x|} \leq \frac{\frac{1}{2} \beta^{-m} \beta^e}{\beta^{-1} \beta^e}=\frac{1}{2} \beta^{1-m} .
-\]
-
-The number \(\epsilon_{\mathrm{M}}=\frac{1}{2} \beta^{1-m}\) is called the unit roundoff, and is independent of \(x\). So the relative rounding error satisfies
-
-\[
-|\delta| \leq \epsilon_{\mathrm{M}} .
-\]
+\begin{definition}[Underflow]
+  Underflow occurs when a non-zero result is too small in magnitude to be represented with normal floating-point precision. IEEE 754 supports subnormal numbers to represent some values below the smallest positive normal number. Values smaller still may round to zero.
 \end{definition}
 
-\begin{remark}
-  For \(\circ=+,-, \times, \div\), IEEE standard arithmetic requires correctly rounded operations: the result must be the exact result rounded to \(F\). Provided no overflow or underflow occurs, this means that
-
-\[
-\mathrm{fl}(x \circ y)=(x \circ y)(1+\delta), \quad|\delta| \leq \epsilon_{\mathrm{M}} .
-\]
+\begin{remark}[Managing Overflow and Underflow]
+  \begin{itemize} \emph{}
+    \item Avoid forming unnecessarily large intermediate quantities.
+    \item Rescale calculations where appropriate.
+    \item Use numerically stable formulas when available.
+    \item Check for non-finite results using MATLAB's \texttt{isinf} and \texttt{isfinite}.
+    \item Remember that subnormal numbers have reduced precision; a non-zero result is not necessarily a normally represented result.
+  \end{itemize}
 \end{remark}
 
 \section{Loss of Significance}
 
 \begin{definition}[Loss of Significance]
-  You might think that the above guarantees the accuracy of calculations to within \(\epsilon_{\mathrm{M}}\), but this is true only if \(x\) and \(y\) are themselves exact. In reality, we are probably starting from \(\bar{x}=x\left(1+\delta_1\right)\) and \(\bar{y}=y\left(1+\delta_2\right)\), with \(\left|\delta_1\right|,\left|\delta_2\right| \leq \epsilon_{\mathrm{M}}\). In that case, there is an error even before we round the result, since
-
-\[
-\begin{aligned}
-\bar{x} \pm \bar{y} & =x\left(1+\delta_1\right) \pm y\left(1+\delta_2\right) \\
-& =(x \pm y)\left(1+\frac{x \delta_1 \pm y \delta_2}{x \pm y}\right) .
-\end{aligned}
-\]
-
-If the correct answer \(x \pm y\) is very small relative to \(|x|\) and \(|y|\) (for example, when subtracting two nearly equal numbers), then there can be an arbitrarily large relative error in the result, compared to the errors in the initial \(\bar{x}\) and \(\bar{y}\). In particular, this relative error can be much larger than \(\epsilon_{\mathrm{M}}\). This is called loss of significance (or catastrophic cancellation), and is a major cause of errors in floating-point calculations.
+  Loss of significance occurs when numerical errors become large relative to the final answer. A common cause is subtracting two nearly equal numbers, which is known as \emph{catastrophic cancellation}.
 \end{definition}
 
-\begin{example}
-  To 4 s.f., the roots are
-
+Suppose the stored inputs are
 \[
-x_1=28+\sqrt{783}=55.98, \quad x_2=28-\sqrt{783}=0.01786 .
+  \hat{x}=x(1+\delta_1),
+  \qquad
+  \hat{y}=y(1+\delta_2).
+\]
+Then
+\[
+  \hat{x}\pm\hat{y}
+  =x\pm y+x\delta_1\pm y\delta_2.
+\]
+Therefore, the error inherited from the input approximations is
+\[
+  x\delta_1\pm y\delta_2.
 \]
 
-However, working to 4 s.f. we would compute \(\sqrt{783}=27.98\), which would lead to the results
-
+Relative to the exact result, the corresponding relative error is
 \[
-\bar{x}_1=55.98, \quad \bar{x}_2=0.02000 .
+  \boxed{
+    \frac{x\delta_1\pm y\delta_2}{x\pm y},
+  }
 \]
+provided \(x\pm y\neq0\).
 
-The smaller root is not correct to 4 s.f., because of catastrophic cancellation. One way around this is to note that \(x^2-56 x+1=\left(x-x_1\right)\left(x-x_2\right)\), so the product of the roots equals the constant term: \(x_1 x_2=1\). Computing \(x_2=1 / x_1=1 / 55.98=0.01786\) then gives the correct answer.
+If \(x\) and \(y\) are nearly equal and are subtracted, the denominator can be very small compared with the individual terms. Consequently, even small input errors can produce a large relative error in the result.
+
+\begin{example}[Catastrophic Cancellation]
+  Consider the equation
+  \[
+    x^2-56x+1=0.
+  \]
+  By the quadratic formula,
+  \[
+    x_1=28+\sqrt{783},
+    \qquad
+    x_2=28-\sqrt{783}.
+  \]
+  To four significant figures,
+  \[
+    \sqrt{783}\approx27.98.
+  \]
+  Direct calculation then gives
+  \[
+    \hat{x}_1=28+27.98=55.98,
+  \]
+  but
+  \[
+    \hat{x}_2=28-27.98=0.02000.
+  \]
+  The smaller root is inaccurate because two nearly equal numbers have been subtracted.
+
+  A more stable approach uses the fact that the product of the roots is \(1\):
+  \[
+    x_1x_2=1.
+  \]
+  Hence
+  \[
+    x_2=\frac{1}{x_1}
+    \approx\frac{1}{55.98}
+    \approx0.01786.
+  \]
+  This avoids the cancellation in the direct formula.
 \end{example}
 
-\section{Symbolic Vs Numerical Representations}
+\begin{remark}[Reducing Loss of Significance]
+  \begin{itemize} \emph{}
+    \item Avoid subtracting nearly equal quantities when an algebraically equivalent alternative is available.
+    \item Reformulate calculations to avoid cancellation.
+    \item Use stable algorithms rather than relying solely on algebraic equivalence.
+    \item Increasing precision can help, but does not necessarily fix an unstable method.
+  \end{itemize}
+\end{remark}
 
-Symbolic computations require different data types from numerical ones; in MATLAB we can use the Symbolic Math Toolbox. In the following chapters, we will compare symbolic and numerical approaches to solving mathematical problems. One key difference is that symbolic computations are exact, but much more expensive to scale up to solve larger problems; for example, we will tackle numerical problems involving matrices of size \(10^4 \times 10^4\) or larger, which would not be possible to successfully manipulate symbolically on a modern computer.
+\section{Revision Checklist}
 
-Symbolic computations are used to check or do laborious analytical work, but also to rigorously prove mathematical theorems which would be too onerous to carry out by hand. For instance, while the Lorenz equations were first noted to have strange dependencies on initial conditions, it was only in 2002 that this was mathematically proved to be a chaotic system. 
+Use this checklist to assess whether you understand the chapter and can apply its main ideas.
+
+\subsection{Key Topics}
+
+\begin{itemize}
+  \item[$\square$] Explain integer, fixed-point and floating-point representations.
+  \item[$\square$] Describe how binary digits encode integers and how the number of bits limits the representable range.
+  \item[$\square$] Explain the role of the significand, exponent, sign bit and normalisation in floating-point representation.
+  \item[$\square$] Distinguish absolute error from relative error and calculate both.
+  \item[$\square$] Explain rounding, unit roundoff and machine epsilon, including the difference between MATLAB's \texttt{eps} and unit roundoff.
+  \item[$\square$] Explain overflow, underflow, subnormal numbers and loss of significance.
+  \item[$\square$] Distinguish symbolic computation from numerical computation and explain their respective advantages.
+\end{itemize}
+
+\subsection{Key Skills}
+
+\begin{itemize}
+  \item[$\square$] Convert between binary and decimal representations and determine whether a number can be represented exactly in a given format.
+  \item[$\square$] Determine the range and spacing of values in a specified fixed-point or floating-point system.
+  \item[$\square$] Estimate absolute and relative rounding errors.
+  \item[$\square$] Apply the unit-roundoff bound to reason about the accuracy of arithmetic operations.
+  \item[$\square$] Identify potential overflow and underflow in a numerical calculation.
+  \item[$\square$] Diagnose catastrophic cancellation and reformulate a calculation to improve numerical stability.
+  \item[$\square$] Decide whether a symbolic or numerical approach is more suitable for a given problem.
+\end{itemize}

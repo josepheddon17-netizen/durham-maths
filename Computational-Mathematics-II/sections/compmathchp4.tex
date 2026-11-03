@@ -1,0 +1,287 @@
+\section{Differentiation}
+
+\subsection{Basics}
+
+\begin{definition}[Derivtaive]
+  The definition of the derivative as
+
+\[
+f^{\prime}\left(x_0\right)=\lim _{h \rightarrow 0} \frac{f\left(x_0+h\right)-f\left(x_0\right)}{h},
+\]
+
+suggests an obvious approximation: just pick some small finite \(h\) to give the estimate
+
+\[
+f^{\prime}\left(x_0\right) \approx \frac{f\left(x_0+h\right)-f\left(x_0\right)}{h} .
+\]
+\end{definition}
+
+\begin{definition}[Forward and backward difference]
+  For \(h>0\) this is called a forward difference (and, for \(h<0\), a backward difference). It is an example of a finite-difference formula.
+\end{definition}
+
+\begin{remark}[Truncation Error of Forward Difference]
+  \[
+f^{\prime}\left(x_0\right)=\frac{f\left(x_0+h\right)-f\left(x_0\right)}{h}-\frac{h}{2} f^{\prime \prime}(\xi) .
+\]
+
+This shows that the truncation error for our forward difference approximation is \(-f^{\prime \prime}(\xi) h / 2\), for some \(\xi \in\left[x_0, x_0+h\right]\). In other words, a smaller interval or a less "wiggly" function will lead to a better estimate, as you would expect.
+\end{remark}
+
+\subsection{Higher Order Differences}
+
+\begin{remark}
+  To get a higher-order approximation, we can use more nodes. The most important example uses the two points on either side of \(x\)
+\end{remark}
+
+\begin{definition}[Central Difference First and Second Order]
+
+  \[
+f^{\prime}(x)=\frac{f(x+h)-f(x-h)}{2 h}-\frac{h^2}{6} f^{\prime \prime \prime}(\xi)
+\]
+
+for some \(\xi \in(x-h, x+h)\). This is called a central difference approximation for \(f^{\prime}(x)\), and is frequently used in practice. It is the slope of the quadratic that interpolates \(f\) at \(x-h, x\) and \(x+h\), evaluated at the middle point. The same idea gives a formula for the second derivative. Adding (rather than subtracting) the Taylor expansions of \(f(x \pm h)\), carried to one more term, cancels all of the odd derivatives and gives
+
+\[
+f^{\prime \prime}(x)=\frac{f(x-h)-2 f(x)+f(x+h)}{h^2}-\frac{h^2}{12} f^{(4)}(\xi)
+\]
+
+for some \(\xi \in(x-h, x+h)\). This second-order central difference for \(f^{\prime \prime}\) is the basis of the finite-difference methods for partial differential equations in Chapter 6.
+  
+\end{definition}
+
+\subsection{Rounding Error}
+
+\begin{remark}[The problem with numerical differentiation]
+  
+The problem with numerical differentiation is that it involves subtraction of nearly-equal numbers. As \(h\) gets smaller, the problem gets worse. To quantify this for the central difference, suppose that we have the correctly rounded values of \(f(x \pm h)\), so that
+
+\[
+\mathrm{fl}[f(x+h)]=\left(1+\delta_1\right) f(x+h), \quad \mathrm{fl}[f(x-h)]=\left(1+\delta_2\right) f(x-h),
+\]
+
+where \(\left|\delta_1\right|,\left|\delta_2\right| \leq \epsilon_{\mathrm{M}}\). Ignoring the rounding error in dividing by \(2 h\), we then have that
+
+\[
+\begin{aligned}
+& \left|f^{\prime}(x)-\frac{\mathrm{fl}[f(x+h)]-\mathrm{fl}[f(x-h)]}{2 h}\right| \\
+& =\left|-\frac{f^{\prime \prime \prime}(\xi)}{6} h^2-\frac{\delta_1 f(x+h)-\delta_2 f(x-h)}{2 h}\right| \\
+& \leq \frac{\left|f^{\prime \prime \prime}(\xi)\right|}{6} h^2+\epsilon_{\mathrm{M}} \frac{|f(x+h)|+|f(x-h)|}{2 h} \\
+& \leq \frac{h^2}{6} M_3+\frac{\epsilon_{\mathrm{M}}}{h} M_0,
+\end{aligned}
+\]
+
+where \(M_0\) and \(M_3\) are the maximum values of \(|f|\) and \(\left|f^{\prime \prime \prime}\right|\) on \([x-h, x+h]\). The first term is the truncation error, which tends to zero as \(h \rightarrow 0\). But the second term is the rounding error, which tends to infinity as \(h \rightarrow 0\).
+
+
+\end{remark}
+
+\begin{lemma}[Differentiating Noisey Data]
+  So there is an optimal step size. Minimising the bound \(E(h)=\frac{1}{6} h^2 M_3+\epsilon_{\mathrm{M}} M_0 / h\) by setting \(E^{\prime}(h)=\frac{1}{3} h M_3-\epsilon_{\mathrm{M}} M_0 / h^2=0\) gives
+
+\[
+h_*=\left(\frac{3 \epsilon_{\mathrm{M}} M_0}{M_3}\right)^{1 / 3} \sim \epsilon_{\mathrm{M}}^{1 / 3},
+\]
+
+and the smallest possible error is of order \(\epsilon_{\mathrm{M}}^{2 / 3}\). For our example, \(h_* \approx 10^{-5}\), giving an error of about \(10^{-11}\) : we can never get a central-difference derivative accurate to the full 16 digits. The same argument for the (first-order) forward difference gives \(h_* \sim \epsilon_{\mathrm{M}}^{1 / 2} \approx 10^{-8}\), with an error of about \(10^{-8}\).
+\end{lemma}
+
+\subsection{Differentiating Noisy Data}
+
+\begin{definition}[Error in Central Difference from Measured Data]
+
+If each measured value has an error of size up to \(\delta\), then the error in the central difference is bounded by about
+
+\[
+\frac{h^2}{6} M_3+\frac{\delta}{h},
+\]
+
+so the error from the data is amplified by a factor \(1 / h\). For the second derivative, the amplification factor is about \(4 / h^2\), which is much worse. With noisy data, it is often better to first fit a smooth model to the data (for example by least squares, as mentioned in Chapter 3) and then differentiate the model.
+  
+\end{definition}  
+
+\subsection{Richardson Extrapolation}
+
+\begin{remark}
+  We begin from the central-difference formula. Since we will use formulae with different \(h\), let us define the notation
+
+\[
+D_h:=\frac{f(x+h)-f(x-h)}{2 h} .
+\]
+
+Now use Taylor's theorem to expand more terms in the truncation error:
+
+\[
+\begin{aligned}
+f(x \pm h)=f(x) & \pm f^{\prime}(x) h+\frac{f^{\prime \prime}(x)}{2} h^2 \pm \frac{f^{\prime \prime \prime}(x)}{3!} h^3 \\
+& +\frac{f^{(4)}(x)}{4!} h^4 \pm \frac{f^{(5)}(x)}{5!} h^5+\mathcal{O}\left(h^6\right) .
+\end{aligned}
+\]
+
+Substituting into the formula for \(D_h\), the even powers of \(h\) cancel and we get
+
+\[
+\begin{aligned}
+D_h & =\frac{1}{2 h}\left(2 f^{\prime}(x) h+2 f^{\prime \prime \prime}(x) \frac{h^3}{6}+2 f^{(5)}(x) \frac{h^5}{120}+\mathcal{O}\left(h^7\right)\right) \\
+& =f^{\prime}(x)+f^{\prime \prime \prime}(x) \frac{h^2}{6}+f^{(5)}(x) \frac{h^4}{120}+\mathcal{O}\left(h^6\right) .
+\end{aligned}
+\]
+
+The leading term in the error here has the same coefficient \(h^2 / 6\) as the truncation error we derived earlier, although we have now expanded the error to higher powers of \(h\).
+
+The trick is to apply the same formula with different step-sizes, typically \(h\) and \(h / 2\) :
+
+\[
+\begin{aligned}
+D_h & =f^{\prime}(x)+f^{\prime \prime \prime}(x) \frac{h^2}{6}+f^{(5)}(x) \frac{h^4}{120}+\mathcal{O}\left(h^6\right), \\
+D_{h / 2} & =f^{\prime}(x)+f^{\prime \prime \prime}(x) \frac{h^2}{2^2(6)}+f^{(5)}(x) \frac{h^4}{2^4(120)}+\mathcal{O}\left(h^6\right) .
+\end{aligned}
+\]
+
+We can then eliminate the \(h^2\) term by simple algebra:
+
+\[
+\begin{aligned}
+D_h-2^2 D_{h / 2} & =-3 f^{\prime}(x)+\left(1-\frac{2^2}{2^4}\right) f^{(5)}(x) \frac{h^4}{120}+\mathcal{O}\left(h^6\right), \\
+\Longrightarrow \quad D_h^{(1)}:= & \frac{2^2 D_{h / 2}-D_h}{3}=f^{\prime}(x)-f^{(5)}(x) \frac{h^4}{480}+\mathcal{O}\left(h^6\right) .
+\end{aligned}
+\]
+
+The new formula \(D_h^{(1)}\) is 4 th-order accurate.
+
+\end{remark}
+
+\begin{method}[General Richardson Extrapolation]  
+  In fact, we could have applied this Richardson extrapolation procedure without knowing the coefficients of the error series. If we have some general order- \(n\) approximation
+
+\[
+D_h=f^{\prime}(x)+C h^n+\mathcal{O}\left(h^{n+1}\right),
+\]
+
+then we can always evaluate it with \(h / 2\) to get
+
+\[
+D_{h / 2}=f^{\prime}(x)+C \frac{h^n}{2^n}+\mathcal{O}\left(h^{n+1}\right)
+\]
+
+and then eliminate the \(h^n\) term to get a new approximation
+
+\[
+D_h^{(1)}:=\frac{2^n D_{h / 2}-D_h}{2^n-1}=f^{\prime}(x)+\mathcal{O}\left(h^{n+1}\right) .
+\]
+
+Furthermore, Richardson extrapolation can be applied iteratively. For example, for central differences, \(D_h^{(1)}\) has error \(C_1 h^4+\mathcal{O}\left(h^6\right)\), so combining \(D_h^{(1)}\) and \(D_{h / 2}^{(1)}\) in the same way gives the 6th-order approximation \(D_h^{(2)}:=\left(2^4 D_{h / 2}^{(1)}-D_h^{(1)}\right) /\left(2^4-1\right)\), and so on.
+\end{method}
+
+\section{Numerical Integration}
+
+\subsection{Newton-Cotes formulae}
+
+\begin{definition}[Definite Integral and Quadrature Formula]
+  The definite integral
+
+\[
+I(f):=\int_a^b f(x) \mathrm{d} x
+\]
+
+can usually not be evaluated in closed form. To approximate it numerically, we can use a quadrature formula
+
+\[
+I_n(f):=\sum_{k=0}^n \sigma_k f\left(x_k\right),
+\]
+
+where \(x_0, \ldots, x_n\) are a set of nodes and \(\sigma_0, \ldots, \sigma_n\) are a set of corresponding weights.
+\end{definition}
+
+\begin{definition}[Newton-Cotes Formulae]
+  Let \(x_0, \ldots, x_n \in[a, b]\), where \(x_0<x_1<\cdots<x_n\), be a set of \(n+1\) nodes, and let \(p_n \in \mathcal{P}_n\) be the polynomial that interpolates \(f\) at these nodes. This may be written in Lagrange form as
+
+\[
+p_n(x)=\sum_{k=0}^n f\left(x_k\right) \ell_k(x), \quad \text { where } \quad \ell_k(x)=\prod_{\substack{j=0 \\ j \neq k}}^n \frac{x-x_j}{x_k-x_j} .
+\]
+
+To approximate \(I(f)\), we integrate \(p_n(x)\) to define the quadrature formula
+
+\[
+I_n(f):=\int_a^b \sum_{k=0}^n f\left(x_k\right) \ell_k(x) \mathrm{d} x=\sum_{k=0}^n f\left(x_k\right) \int_a^b \ell_k(x) \mathrm{d} x .
+\]
+
+In other words,
+
+\[
+I_n(f):=\sum_{k=0}^n \sigma_k f\left(x_k\right), \quad \text { where } \quad \sigma_k=\int_a^b \ell_k(x) \mathrm{d} x .
+\]
+
+When the nodes are equidistant, this is called a Newton-Cotes formula. If \(x_0=a\) and \(x_n=b\), it is called a closed Newton-Cotes formula.
+\end{definition}  
+
+\begin{theorem}
+  
+Let \(f\) be continuous on \([a, b]\) with \(n+1\) continuous derivatives on \((a, b)\). Then the Newton-Cotes formula above satisfies the error bound
+
+\[
+\begin{aligned}
+& \left|I(f)-I_n(f)\right| \leq \\
+& \frac{\max _{\xi \in[a, b]}\left|f^{(n+1)}(\xi)\right|}{(n+1)!} \int_a^b\left|\left(x-x_0\right)\left(x-x_1\right) \cdots\left(x-x_n\right)\right| \mathrm{d} x .
+\end{aligned}
+\]
+
+\end{theorem}
+
+\subsection{Composite Newton-Cotes formulae}
+
+\begin{remark}
+  Since the Newton-Cotes formulae are based on polynomial interpolation at equally-spaced points, the results need not converge as the number of nodes increases (recall the Runge phenomenon from Chapter 2). A better way to improve accuracy is to divide the interval \([a, b]\) into \(m\) subintervals \(\left[x_{i-1}, x_i\right]\) of equal length
+
+\[
+h:=\frac{b-a}{m},
+\]
+
+and use a Newton-Cotes formula of small degree \(n\) on each subinterval.
+\end{remark}
+
+\subsection{Exactness}
+
+\begin{definition}[Degree of Exactness]
+  The degree of exactness of a quadrature formula is the largest integer \(n\) for which the formula is exact for all polynomials in \(\mathcal{P}_n\). To check whether a quadrature formula has degree of exactness \(n\), it suffices to check whether it is exact for the basis \(1, x, x^2, \ldots, x^n\).
+\end{definition}
+
+\begin{remark}
+  This shows that the term \(f^{\prime \prime \prime}(\xi)\) in the Newton-Cotes error bound for Simpson's rule is misleading. In fact, a more careful analysis gives the error bound
+
+\[
+\left|I(f)-I_2(f)\right| \leq \frac{(b-a)^5}{2880} \max _{\xi \in[a, b]}\left|f^{(4)}(\xi)\right| .
+\]
+\end{remark}
+
+\subsection{Gaussian Quadrature}
+
+\begin{remark}
+  The idea of Gaussian quadrature is to choose not only the weights \(\sigma_k\) but also the nodes \(x_k\), in order to achieve the highest possible degree of exactness. In general, the Gaussian quadrature formula with \(n+1\) nodes has degree of exactness \(2 n+1\).
+\end{remark}
+
+\begin{theorem}
+  If \(\left\{\phi_0, \phi_1, \ldots, \phi_n\right\}\) is a set of orthogonal polynomials on \([a, b]\) under the inner product \((f, g)=\int_a^b f(x) g(x) w(x) \mathrm{d} x\) and \(\phi_k\) is of degree \(k\) for each \(k=0,1, \ldots, n\), then \(\phi_k\) has \(k\) distinct real roots, and these roots lie in the interval \((a, b)\).
+\end{theorem}
+
+\begin{theorem}
+  Let \(\phi_{n+1}\) be a polynomial in \(\mathcal{P}_{n+1}\) that is orthogonal on \([a, b]\) to all polynomials in \(\mathcal{P}_{n^{\prime}}\) with respect to the weight function \(w(x)\). If \(x_0, x_1, \ldots, x_n\) are the roots of \(\phi_{n+1}\), then the quadrature formula
+
+\[
+G_{n, w}(f):=\sum_{k=0}^n \sigma_k f\left(x_k\right), \quad \sigma_k=\int_a^b \ell_k(x) w(x) \mathrm{d} x
+\]
+
+approximates \(I_w(f)\) with degree of exactness \(2 n+1\) (the largest possible).
+\end{theorem}
+
+\begin{remark}
+  Like Newton-Cotes, we see that Gaussian quadrature is based on integrating an interpolating polynomial, but now the nodes are the roots of an orthogonal polynomial, rather than equally spaced points.
+\end{remark}
+
+\begin{theorem}
+  Let \(\phi_{n+1} \in \mathcal{P}_{n+1}\) be monic and orthogonal on \([a, b]\) to all polynomials in \(\mathcal{P}_n\), with respect to the weight function \(w(x)\). Let \(x_0, x_1, \ldots, x_n\) be the roots of \(\phi_{n+1}\), and let \(G_{n, w}(f)\) be the Gaussian quadrature formula defined above. If \(f\) has \(2 n+2\) continuous derivatives on \((a, b)\), then there exists \(\xi \in(a, b)\) such that
+
+\[
+I_w(f)-G_{n, w}(f)=\frac{f^{(2 n+2)}(\xi)}{(2 n+2)!} \int_a^b \phi_{n+1}^2(x) w(x) \mathrm{d} x .
+\]
+\end{theorem}

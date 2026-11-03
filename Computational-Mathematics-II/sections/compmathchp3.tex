@@ -1,0 +1,282 @@
+\section{Triangular Systems}
+
+\begin{definition}[Linear System]
+  Linear systems of the form
+
+\[
+\begin{aligned}
+a_{11} x_1+ & a_{12} x_2+\ldots+a_{1 n} x_n=b_1, \\
+a_{21} x_1+ & a_{22} x_2+\ldots+a_{2 n} x_n=b_2, \\
+\vdots & \vdots \\
+a_{n 1} x_1+ & a_{n 2} x_2+\ldots+a_{n n} x_n=b_n
+\end{aligned}
+\]
+
+occur in many applications (often with very large \(n\) ). It is convenient to express this in matrix form:
+
+\[
+A \mathbf{x}=\mathbf{b},
+\]
+
+where \(A\) is an \(n \times n\) square matrix with elements \(a_{i j}\), and \(\mathbf{x}, \mathbf{b}\) are \(n \times 1\) vectors.
+\end{definition}
+
+\begin{definition}[Triangular System]
+  A matrix \(L\) is called lower triangular if all entries above the diagonal are zero:
+
+\[
+L=\left(\begin{array}{cccc}
+l_{11} & 0 & \cdots & 0 \\
+l_{21} & l_{22} & \ddots & \vdots \\
+\vdots & & \ddots & 0 \\
+l_{n 1} & \cdots & \cdots & l_{n n}
+\end{array}\right) .
+\]
+
+Similarly, an upper triangular matrix \(U\) has the form
+
+\[
+U=\left(\begin{array}{cccc}
+u_{11} & u_{12} & \cdots & u_{1 n} \\
+0 & u_{22} & & \vdots \\
+\vdots & \ddots & \ddots & \vdots \\
+0 & \cdots & 0 & u_{n n}
+\end{array}\right),
+\]
+
+The determinant is just the product of the diagonal entries for a triangular matrix. If the lower and upper matrix share the same diagonal then their determinant is the same:
+
+\[
+\operatorname{det}(L)=l_{11} l_{22} \cdots l_{n n},
+\]
+
+so the matrix will be non-singular iff all of the diagonal elements are non-zero.
+\end{definition}
+
+\begin{lemma}
+  In general, any lower triangular system \(L \mathbf{x}=\mathbf{b}\) can be solved by forward substitution
+
+\[
+x_j=\frac{b_j-\sum_{k=1}^{j-1} l_{j k} x_k}{l_{j j}}, \quad j=1, \ldots, n .
+\]
+
+and an upper-triangular system \(U \mathbf{x}=\mathbf{b}\) may be solved by backward substitution
+
+\[
+x_j=\frac{b_j-\sum_{k=j+1}^n u_{j k} x_k}{u_{j j}}, \quad j=n, \ldots, 1 .
+\]
+\end{lemma}
+
+\begin{remark}
+  So solving a triangular system by forward (or backward) substitution takes \(n^2\) operations. We may say that the computational complexity of the algorithm is \(n^2\).
+\end{remark}
+
+\section{Gaussian Elimination}
+
+\begin{method}[Gaussian Elimination Algorithm]
+  Let \(A^{(1)}=A\) and \(\mathbf{b}^{(1)}=\mathbf{b}\). Then for each \(k\) from 1 to \(n-1\), compute a new matrix \(A^{(k+1)}\) and right-hand side \(\mathbf{b}^{(k+1)}\) by the following procedure:
+\begin{itemize}
+\item[1.] Define the row multipliers
+
+\[
+m_{i k}=\frac{a_{i k}^{(k)}}{a_{k k}^{(k)}}, \quad i=k+1, \ldots, n .
+\]
+
+\item[2.] Use these to remove the unknown \(x_k\) from equations \(k+1\) to \(n\), leaving
+
+\[
+a_{i j}^{(k+1)}=a_{i j}^{(k)}-m_{i k} a_{k j}^{(k)}, \quad b_i^{(k+1)}=b_i^{(k)}-m_{i k} b_k^{(k)}, \quad i, j=k+1, \ldots, n .
+\]
+
+The final matrix \(A^{(n)}=U\) will then be upper triangular.
+\end{itemize}
+\end{method}
+
+\begin{remark}
+  This procedure works provided that the pivots \(a_{k k}^{(k)}\) are non-zero for every \(k\). We will see how to remove this restriction (and avoid a more subtle loss of accuracy) using pivoting below.
+\end{remark}
+
+\begin{remark}
+So the number of operations required to find \(U\) is \(\mathcal{O}\left(n^3\right)\) : doubling \(n\) multiplies the cost by about 8 . This is much more than the \(\mathcal{O}\left(n^2\right)\) cost of the substitution step.
+\end{remark}
+
+\section{LU Decomposition}
+
+\begin{theorem}[LU Decomposition]
+  Let \(U\) be the upper triangular matrix from Gaussian elimination of \(A\) (without pivoting), and let \(L\) be the unit lower triangular matrix of multipliers above. Then
+
+\[
+A=L U .
+\]
+\end{theorem}
+
+\begin{method}[Performing LU Decomposition]
+  \begin{itemize}
+    \item[1.] We first rewrite the equation \(A\mathbf{x} = \mathbf{b}\) as \(LU\mathbf{x} = \mathbf{b}\)
+    \item[2.] Next, we use the substitution \(U\mathbf{x} = \mathbf{y}\) to find \(L\mathbf{y} = \mathbf{b}\). We solve this equation
+    \item[3.] With the solutions for \(\mathbf{y}\), we solve \(U\mathbf{x} = \mathbf{y}\) to solve the original equation.
+  \end{itemize}
+\end{method}
+
+\section{Pivoting}
+
+\begin{remark}
+  Gaussian elimination fails if a pivot \(a_{k k}^{(k)}\) is zero, as happens immediately for
+
+\[
+A=\left(\begin{array}{ll}
+0 & 1 \\
+1 & 1
+\end{array}\right),
+\]
+
+even though \(A\) is non-singular. More subtly, a small pivot can destroy the accuracy of the solution in floating-point arithmetic.
+\end{remark}
+
+\begin{method}[Partial Pivoting]
+  At each stage \(k\) of Gaussian elimination, before computing the multipliers, find the row \(p \geq k\) for which \(\left|a_{p k}^{(k)}\right|\) is largest, and swap rows \(k\) and \(p\) (in both \(A^{(k)}\) and \(\mathbf{b}^{(k)}\) ). Then all of the multipliers satisfy \(\left|m_{i k}\right| \leq 1\).
+\end{method}
+
+\section{Vector Norms}
+
+\begin{definition}[Vector Norm]
+  A vector norm on \(\mathbb{R}^n\) is a real-valued function that satisfies:
+
+  1.\(\|\mathbf{x}+\mathbf{y}\| \leq\|\mathbf{x}\|+\|\mathbf{y}\|\) for every \(\mathbf{x}, \mathbf{y} \in \mathbb{R}^n\) (triangle inequality). 2. \(\|\alpha \mathbf{x}\|=|\alpha|\|\mathbf{x}\|\) for every \(\mathbf{x} \in \mathbb{R}^n\) and every \(\alpha \in \mathbb{R} .3 .\|\mathbf{x}\| \geq 0\) for every \(\mathbf{x} \in \mathbb{R}^n\), and \(\|\mathbf{x}\|=0\) implies \(\mathbf{x}=0\).
+
+  Examples include:
+
+1. The \(\ell_2\)-norm
+
+\[
+\|\mathbf{x}\|_2:=\sqrt{\sum_{k=1}^n x_k^2}=\sqrt{\mathbf{x}^{\top} \mathbf{x}} .
+\]
+
+This is just the usual Euclidean length of x.
+2. The \(\ell_1\)-norm
+
+\[
+\|\mathbf{x}\|_1:=\sum_{k=1}^n\left|x_k\right| .
+\]
+
+This is sometimes known as the taxicab or Manhattan norm, because it corresponds to the distance that a taxi has to drive on a rectangular grid of streets to get to \(\mathbf{x} \in \mathbb{R}^2\).
+3. The \(\ell_{\infty}\)-norm
+
+\[
+\|\mathbf{x}\|_{\infty}:=\max _{k=1, \ldots, n}\left|x_k\right| .
+\]
+
+This is sometimes known as the maximum norm.
+\end{definition}
+
+
+\section{Matrix Norms}
+
+\begin{definition}[Matrix Norm]
+  A matrix norm is a real-valued function \(\|\cdot\|\) on \(\mathbb{R}^{n \times n}\) that satisfies:
+\begin{itemize}
+\item[1.] \(\|A+B\| \leq\|A\|+\|B\|\) for every \(A, B \in \mathbb{R}^{n \times n}\).
+\item[2.] \(\|\alpha A\|=|\alpha|\|A\|\) for every \(A \in \mathbb{R}^{n \times n}\) and every \(\alpha \in \mathbb{R}\).
+\item[3.] \(\|A\| \geq 0\) for every \(A \in \mathbb{R}^{n \times n}\) and \(\|A\|=0\) implies \(A=0\).
+\item[4.] \(\|A B\| \leq\|A\|\|B\|\) for every \(A, B \in \mathbb{R}^{n \times n}\) (consistency).
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Induced Norm]
+  
+The most important matrix norms are so-called induced or operator norms. Remember that \(A\) is a linear map on \(\mathbb{R}^n\), meaning that it maps every vector to another vector. So we can measure the size of \(A\) by how much it can stretch vectors with respect to a given vector norm. Specifically, if \(\|\cdot\|_p\) is a vector norm, then the induced norm is defined as
+
+\[
+\|A\|_p:=\sup _{\mathbf{x} \neq \mathbf{0}} \frac{\|A \mathbf{x}\|_p}{\|\mathbf{x}\|_p}=\max _{\|\mathbf{x}\|_p=1}\|A \mathbf{x}\|_p .
+\]
+
+To see that the two definitions here are equivalent, use the fact that \(\|\cdot\|_p\) is a vector norm. So by property (2) we have
+
+\[
+\sup _{\mathbf{x} \neq \mathbf{0}} \frac{\|A \mathbf{x}\|_p}{\|\mathbf{x}\|_p}=\sup _{\mathbf{x} \neq \mathbf{0}}\left\|A \frac{\mathbf{x}}{\|\mathbf{x}\|_p}\right\|_p=\sup _{\|\mathbf{y}\|_p=1}\|A \mathbf{y}\|_p=\max _{\|\mathbf{y}\|_p=1}\|A \mathbf{y}\|_p .
+\]
+
+\end{definition}
+
+\begin{theorem}[Induced norms are matrix norms]
+  The induced norm corresponding to any vector norm is a matrix norm, and the two norms satisfy \(\|A \mathbf{x}\| \leq\|A\|\|\mathbf{x}\|\) for any matrix \(A \in \mathbb{R}^{n \times n}\) and any vector \(\mathbf{x} \in \mathbb{R}^n\).
+\end{theorem}
+
+\begin{theorem}[Matrix norms induced by \(\ell_1\) and \(\ell_\infty\)]
+ The matrix norms induced by the \(\ell_1\)-norm and \(\ell_{\infty}\)-norm satisfy
+
+\[
+\begin{array}{r}
+\|A\|_1=\max _{j=1, \ldots, n} \sum_{i=1}^n\left|a_{i j}\right|, \quad \text { (maximum column sum) } \\
+\|A\|_{\infty}=\max _{i=1, \ldots, n} \sum_{j=1}^n\left|a_{i j}\right| . \quad \text { (maximum row sum) }
+\end{array}
+\] 
+\end{theorem}
+
+\begin{definition}[Spectral Radius]
+  We define the spectral radius \(\rho(A)\) of \(A\) to be the maximum \(|\lambda|\) over all eigenvalues \(\lambda\) of \(A\).
+\end{definition}
+
+\begin{theorem}[Spectral Norm]
+  The matrix norm induced by the \(\ell_2\)-norm satisfies
+
+\[
+\|A\|_2=\sqrt{\rho\left(A^{\top} A\right)} .
+\]
+\end{theorem}
+
+\section{Conditioning}
+
+\begin{remark}
+  Some linear systems are inherently more difficult to solve than others, because the solution is sensitive to small perturbations in the input. We will examine how to quantify this sensitivity, and what it means for the accuracy we can expect from our methods.
+\end{remark}
+
+\begin{definition}[Conditioning]
+  To measure the conditioning of a linear system, suppose that an error \(\delta \mathbf{b}\) in the right-hand side causes an error \(\delta \mathbf{x}\) in the solution, so that \(A(\mathbf{x}+\delta \mathbf{x})=\mathbf{b}+\delta \mathbf{b}\) and hence \(\delta \mathbf{x}=A^{-1} \delta \mathbf{b}\). Then the ratio of the relative errors in the output ( \(\mathbf{x}\) ) and the input ( \(\mathbf{b}\) ) satisfies
+
+\[
+\begin{aligned}
+\frac{\text { relative error in } \mathbf{x}}{\text { relative error in } \mathbf{b}} & =\frac{\|\delta \mathbf{x}\| /\|\mathbf{x}\|}{\|\delta \mathbf{b}\| /\|\mathbf{b}\|}=\left(\frac{\|\delta \mathbf{x}\|}{\|\mathbf{x}\|}\right)\left(\frac{\|\mathbf{b}\|}{\|\delta \mathbf{b}\|}\right) \\
+& =\left(\frac{\left\|A^{-1} \delta \mathbf{b}\right\|}{\|\mathbf{x}\|}\right)\left(\frac{\|\mathbf{b}\|}{\|\delta \mathbf{b}\|}\right) \\
+& \leq \frac{\left\|A^{-1}\right\|\|\delta \mathbf{b}\|}{\|\mathbf{x}\|}\left(\frac{\|\mathbf{b}\|}{\|\delta \mathbf{b}\|}\right) \\
+& =\frac{\left\|A^{-1}\right\|\|\mathbf{b}\|}{\|\mathbf{x}\|}=\frac{\left\|A^{-1}\right\|\|A \mathbf{x}\|}{\|\mathbf{x}\|} \\
+& \leq\left\|A^{-1}\right\|\|A\| .
+\end{aligned}
+\]
+\end{definition}
+
+\begin{definition}[Condition number]
+  We define the condition number of a matrix \(A\) in some induced norm \(\|\cdot\|_*\) to be
+
+\[
+\kappa_*(A)=\left\|A^{-1}\right\|_*\|A\|_* .
+\]
+
+If \(\kappa_*(A)\) is large, then the solution will be sensitive to errors in b, at least for some \(\mathbf{b}\). A large condition number means that the matrix is close to being non- invertible (i.e. two rows are close to being linearly dependent).
+\end{definition}
+
+\begin{theorem}
+  So, as a rule of thumb, the computed solution \(\hat{\mathbf{x}}\) satisfies
+
+\[
+\frac{\|\hat{\mathbf{x}}-\mathbf{x}\|}{\|\mathbf{x}\|} \lesssim \kappa(A) \epsilon_{\mathrm{M}} .
+\]
+
+In other words, we can expect to lose about \(\log _{10} \kappa(A)\) significant digits. For the Hilbert matrix \(H_{20}, \kappa_2\left(H_{20}\right) \approx 10^{28}\) is far larger than \(1 / \epsilon_{\mathrm{M}} \approx 10^{16}\), so none of the computed digits can be trusted.
+\end{theorem}
+
+\begin{theorem}[Bounding \(A^{-1}\)]
+  
+We can cheaply bound \(\left\|A^{-1}\right\|\) from below: for any \(\mathbf{b}\), solving \(A \mathbf{x}=\mathbf{b}\) (using the LU decomposition we already have) gives
+
+\[
+\left\|A^{-1}\right\| \geq \frac{\left\|A^{-1} \mathbf{b}\right\|}{\|\mathbf{b}\|}=\frac{\|\mathbf{x}\|}{\|\mathbf{b}\|} .
+\]
+
+Choosing \(\mathbf{b}\) cleverly gives good estimates of \(\kappa(A)\); this is what MATLAB's condest does, while cond computes \(\kappa_2(A)\) exactly (at greater cost).
+
+\end{theorem}
+
+\section{Iterative Methods}
+
+

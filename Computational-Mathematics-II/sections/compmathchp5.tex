@@ -1,0 +1,28 @@
+\section{Basic Concepts}
+
+\begin{definition}[\(n\) first order differential equations and autonomy]
+  We will focus on general systems of \(n\) first-order differential equations of the form
+
+\[
+\dot{\mathbf{u}}=\frac{\mathrm{d} \mathbf{u}}{\mathrm{~d} t}=\mathbf{f}(t, \mathbf{u}), \quad \mathbf{u}\left(t_0\right)=\mathbf{u}_0 \in \mathbb{R}^n .
+\]
+
+
+Many general classes of equations can be written in this form, and such systems also arise when discretising partial differential equations, as well as other kinds of models involving derivatives. When \(\mathbf{f}(t, \mathbf{u})=\mathbf{f}(\mathbf{u})\) (i.e. does not depend on time) we call the system autonomous.
+\end{definition}
+
+\begin{remark}
+  It is reasonable to then ask: Why do we only focus on first order differential equations? This ie because any ordinary differential equation of order \(n\) can be written as a system of \(n\) first-order ordinary differential equations by introducing new variables to represent each derivative up to order \(n-1\). This is a standard step in both numerical and analytical solution methods as most modern solvers only handle systems of first-order ODEs.
+\end{remark}
+
+\subsection{Preliminary ODE Theory}
+
+\begin{theorem}[Picard-Lindelof Theorem]
+  Let \(\mathcal{D} \subset \mathbb{R} \times \mathbb{R}^n\) be an open rectangle with interior point ( \(t_0, \mathbf{u}_0\) ). Suppose \(\mathbf{f}: \mathcal{D} \rightarrow \mathbb{R}^n\) is continuous in \(t\) and Lipschitz continuous in \(\mathbf{u}\) for all \((t, \mathbf{u}) \in \mathcal{D}\). Then there exists \(\varepsilon>0\) such that the initial-value problem above has a unique solution \(\mathbf{u}(t)\) for \(t \in\left[t_0-\varepsilon, t_0+\varepsilon\right]\).
+\end{theorem}
+  
+\section{Finite Difference Methods}
+
+\begin{definition}[Forward Difference For]
+  
+\end{definition}

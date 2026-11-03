@@ -1,0 +1,135 @@
+\section{Fundamental Theorem of Line Integrals}
+
+\begin{theorem}[Fundamental Theorem of Calculus]
+  If \(f^{\prime}(x)\) is continuous on \([a, b]\) then
+
+\[
+\int_a^b f^{\prime}(t) d t=f(b)-f(a) .
+\]
+\end{theorem}
+
+\begin{theorem}[Fundamental Theorem of Line Integrals]
+  If \(f: \mathbb{R}^n \rightarrow \mathbb{R}\) is a \(C^1\) scalar field and \(C\) is an oriented curve with parametrisation \(\boldsymbol{x}(t)\) for \(t \in\left[t_0, t_1\right]\), then
+
+\[
+\int_C \nabla f \cdot \hat{\boldsymbol{t}} d \ell=f\left(\boldsymbol{x}\left(t_1\right)\right)-f\left(\boldsymbol{x}\left(t_0\right)\right) .
+\]
+\end{theorem}
+
+\begin{proofidea}
+  
+  
+\begin{formalproof}
+  
+\end{formalproof}
+  
+\end{proofidea} 
+
+\begin{definition}[Conservative Field in a Potential]
+  A vector field \(\boldsymbol{f}: \mathbb{R}^n \rightarrow \mathbb{R}^n\) is conservative if it can be written as \(\boldsymbol{f}=\boldsymbol{\nabla} g\) for some \(C^1\) scalar field \(g: \mathbb{R}^n \rightarrow \mathbb{R}\) called a (scalar) potential.
+\end{definition}
+
+\begin{proposition}[Path Independence]
+  A vector field is conservative if and only if it has path independent line integrals between every pair of points.
+\end{proposition}
+
+\begin{proofidea}
+  
+  
+\begin{formalproof}
+  
+\end{formalproof}
+  
+\end{proofidea}
+
+\section{Divergence Theorem}
+
+\begin{theorem}[Divergence Theorem]
+  If \(\boldsymbol{f}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\) is a \(C^1\) vector field and \(S\) is a closed surface with outward normal \(\hat{\boldsymbol{n}}\) bounding a region \(V\), then
+
+\[
+\oint_S \boldsymbol{f} \cdot \hat{\boldsymbol{n}} d S=\int_V(\boldsymbol{\nabla} \cdot \boldsymbol{f}) d V .
+\]
+\end{theorem}
+
+\begin{remark}
+The total amount of a vector field flowing out through a closed surface equals the total divergence of the field throughout the volume enclosed by that surface.
+\end{remark}
+
+\begin{proofidea}
+  
+  
+\begin{formalproof}
+  
+\end{formalproof}
+  
+\end{proofidea}
+
+\section{Stokes' Theoren}
+
+\begin{theorem}[Stokes' Theorwm]
+  If \(\boldsymbol{f}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\) is a \(C^1\) vector field and \(C\) is an oriented closed curve bounding a surface \(S\), then
+
+\[
+\oint_C \boldsymbol{f} \cdot \hat{\boldsymbol{t}} d \boldsymbol{\ell}=\int_S(\boldsymbol{\nabla} \times \boldsymbol{f}) \cdot \hat{\boldsymbol{n}} d S
+\]
+
+where \(\hat{\boldsymbol{n}}\) is chosen such that \(\hat{\boldsymbol{t}} \times \hat{\boldsymbol{n}}\) on \(C\) is outward.
+\end{theorem}
+
+\begin{theorem}[Green's Theorem]
+  If \(\boldsymbol{f}: \mathbb{R}^2 \rightarrow \mathbb{R}^2\) is a \(C^1\) vector field and \(C\) is a closed curve in \(\mathbb{R}^2\) oriented anti-clockwise bounding a region \(A\), then
+
+\[
+\oint_C \boldsymbol{f} \cdot \hat{\boldsymbol{t}} d \ell=\int_A\left(\frac{\partial f_2}{\partial x}-\frac{\partial f_1}{\partial y}\right) d x d y .
+\]
+\end{theorem}
+
+\begin{corollary}[Conservative Fields have zero curl]
+  If \(\boldsymbol{f}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\) is a \(C^1\) vector field with \(\boldsymbol{\nabla} \times \boldsymbol{f}=\mathbf{0}\) throughout a simply connected region \(V \subset \mathbb{R}^3\), then \(\boldsymbol{f}\) is conservative in \(V\).
+\end{corollary}
+
+\begin{proofidea}
+  
+  
+\begin{formalproof}
+  
+\end{formalproof}
+  
+\end{proofidea}
+
+\begin{definition}[Simply Connected]
+  A region \(V \subset \mathbb{R}^3\) is simply connected if any closed curve in \(V\) can be continuously shrunk to a point in \(V\). A ball (the interior of a sphere) is simply connected, but a toroid (interior of a torus) is not:
+\end{definition}
+
+\section{Proof of Stokes' Theorem}
+
+\begin{lemma}
+  Let \(C\) be a curve in the plane having unit normal \(\hat{\boldsymbol{n}}\), with diameter \(\mathrm{d}(C)\), enclosed area \(|A|\), and containing the point \(\boldsymbol{x}\). For any \(C^1\) vector field \(\boldsymbol{f}: \mathbb{R}^3 \rightarrow \mathbb{R}^3\),
+
+\[
+\left.\hat{\boldsymbol{n}} \cdot(\boldsymbol{\nabla} \times \boldsymbol{f})\right|_{\boldsymbol{x}}=\lim _{\mathrm{d}(C) \rightarrow 0} \frac{1}{|A|} \oint_C \boldsymbol{f} \cdot \hat{\boldsymbol{t}} d \ell,
+\]
+
+where \(C\) is parametrised such that \(\hat{\boldsymbol{t}}=\hat{\boldsymbol{n}} \times \hat{\boldsymbol{n}}_c\), with \(\hat{\boldsymbol{n}}_c\) being the outward normal to the curve.
+\end{lemma}
+
+\begin{proofidea}
+  
+  
+\begin{formalproof}
+  
+\end{formalproof}
+  
+\end{proofidea}
+
+\textbf{Stokes' Theorem Proof}
+
+\begin{proofidea}
+  
+  
+\begin{formalproof}
+  
+\end{formalproof}
+  
+\end{proofidea}
