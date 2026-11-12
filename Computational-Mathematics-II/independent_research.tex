@@ -1,0 +1,65 @@
+\documentclass[a4paper]{report}
+
+\def\npart {II}
+\def\nterm {Michaelmas}
+\def\nyear {2026}
+\def\nlecturer {Various Lecturers}
+\def\ncourse {Independent Kinks Research}
+\input{../header}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\setcounter{section}{0}
+
+\newpage
+
+\chapter{Abstract}
+\section{First definitions and problem outline}
+
+Topological solitons are localised field configurations in continuous physical systems that are stable and behave like particles. Their stability is not solely determined by energy barriers; instead, it is protected by topology. Unlike ordinary waves, topological solitons do not dissapate or decay over time, they remain intact and keep their shape. 
+
+These topological solitons have a variety of applications in fields such as particle physics, condense matter and optics. They are defined by certain key characteristics:
+
+\begin{itemize}
+  \item \textbf{Topological Charge } (\(N\)) - A coneserved integer value that counts the number of times / ways a field wraps around a target space.
+  \item \textbf{Particle-Like Behaviour} - Energy is localised, mass is finite and distinct coordinates allow them to move, scatter and interact like real particles.
+  \item \textbf{Non-Perturbative} - We cannot use small, simple wave-like vibrations around a vacuum state to build them. Instead, they represent a large scale twist of the underlying medium.
+\end{itemize}
+
+Within this project, the goal is to investigate a simple form of topological solitons defined as \emph{Kinks}. Kinks are topological solitons in only one spatial dimension that can smoothly transition between different vacuum states.
+
+\subsection{Area of focus}
+
+Working in one dimension, we will look at the function \(\phi(x,t)\), a real function of the spacial coordinate \(x\) with \(t\) as the time coordinate. With this function, we will investigate nonelinear wave equations of the form:
+
+\[\frac{\partial^2 \phi}{\partial t^2}=\frac{\partial^2 \phi}{\partial x^2}-\frac{d U}{d \phi},\]
+
+for some non-negative function \(U(\phi)\). Taking \(U(\phi)\) to be identical to zero produces the linear wave equation that was covered in year one at Durham. Using conservation laws, we can determine the conserved energy to be given by:
+
+\[E=\int_{-\infty}^{\infty}\left(\frac{1}{2}\left(\frac{\partial \phi}{\partial t}\right)^2+\frac{1}{2}\left(\frac{\partial \phi}{\partial x}\right)^2+U(\phi)\right) d x\]
+
+We take \(\phi \rightarrow \phi_{\pm}\) as \(x\rightarrow \pm \infty\), where the constants \(\phi_{\pm}\) must satisfy \(U(\phi_{\pm}) =0\). From here, we define a kink:
+
+\begin{definition}[Kink and Anti-Kink]
+  Let \(U(\phi)\) be a non-negative potential energy density, and consider the governing equation:
+  \[
+  \frac{\partial^2 \phi}{\partial t^2}
+  =
+  \frac{\partial^2 \phi}{\partial x^2}
+  -
+  \frac{d U}{d \phi}.
+  \]
+  A kink is a solution satisfying
+  \[
+  \lim_{x\to-\infty}\phi(x,t)=\phi_{-},
+  \qquad
+  \lim_{x\to+\infty}\phi(x,t)=\phi_{+},
+  \]
+  where \(\phi_{-}<\phi_{+}\) and \(U(\phi_{\pm})=0\). An anti-kink is a solution satisfying the same conditions but with \(\phi_{-}>\phi_{+}\).
+\end{definition}
+
+\end{document}
+
+

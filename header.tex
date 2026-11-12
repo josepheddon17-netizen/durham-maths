@@ -21,9 +21,7 @@
 \usepackage{mathdots}
 \usepackage{mathtools}
 \usepackage{microtype}
-
 \usepackage{listings}
-
 \usepackage{multirow}
 \usepackage{pdflscape}
 \usepackage{pgfplots}
@@ -213,7 +211,24 @@ right=17pt
 \pdfinclusioncopyfonts=1
 
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.5em}
+\setlength{\parskip}{10pt plus 2pt minus 1pt}
+
+% Page formatting
+\raggedbottom
+
+% Displayed equation spacing
+\setlength{\abovedisplayskip}{12pt}
+\setlength{\belowdisplayskip}{12pt}
+\setlength{\abovedisplayshortskip}{8pt}
+\setlength{\belowdisplayshortskip}{8pt}
+
+% List formatting
+\setlist{
+    topsep=4pt,
+    itemsep=3pt,
+    parsep=3pt,
+    partopsep=0pt
+}
 
 % ============================================================
 % Durham Purple Colour Palette
@@ -831,7 +846,7 @@ Mistake%
 
 % Matrix groups
 \newcommand{\GL}{\mathrm{GL}}
-\newcommand{\Or}{\mathrm{O}}
+\newcommand{\O}{\mathrm{O}}
 \newcommand{\PGL}{\mathrm{PGL}}
 \newcommand{\PSL}{\mathrm{PSL}}
 \newcommand{\PSO}{\mathrm{PSO}}

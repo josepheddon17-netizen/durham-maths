@@ -19,17 +19,118 @@ If \(R=\mathrm{M}_n(F)\) (ring of matrices over a field \(F\) ), then \(R^{\time
   An element \(\bar{a} \in \mathbb{Z} / n\) is a unit iff \(\operatorname{gcd}(a, n)=1\)
 \end{proposition}
 
-\begin{proof}
-  Insert Proof Here
-\end{proof}
+\begin{proofidea}
+  
+ Our aim is to use Bézout's identity in both directions:
+
+ \begin{itemize}
+ \item[\(\Leftarrow\)] If \(\operatorname{gcd}(a, n)=1\), Bézout's identity gives integers \(x, y\) such that \(a x+n y=1\). Reducing modulo \(n\), we obtain \(\bar{a} \bar{x}=\overline{1}\), so \(\bar{a}\) is a unit. 
+ \item[\(\Rightarrow\)] If \(\bar{a}\) is a unit, it has a multiplicative inverse \(\bar{b}\). Thus \(a b \equiv 1(\bmod n)\), meaning \(a b-1=k n\) for some \(k \in \mathbb{Z}\). Any common divisor of \(a\) and \(n\) must therefore divide 1 , so the gcd is 1 .
+ \end{itemize}
+
+\end{proofidea}
+  
+\begin{formalproof}
+ 
+\(\Leftarrow\) : Suppose that \(\operatorname{gcd}(a, n)=1\).
+By Bézout's identity, there exist \(x, y \in \mathbb{Z}\) such that
+
+\[
+a x+n y=1 .
+\]
+
+Reducing modulo \(n\), we obtain
+
+\[
+a x \equiv 1 \quad(\bmod n) .
+\]
+
+Hence
+
+\[
+\bar{a} \bar{x}=\overline{1}
+\]
+
+in \(\mathbb{Z} / n\). Therefore, \(\bar{a}\) has a multiplicative inverse, namely \(\bar{x}\), and so \(\bar{a}\) is a unit.
+
+\(\Rightarrow\): Conversely, suppose that \(\bar{a}\) is a unit in \(\mathbb{Z} / n\).
+Then there exists \(b \in \mathbb{Z}\) such that
+
+\[
+\bar{a} \bar{b}=\overline{1} .
+\]
+
+By the definition of congruence modulo \(n\), this means that
+
+\[
+a b \equiv 1 \quad(\bmod n),
+\]
+
+so there exists \(k \in \mathbb{Z}\) such that
+
+\[
+a b-1=k n .
+\]
+
+Let \(d=\operatorname{gcd}(a, n)\). Since \(d \mid a\) and \(d \mid n\), we have
+\[
+d \mid a b \quad \text { and } \quad d \mid k n .
+\]
+
+Consequently,
+
+\[
+d \mid(a b-k n)=1 .
+\]
+
+Thus \(d=1\), and hence
+
+\[
+\operatorname{gcd}(a, n)=1 .
+\]
+
+Therefore,
+
+\[
+\bar{a} \text { is a unit in } \mathbb{Z} / n \Longleftrightarrow \operatorname{gcd}(a, n)=1 .
+\]
+
+
+\end{formalproof}
+
+\begin{definition}[Nilpotent]
+An element \(b\) in ring is called nilpotent if there exists a positive integer \(k\) such that \(b^k=0\).
+\end{definition}
+
+\begin{proposition}
+  A polynomial in \((\mathbb{Z} / n)[x]\) is a unit precisely when the constant coefficient is a unit in \(\mathbb{Z} / n\) and the higher coefficients are all nilpotent in \(\mathbb{Z} / n\).
+\end{proposition}
+
+\begin{lemma}
+  The ring \(\mathbb{Z} / n\) contains non-zero nilpotent elements if and only if \(n\) is divisible by the square of some prime number.
+\end{lemma}
 
 \begin{corollary}
   \(\mathbb{Z} / p\) is a field if and only if \(p\) is a prime.
 \end{corollary}
 
-\begin{proof}
-  insert proof here
-\end{proof}
+\begin{proofidea}
+  
+  We want to show that if \(\mathbb{Z}/p\) is a field, then it implies that any \(a\) that divides \(p\) is only possibly \(\pm 1\) and thus \(p\) is prime. We then use the previous proposition to show that \(p\) being prime causes all elements to be units and thus a field.
+
+\end{proofidea}
+  
+\begin{formalproof}
+  
+\(\Rightarrow\) : Suppose \(\mathbb{Z} / p\) is a field. If \(a \in \mathbb{Z}\) divides \(p\), we have that \(p=a b\), for some \(b \in \mathbb{Z}\) and \(\overline{a b}=\bar{p}=\overline{0}\), so either \(p ~ \mid ~ a\) or \(p ~ \mid ~ b\). In the former case, \(p=p a^{\prime} b\), for some \(a^{\prime} \in \mathbb{Z}\), so \(1=a^{\prime} b\), hence \(b= \pm 1\). In the latter case, similarly, \(a= \pm 1\). Thus \(p\) must be a prime.
+
+\(\Leftarrow\) : Conversely, if \(p\) is a prime, then by the previous proposition, every element \(\overline{1}, \overline{2}, \ldots, \overline{p-1}\) is a unit, so \(\mathbb{Z} / p\) is a field.
+
+\end{formalproof}
+
+\begin{remark}
+A commutative ring with identity is a field if and only if every nonzero element is a unit.
+\end{remark}
 
 \section{Zero Divisors and Integral Domains}
 

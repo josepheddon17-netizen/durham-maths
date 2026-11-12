@@ -318,26 +318,31 @@ $$
 \end{remark}
 
 \begin{definition}[Cylindrical and Spherical Coordinates]
-
+Some alternative coordinate systems include
   
-  \begin{itemize} \emph{}
+\begin{itemize}
+    \item \textbf{Cylindrical coordinates} are useful for problems with axial symmetry:
+    \[
+    \boldsymbol{x}(r,\theta,z)
+    = r\cos\theta\,\boldsymbol{e}_1
+    + r\sin\theta\,\boldsymbol{e}_2
+    + z\,\boldsymbol{e}_3,
+    \quad r>0,\quad \theta\in[0,2\pi],\quad z\in\mathbb{R},
+    \]
+    leading to scale factors $h_r=1$, $h_\theta=r$, $h_z=1$.
 
-    \item[1.] \textbf{Cylindrical coordinates} are useful for problems with axial symmetry:
-
-$$
-\boldsymbol{x}(r, \theta, z)=r \cos \theta \boldsymbol{e}_1+r \sin \theta \boldsymbol{e}_2+z \boldsymbol{e}_3, \quad r>0, \quad \theta \in[0,2 \pi], \quad z \in \mathbb{R},
-$$
-
-leading to scale factors $h_r=1, h_\theta=r, h_z=1$.
-\item[2.] \textbf{Spherical coordinates} are useful for problems with spherical symmetry:
-
-$$
-\boldsymbol{x}(r, \theta, \phi)=r \sin \theta \cos \phi \boldsymbol{e}_1+r \sin \theta \sin \phi \boldsymbol{e}_2+r \cos \theta \boldsymbol{e}_3, \quad r>0, \quad \theta \in[0, \pi], \quad \phi \in[0,2 \pi],
-$$
-
-leading to scale factors $h_r=1, h_\theta=r, h_\phi=r \sin \theta$.
-\end{itemize}
-  
+    \item \textbf{Spherical coordinates} are useful for problems with spherical symmetry:
+    \[
+    \begin{aligned}
+    \boldsymbol{x}(r,\theta,\phi)
+    &= r\sin\theta\cos\phi\,\boldsymbol{e}_1
+    + r\sin\theta\sin\phi\,\boldsymbol{e}_2 \\
+    &\quad + r\cos\theta\,\boldsymbol{e}_3,
+    \end{aligned}
+    \]
+    where $r>0$, $\theta\in[0,\pi]$, $\phi\in[0,2\pi]$,
+    leading to scale factors $h_r=1$, $h_\theta=r$, $h_\phi=r\sin\theta$.
+\end{itemize}  
 \end{definition}
 
 \begin{nrem}

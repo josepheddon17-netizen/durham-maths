@@ -1,0 +1,139 @@
+\begin{definition}[Ideal]
+A subset \(I\) of a ring \(R\) is called an ideal if it is closed under addition and satisfies the (left and right) absorption property, that is, for every \(r \in R\) and \(x \in I, r x \in I\) and \(x r \in I\).
+\end{definition}
+    
+\begin{lemma}
+  A set \(I\) is ideal, if and only if,  it is the kernel of some map \(\phi : R \rightarrow S \).
+\end{lemma}
+
+\section{Equivalence Classes defined by an ideal}
+
+\begin{definition}[Equivalence with ideals]
+Let \(R\) be a ring and let \(I \subseteq R\) be any ideal. Two elements \(x, y \in R\) are said to be equivalent (or congruent) if
+
+\[
+x-y \in I \text {. }
+\]
+
+We also sometimes express this relation by writing \(x \equiv y \bmod I\). Moreover, for any \(x \in R\), the coset of \(x\) modulo \(I\) is the set
+
+\[
+\bar{x}:=x+I:=\{x+r \mid r \in I\}
+\]
+
+and \(x\) is said to be a representative of \(\bar{x}=x+I\).
+\end{definition}
+
+\begin{remark}
+\(\bar{x}\) is actually a set, it is infact not a number. It refers to all of the \(r \in R\) such that \(r \equiv x\) and \(x\) is just the representative of this set. 
+\end{remark}
+
+\begin{proposition}
+  We define addition and multiplication of cosets modulo the ideal to be:
+
+  \begin{itemize}
+    \item \[(a+I) + (b+I) = (a+b) + I\]
+    \item \[(a+I)(b+I) = ab+I\]
+  \end{itemize}
+
+  Which is the same as saying:
+
+  \begin{itemize}
+    \item \[\bar{ a }+ \bar{ b } = \bar{a+b} + I\]
+    \item \[\bar{a}\bar{b}=\bar{ab}\]
+  \end{itemize} 
+
+\end{proposition}
+
+
+\begin{lemma}
+  The cosets modulo \(I\) form a partition of \(R\).
+\end{lemma}
+
+\begin{proofidea}
+  
+  
+\end{proofidea}
+  
+\begin{formalproof}
+  
+\end{formalproof}
+
+\section{Quotient Rings, Quotient Map and the First Isomorphism Theorem}
+
+\begin{definition}[Quotient Ring]
+Let \(R\) be a ring and \(I \subseteq R\) and ideal. Then the ring \(R / I\) is called the quotient of \(R\) by \(I\), or " \(R \bmod I\) ". Its elements \(x+I\), for \(x \in R\) are called cosets (or residue classes \(\bmod I\) ), and are sometimes written \(\bar{x}\).
+\end{definition}
+
+\begin{definition}[Quotient Map]
+  \[
+\phi : R \longrightarrow R / I, \quad \phi(r) = \bar{r}=r+I .
+\]
+
+This is called the quotient map, or the canonical map/homomorphism. Whenever you see a quotient ring, you should always immediately think of its quotient map as we look to introduce it.
+\end{definition}
+
+\begin{proposition}
+Let \(R\) be a ring. Every ideal \(I\) in \(R\) is the kernel of some homomorphism \(f: R \rightarrow S\), for some ring \(S\). Namely, we can take \(S=R / I\) and \(f\) to be the quotient map.
+\end{proposition}
+
+\begin{theorem}[First Isomorphism Theorem]
+  Let \(\varphi: R \rightarrow S\) be a ring homomorphism. Then the map
+
+\[
+\bar{\varphi}: R / \operatorname{Ker} \varphi \longrightarrow \operatorname{Im} \varphi, \quad \bar{x} \longmapsto \varphi(x)
+\]
+
+is a well-defined isomorphism, that is, \(R / \operatorname{Ker} \varphi \cong \operatorname{Im} \varphi\).
+\end{theorem}
+
+\begin{proofidea}
+  
+  
+\end{proofidea}
+  
+\begin{formalproof}
+  
+\end{formalproof}
+
+\begin{remark}
+  By constructing a quotient ring, we collapse equivalent cosets down into a single element, \(0\), in the quotient ring.
+\end{remark}
+
+\section{Prime and Maximal Ideals}
+
+\begin{definition}[Prime and Maximal Ideals]
+Let \(R\) be a commutative ring, and let \(I \subseteq R\) be a proper ideal, that is, \(I \neq R\). Then \(I\) is said to be a prime ideal if and for all \(a, b \in R\) such that \(a b \in I\), we have \(a \in I\) or \(b \in I\). The ideal \(I\) is called maximal if the only ideals of \(R\) containing \(I\) are \(I\) itself or \(R\) (i.e., if there is no ideal of \(R\) strictly between \(I\) and \(R\) ).
+\end{definition}
+
+\begin{lemma}
+  If \(I \subseteq R\) is a maximal ideal, then it is prime.
+\end{lemma}
+
+\begin{proofidea}
+  
+  
+\end{proofidea}
+  
+\begin{formalproof}
+  
+\end{formalproof} 
+
+\begin{proposition}
+Let \(R\) be a commutative ring, and \(I\) an ideal. Then
+\begin{itemize}
+\item[1.] \(I\) is prime if and only if \(R / I\) is an integral domain.
+\item[2.] \(I\) is maximal if and only if \(R / I\) is a field.
+\end{itemize}
+\end{proposition} 
+
+\begin{proofidea}
+  
+  
+\end{proofidea}
+  
+\begin{formalproof}
+  
+\end{formalproof} 
+
+

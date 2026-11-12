@@ -1,0 +1,342 @@
+\section{Finite vs Infinite dimensional vector spaces}
+
+A common technique in mathematical analysis is to decompose an object into simple, independent pieces in order to determine their properties. This idea is central to analysis as a whole; examples include Taylor's series and Fourier series.
+
+\begin{definition}[Modes and Mode Decomposition]
+If
+
+\[
+f(x)=\sum_n c_n \psi_n(x),
+\]
+
+we will often refer to the basis functions \(\psi_n\) as the \textbf{modes} of the decomposition.
+\end{definition}
+
+A mode decomposition is therefore breaking down a complicated object into the sum of similar compnents whose amplitudes can be studied separately.
+
+
+Later, when solving PDEs, the natural modes will be selected by a differential operator together with its boundary conditions. With vectors we can, for a given \(\boldsymbol{a}\), find its \(k^{\text {th }}\) component using the coefficient grab method:
+
+\[
+\boldsymbol{a} \cdot \boldsymbol{e}_{\boldsymbol{k}}=\left(a_1 \boldsymbol{e}_1+a_2 \boldsymbol{e}_2+\ldots a_n \boldsymbol{e}_n\right) \cdot \boldsymbol{e}_{\boldsymbol{k}}=a_k \boldsymbol{e}_k \cdot \boldsymbol{e}_k,
+\]
+
+where we have used orthogonality, \(\boldsymbol{e}_i \cdot \boldsymbol{e}_j=0\) unless \(i=j\), for the last step. Then we have the coefficient formula:
+
+\[
+a_k=\frac{a \cdot e_k}{e_k \cdot e_k} .
+\]
+
+This formula is used to obtain the set \(\left\{a_k\right\}_{k=1}^n\). Our goal is to generalise this idea so that we can use it in PDE analysis.
+
+
+
+\section{Function Spaces}
+
+This decomposition is comparable to vector spaces seen in Linear Algebra. Our goal is to determine some basis of functions that can be used to define a function space. From here, we will define a unique function as a summation of these basis functions together with a set of coefficients.
+
+An example where we have seen this is the Fourier series:
+
+\[
+f(x) = a_0 + \sum_{n=1}^{\infty} [ a_n + \cos(\frac{n \pi x}{L}) + b_n \sin(\frac{n \pi x}{L})]
+.\] 
+
+Much like the vector space equivalent, we can make the coefficients depend on another parameter, for instance time:
+
+\[
+f(x) = a_0 + \sum_{n=1}^{\infty} [ a_n(t) + \cos(\frac{n \pi x}{L}) + b_n(t) \sin(\frac{n \pi x}{L})]
+.\] 
+
+So since we have reached a parallel to the vector space description, we must extend some of our objects from Linear Algebra to their function equivalent.
+
+\begin{definition}[Inner product of functions]
+The inner product of a pair of functions \(u(x), v(x)\) which are suitably well behaved on the domain \(x \in[a, b]\) is defined to be the following integral product:
+
+\[
+\langle u, v\rangle=\int_a^b u(x) \overline{v(x)} \mathrm{d} x .
+\]
+\end{definition}
+
+And also,
+
+\begin{definition}[Orthogonal Functions]
+A pair of functions \(u(x), v(x)\) are orthogonal on \(x \in[a, b]\) with weight \(r(x)\), if their weighted inner product is zero:
+
+\[
+\langle r(x) u, v\rangle=\langle u, r(x) v\rangle=\int_a^b r(x) u(x) v(x) \mathrm{d} x=0 .
+\]
+
+which of course is the equivalent of vector orthogonality \(\langle\boldsymbol{u}, \boldsymbol{v}\rangle=\boldsymbol{u} \cdot \boldsymbol{v}=0\).
+\end{definition}
+
+\begin{remark}[Ensuring \(r(x)\) is a positive function generalises to the norm]
+  It is important that this weighting is a positive function on the domain interior. This ensures that the inner product of a function with itself is positive so we can define the notion of the "length" of a function:
+
+\[
+\langle u, r(x) u\rangle=\|u\|^2>0, \text { unless } u=0 .
+\]
+
+This is the weighted norm of the function \(\boldsymbol{u}\). If this notion (a norm) is applied to vectors \(\langle\boldsymbol{u}, \boldsymbol{u}\rangle=\boldsymbol{u} \cdot \boldsymbol{u}\) we usually refer to it as the length of the vector. The term norm is the generalisation.
+\end{remark}
+
+\subsection{The general coefficient grab}
+
+\begin{method}
+  Let's assume we have some non-zero family of functions \(\psi_n(x) n=0,1,2, \ldots \infty\), and that they are orthogonal with some weight function \(r(x)\) on some domain \(x \in[a, b]\) :
+
+\[
+\left\langle\psi_n, r(x) \psi_m\right\rangle=0, \text { if } n \neq m .
+\]
+
+We want to describe some arbitrary function \(f(x)\) on \(x \in[a, b]\), and assume its weighted norm is finite, \(\langle f, r(x) f\rangle<\infty\). This is the weighted square-integrable space often denoted \(L_r^2([a, b])\). Our aim is then to find coefficients \(a_n\) such that:
+
+\[
+f(x)=\sum_{n=0}^{\infty} a_n \psi_n(x) .
+\]
+
+To get the coefficient \(a_m\) we use the coefficient grab method. We first multiply by the basis function \(\psi_m(x)\) and weight \(r(x)\), then apply the inner product (integrate):
+
+\[
+\begin{aligned}
+f(x) r(x) \psi_m(x) & =\sum_{n=0}^{\infty} a_n \psi_n(x) r(x) \psi_m(x), \\
+\left\langle f(x), r(x) \psi_m\right\rangle & =\sum_{n=0}^{\infty} a_n\left\langle\psi_n(x), r(x) \psi_m\right\rangle=a_m\left\langle\psi_m(x), r(x) \psi_m\right\rangle,
+\end{aligned}
+\]
+
+where we have imposed linearity of the inner product and orthogonality. Then we have the coefficient formula:
+\[a_m=\frac{\left\langle f(x), r(x) \psi_m\right\rangle}{\left\langle\psi_m(x), r(x) \psi_m\right\rangle} .\]
+
+\end{method}
+
+\subsection{Why orthogonality matters}
+
+\begin{lemma}
+Orthogonality guarantees linear independence
+\end{lemma}
+
+\begin{proofidea}
+  
+  
+\end{proofidea}
+  
+\begin{formalproof}
+Suppose that some finite combination of orthogonal functions is zero,
+
+\[
+\sum_{n=0}^N c_n \psi_n(x)=0 .
+\]
+
+Taking the weighted inner product with \(\psi_m\) gives
+
+\[
+\sum_{n=0}^N c_n\left\langle\psi_n, r(x) \psi_m\right\rangle=c_m\left\langle\psi_m, r(x) \psi_m\right\rangle=0 .
+\]
+
+Since \(\psi_m\) is non-zero,
+
+\[
+\left\langle\psi_m, r(x) \psi_m\right\rangle>0,
+\]
+
+and hence
+
+\[
+c_m=0 .
+\]
+
+As this is true for every \(m\), all of the coefficients must vanish. Thus an orthogonal collection of non-zero functions is linearly independent.
+\end{formalproof}
+
+\begin{remark}[Why does linear independence matter?]
+  It means that the different basis functions describe genuinely separate components of the function. One component cannot be recreated by combining the others. This is the fundamental idea behind the use of function expansions in this course: we describe a complicated function by the behaviour of many simple, independent functions.
+\end{remark}
+
+\begin{proposition}[Linear independence lets the dynamics separate]
+  Later, when we study partial differential equations, this becomes extremely powerful. We will write a solution in the form
+
+\[
+u(x, t)=\sum_{n=0}^{\infty} c_n(t) y_n(x) .
+\]
+
+For an appropriate linear PDE, substitution will lead to an expression of the form
+
+\[
+\sum_{n=0}^{\infty} F_n(t) y_n(x)=0 .
+\]
+
+Because the functions \(y_n(x)\) are orthogonal (and hence independent), we can isolate each component by taking the weighted inner product with \(y_m\) :
+
+\[
+\left\langle\sum_{n=0}^{\infty} F_n(t) y_n, r(x) y_m\right\rangle=F_m(t)\left\langle y_m, r(x) y_m\right\rangle=0 .
+\]
+
+Since \(\left\langle y_m, r(x) y_m\right\rangle>0\), it follows that
+
+\[
+F_m(t)=0,
+\]
+
+for every \(m\), giving us a separate ordinary differential equation for each coefficient \(c_m(t)\).So, schematically,
+
+\[\text{one PDE for a complicated function} \rightarrow \text{ODEs for simple independent components.}\]
+
+This is one of the main reasons function-basis expansions are so useful in applied mathematics.
+\end{proposition}
+
+\begin{remark}
+  We can decompose complex functions into a summation of simpler functions that allow for direct analysis of behaviour.
+\end{remark}
+
+\subsection{An infinite dimensional basis}
+
+\begin{remark}
+  For an infinite expansion, we require more than linear independence to ensure a unique representation. While this is fine in a Finite expansion, it is not for infinite. Instead, we require the collection of functions to be complete.
+\end{remark}
+
+\begin{definition}[Complete]
+  A collection is complete if all functions in the collection can be represented with the modes.
+\end{definition}  
+
+\begin{theorem}[Sturm-Liouville Completeness Theorem]
+Consider the weighted Sturm-Liouville eigenvalue problem
+
+\[
+L y=\lambda r(x) y,
+\]
+
+where
+
+\[
+L y=\frac{\mathrm{d}}{\mathrm{~d} x}\left(p(x) \frac{\mathrm{d} y}{\mathrm{~d} x}\right)+q(x) y, \quad a \leq x \leq b,
+\]
+
+with separated homogeneous boundary conditions
+
+\[
+\begin{aligned}
+& \alpha_1 y(a)+\alpha_2 y^{\prime}(a)=0, \\
+& \alpha_3 y(b)+\alpha_4 y^{\prime}(b)=0 .
+\end{aligned}
+\]
+
+For a regular Sturm-Liouville problem, the eigenfunctions
+
+\[
+y_0(x), y_1(x), y_2(x), \ldots
+\]
+
+form a complete orthogonal set with weight \(r(x)\).
+
+Thus, for any
+
+\[
+f \in L_r^2([a, b]), \quad \int_a^b|f(x)|^2 r(x) \mathrm{d} x<\infty,
+\]
+
+we can write, with convergence in the weighted \(L^2\) sense,
+
+\[
+f(x)=\sum_{n=0}^{\infty} c_n y_n(x),
+\]
+
+where the coefficients are uniquely determined by
+
+\[
+c_n=\frac{\int_a^b f(x) y_n(x) r(x) \mathrm{d} x}{\int_a^b y_n^2(x) r(x) \mathrm{d} x} .
+\]
+\end{theorem}
+
+\begin{remark}
+  There are therefore three ingredients working together:
+\begin{itemize}
+\item[1.] Orthogonality lets us isolate each coefficient.
+\item[2.] Orthogonality implies linear independence, so the modes describe genuinely separate components.
+\item[3.] Completeness tells us that there are enough of these independent components to represent every function in the relevant function space.
+\end{itemize}
+\end{remark}
+
+\subsection{Extension to higher dimensions}
+
+\begin{theorem}[Results extend to higher dimensions]
+  Let
+
+\[
+\mathbf{x}=\left(x_1, x_2, \ldots, x_n\right) \in D \subset \mathbb{R}^n,
+\]
+
+and consider functions \(u(\mathbf{x})\) and \(v(\mathbf{x})\) defined on \(D\).
+The inner product is
+
+\[
+\langle u, v\rangle=\int_D u(\mathbf{x}) v(\mathbf{x}) \mathrm{d}^n \mathbf{x},
+\]
+
+The corresponding weighted norm is
+
+\[
+\|u\|^2=\langle u, r(\mathbf{x}) u\rangle=\int_D r(\mathbf{x})|u(\mathbf{x})|^2 \mathrm{~d}^n \mathbf{x} .
+\]
+
+where \(r(\mathbf{x})>0\) is an appropriate weight function. Exactly as in one dimension, two functions are orthogonal with weight \(r(\mathbf{x})\) if
+
+\[
+\langle u, r v\rangle=0 .
+\]
+
+Suppose we have a complete set of orthogonal basis functions
+
+\[
+\left\{\Phi_{\mathbf{k}}(\mathbf{x})\right\},
+\]
+
+where
+
+\[
+\mathbf{k}=\left(k_1, k_2, \ldots, k_n\right)
+\]
+
+is a collection of integers labelling a particular mode.
+A function can then be expanded as
+
+\[
+f(\mathbf{x})=\sum_{\mathbf{k}} a_{\mathbf{k}} \Phi_{\mathbf{k}}(\mathbf{x}) .
+\]
+
+The important point is that the coefficient grab is exactly the same as in one dimension:
+
+\[
+a_{\mathbf{k}}=\frac{\left\langle f, r(\mathbf{x}) \Phi_{\mathbf{k}}\right\rangle}{\left\langle\Phi_{\mathbf{k}}, r(\mathbf{x}) \Phi_{\mathbf{k}}\right\rangle} .
+\]
+\end{theorem}
+
+\subsubsection{Separable Basis}
+
+\begin{remark}
+  We can write certain domains basis functions as the product of one dimensional basis functions.For example, suppose
+
+\[
+D=\left[a_1, b_1\right] \times\left[a_2, b_2\right] \times \cdots \times\left[a_n, b_n\right],
+\]
+
+and the basis functions have the form
+
+\[
+\Phi_{\mathbf{k}}(\mathbf{x})=\psi_{k_1}^{(1)}\left(x_1\right) \psi_{k_2}^{(2)}\left(x_2\right) \cdots \psi_{k_n}^{(n)}\left(x_n\right) .
+\]
+
+If the weight also separates,
+
+\[
+r(\mathbf{x})=r_1\left(x_1\right) r_2\left(x_2\right) \cdots r_n\left(x_n\right),
+\]
+
+then the inner product of two basis functions separates into a product of one-dimensional inner products:
+
+\[
+\left\langle\Phi_{\mathbf{k}}, r(\mathbf{x}) \Phi_{\mathbf{m}}\right\rangle=\prod_{j=1}^n\left\langle\psi_{k_j}^{(j)}, r_j\left(x_j\right) \psi_{m_j}^{(j)}\right\rangle .
+\]
+
+Hence orthogonality in each coordinate direction produces orthogonality of the multidimensional modes.
+\end{remark}
+
+
